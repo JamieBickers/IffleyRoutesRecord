@@ -1,0 +1,14 @@
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\bin\Debug\netcoreapp2.0\Iffley.deps.json
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\bin\Debug\netcoreapp2.0\Iffley.runtimeconfig.json
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\bin\Debug\netcoreapp2.0\Iffley.runtimeconfig.dev.json
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\bin\Debug\netcoreapp2.0\Iffley.dll
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\bin\Debug\netcoreapp2.0\Iffley.pdb
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\obj\Debug\netcoreapp2.0\Iffley.csprojAssemblyReference.cache
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\obj\Debug\netcoreapp2.0\Iffley.csproj.CoreCompileInputs.cache
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\obj\Debug\netcoreapp2.0\Iffley.AssemblyInfoInputs.cache
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\obj\Debug\netcoreapp2.0\Iffley.AssemblyInfo.cs
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\obj\Debug\netcoreapp2.0\Iffley.dll
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\obj\Debug\netcoreapp2.0\Iffley.pdb
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\bin\Debug\netcoreapp2.0\Logic.dll
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\bin\Debug\netcoreapp2.0\Logic.pdb
+C:\Users\bicke\OneDrive\Desktop\Iffley\Iffley\obj\Debug\netcoreapp2.0\Iffley.csproj.CopyComplete
