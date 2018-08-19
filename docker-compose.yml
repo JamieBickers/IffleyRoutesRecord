@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  iffleyroutesrecord:
+    image: ${DOCKER_REGISTRY}iffleyroutesrecord
+    build:
+      context: .
+      dockerfile: IffleyRoutesRecord/Dockerfile
