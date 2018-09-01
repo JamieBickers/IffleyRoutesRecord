@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IffleyRoutesRecord", "IffleyRoutesRecord\IffleyRoutesRecord.csproj", "{E76213F6-BB79-4DE9-BE48-DF788D103BBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord", "IffleyRoutesRecord\IffleyRoutesRecord.csproj", "{E76213F6-BB79-4DE9-BE48-DF788D103BBB}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{87C188EF-A7A4-4397-A68F-3E41AF169E25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IffleyRoutesRecord.IntegrationTests", "..\IffleyRoutesRecord.IntegrationTests\IffleyRoutesRecord.IntegrationTests.csproj", "{0BB27FBF-9EBB-4741-BD49-E8CBD93F288F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{87C188EF-A7A4-4397-A68F-3E41AF169E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87C188EF-A7A4-4397-A68F-3E41AF169E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87C188EF-A7A4-4397-A68F-3E41AF169E25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BB27FBF-9EBB-4741-BD49-E8CBD93F288F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB27FBF-9EBB-4741-BD49-E8CBD93F288F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB27FBF-9EBB-4741-BD49-E8CBD93F288F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB27FBF-9EBB-4741-BD49-E8CBD93F288F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

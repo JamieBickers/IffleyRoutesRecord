@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IffleyRoutesRecord.Logic;
+using IffleyRoutesRecord.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,16 +15,25 @@ namespace IffleyRoutesRecord
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public static void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<IffleyRoutesRecordContext>(
+                options => options.UseSqlite(@"Data Source=C:\Users\bicke\OneDrive\Desktop\IffleyRoutesRecord\IffleyRoutes.db;"));
+
+            services.AddTransient<IStyleSymbolManager, StyleSymbolManager>();
+            services.AddTransient<IRuleManager, RuleManager>();
+            services.AddTransient<IHoldManager, HoldManager>();
+            services.AddTransient<IGradeManager, GradeManager>();
+            services.AddTransient<IProblemReader, ProblemReader>();
+            services.AddTransient<IProblemCreator, ProblemCreator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public static void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
