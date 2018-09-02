@@ -1,11 +1,15 @@
-﻿using IffleyRoutesRecord.DTOs;
-using IffleyRoutesRecord.Logic;
+﻿using IffleyRoutesRecord.Logic.DTOs.Received;
+using IffleyRoutesRecord.Logic.DTOs.Sent;
+using IffleyRoutesRecord.Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace IffleyRoutesRecord.Controllers
 {
     [Route("problem")]
+    [ApiController]
     public class ProblemController : Controller
     {
         private readonly IProblemReader problemReader;
@@ -17,23 +21,14 @@ namespace IffleyRoutesRecord.Controllers
             this.problemCreator = problemCreator;
         }
 
-        [HttpGet("problems")]
-        public IActionResult Problems()
+        [HttpGet]
+        public ActionResult<IEnumerable<ProblemDto>> GetProblems()
         {
-            var problems = problemReader.GetProblems();
-
-            if (problems is null)
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-            else
-            {
-                return Ok(problems);
-            }
+            return problemReader.GetProblems().ToList();
         }
 
-        [HttpGet("problem/{problemId:int}")]
-        public IActionResult Problem(int problemId)
+        [HttpGet("{problemId}")]
+        public ActionResult<ProblemDto> GetProblem(int problemId)
         {
             var problem = problemReader.GetProblem(problemId);
 
@@ -43,21 +38,14 @@ namespace IffleyRoutesRecord.Controllers
             }
             else
             {
-                return Ok(problem);
+                return problem;
             }
         }
 
-        [HttpPut("problem")]
-        public IActionResult Problem([FromBody] CreateProblemDto problem)
+        [HttpPut]
+        public ActionResult<ProblemDto> CreateProblem(CreateProblemDto problem)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(problemCreator.CreateProblem(problem));
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
+            return problemCreator.CreateProblem(problem);
         }
     }
 }

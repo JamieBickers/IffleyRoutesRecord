@@ -53,7 +53,7 @@ insert into StyleSymbol (Name, Description) values
 ('One Star', ''),
 ('Two Stars', ''),
 ('Three Stars', ''),
-('Foru Stars', ''),
+('Four Stars', ''),
 ('Suitable for All', ''),
 ('Tall Man', ''),
 ('Technical', ''),

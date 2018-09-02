@@ -1,5 +1,6 @@
-﻿using IffleyRoutesRecord.Logic;
-using IffleyRoutesRecord.Repositories;
+﻿using IffleyRoutesRecord.Logic.DataAccess;
+using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
