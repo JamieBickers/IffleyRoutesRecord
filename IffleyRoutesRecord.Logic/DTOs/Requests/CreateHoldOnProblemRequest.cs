@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace IffleyRoutesRecord.Logic.DTOs.Received
+namespace IffleyRoutesRecord.Logic.DTOs.Requests
 {
-    public class CreateHoldOnProblemDto : IValidatableObject
+    public class CreateHoldOnProblemRequest : IValidatableObject
     {
         [Required]
         [Range(1, int.MaxValue)]
@@ -16,7 +14,7 @@ namespace IffleyRoutesRecord.Logic.DTOs.Received
         public bool IsStandingStartHold { get; set; }
 
         public IEnumerable<int> ExistingHoldRuleIds { get; set; }
-        public IEnumerable<CreateHoldRuleDto> NewHoldRules { get; set; }
+        public IEnumerable<CreateHoldRuleRequest> NewHoldRules { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

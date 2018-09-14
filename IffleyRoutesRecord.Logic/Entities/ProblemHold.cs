@@ -2,9 +2,8 @@
 
 namespace IffleyRoutesRecord.Logic.Entities
 {
-    public class ProblemHold
+    public class ProblemHold : BaseEntity
     {
-        public int Id { get; set; }
         public int Position { get; set; }
         public bool IsStandingStartHold { get; set; }
         public int ProblemId { get; set; }
@@ -13,6 +12,6 @@ namespace IffleyRoutesRecord.Logic.Entities
         public Problem Problem { get; set; }
         public Hold Hold { get; set; }
 
-        public List<ProblemHoldRule> ProblemHoldRules { get; set; }
+        public List<ProblemHoldRule> ProblemHoldRules { get; private set; }
     }
 }

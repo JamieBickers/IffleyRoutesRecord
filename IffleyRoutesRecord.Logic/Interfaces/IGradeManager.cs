@@ -1,12 +1,23 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Sent;
+﻿using IffleyRoutesRecord.Logic.DTOs.Responses;
+using System.Collections.Generic;
 
 namespace IffleyRoutesRecord.Logic.Interfaces
 {
     public interface IGradeManager
     {
-        BGradeDto GetBGradeOnProblem(int problemId);
-        FurlongGradeDto GetFurlongGradeOnProblem(int problemId);
-        PoveyGradeDto GetPoveyGradeOnProblem(int problemId);
-        TechGradeDto GetTechGradeOnProblem(int problemId);
+        TechGradeResponse GetTechGrade(int gradeId);
+        BGradeResponse GetBGrade(int gradeId);
+        PoveyGradeResponse GetPoveyGrade(int gradeId);
+        FurlongGradeResponse GetFurlongGrade(int gradeId);
+
+        IList<TechGradeResponse> GetTechGrades();
+        IList<BGradeResponse> GetBGrades();
+        IList<PoveyGradeResponse> GetPoveyGrades();
+        IList<FurlongGradeResponse> GetFurlongGrades();
+
+        BGradeResponse GetBGradeOnProblem(int problemId);
+        FurlongGradeResponse GetFurlongGradeOnProblem(int problemId);
+        PoveyGradeResponse GetPoveyGradeOnProblem(int problemId);
+        TechGradeResponse GetTechGradeOnProblem(int problemId);
     }
 }

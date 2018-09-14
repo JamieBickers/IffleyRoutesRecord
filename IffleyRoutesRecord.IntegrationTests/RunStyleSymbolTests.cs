@@ -1,118 +1,102 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Sent;
-using Newtonsoft.Json;
+﻿using IffleyRoutesRecord.Logic.DTOs.Responses;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord.IntegrationTests
 {
     public static class RunStyleSymbolTests
     {
-        public static async Task Run(Uri baseUri, HttpClient httpClient)
+        public static async Task Run(Uri baseUri, TestRunner testRunner)
         {
             var styleSymbolUri = new Uri(baseUri, "styleSymbol/");
 
-            string getResult = (await (await httpClient.GetAsync(new Uri(styleSymbolUri, "1"))).Content.ReadAsStringAsync()).ToLower();
-            string expectedGetResult = JsonConvert.SerializeObject(StyleSymbol).ToLower();
-
-            if (getResult != expectedGetResult)
-            {
-                throw new Exception();
-            }
-
-            string getResults = (await (await httpClient.GetAsync(styleSymbolUri)).Content.ReadAsStringAsync()).ToLower();
-            string expectedGetResults = JsonConvert.SerializeObject(StyleSymbols).ToLower();
-
-            if (getResults != expectedGetResults)
-            {
-                throw new Exception();
-            }
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(new Uri(styleSymbolUri, "1"), StyleSymbol);
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(styleSymbolUri, StyleSymbols);
         }
 
-        private static readonly StyleSymbolDto StyleSymbol = new StyleSymbolDto()
+        private static readonly StyleSymbolResponse StyleSymbol = new StyleSymbolResponse()
         {
             StyleSymbolId = 1,
             Name = "One Star",
             Description = ""
         };
 
-        private static readonly List<StyleSymbolDto> StyleSymbols = new List<StyleSymbolDto>()
+        private static readonly List<StyleSymbolResponse> StyleSymbols = new List<StyleSymbolResponse>()
         {
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 1,
                 Name = "One Star",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 2,
                 Name = "Two Stars",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 3,
                 Name = "Three Stars",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 4,
                 Name = "Four Stars",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 5,
                 Name = "Suitable for All",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 6,
                 Name = "Tall Man",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 7,
                 Name = "Technical",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 8,
                 Name = "Flexible",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 9,
                 Name = "Strong Man",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 10,
                 Name = "Dynamic",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 11,
                 Name = "Fingery",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 12,
                 Name = "Infamous",
                 Description = ""
             },
-            new StyleSymbolDto()
+            new StyleSymbolResponse()
             {
                 StyleSymbolId = 13,
                 Name = "Ambulance",

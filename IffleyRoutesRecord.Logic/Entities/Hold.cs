@@ -2,14 +2,12 @@
 
 namespace IffleyRoutesRecord.Logic.Entities
 {
-    public class Hold
+    public class Hold : BaseNamedEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public int? ParentHoldId { get; set; }
         public Hold ParentHold { get; set; }
 
-        public List<ProblemHold> ProblemHolds { get; set; }
-        public List<Hold> ParentHolds { get; set; }
+        public List<ProblemHold> ProblemHolds { get; private set; }
+        public List<Hold> ParentHolds { get; private set; }
     }
 }

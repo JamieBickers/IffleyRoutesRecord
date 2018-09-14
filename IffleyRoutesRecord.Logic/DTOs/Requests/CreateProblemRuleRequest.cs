@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IffleyRoutesRecord.Logic.DTOs.Received
+namespace IffleyRoutesRecord.Logic.DTOs.Requests
 {
-    public class CreateProblemRuleDto : IValidatableObject
+    public class CreateProblemRuleRequest : IValidatableObject
     {
         [Required]
         [MaxLength(20)]

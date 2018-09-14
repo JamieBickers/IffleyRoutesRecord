@@ -1,10 +1,10 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Received;
-using IffleyRoutesRecord.Logic.DTOs.Sent;
+﻿using IffleyRoutesRecord.Logic.DTOs.Requests;
+using IffleyRoutesRecord.Logic.DTOs.Responses;
 
 namespace IffleyRoutesRecord.Logic.Interfaces
 {
     public interface IProblemCreator
     {
-        ProblemDto CreateProblem(CreateProblemDto problem);
+        ProblemResponse CreateProblem(CreateProblemRequest problem);
     }
 }

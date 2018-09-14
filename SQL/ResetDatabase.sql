@@ -16,25 +16,25 @@ drop table PoveyGrade;
 
 create table TechGrade (
     Id integer primary key not null,
-    Name varchar(3) not null,
+    Name varchar(3) unique not null,
     Rank integer not null
 );
 
 create table BGrade (
     Id integer primary key not null,
-    Name varchar(3) not null,
+    Name varchar(3) unique not null,
     Rank integer not null
 );
 
 create table PoveyGrade (
     Id integer primary key not null,
-    Name varchar(3) not null,
+    Name varchar(3) unique not null,
     Rank integer not null
 );
 
 create table FurlongGrade (
     Id integer primary key not null,
-    Name varchar(3) not null,
+    Name varchar(3) unique not null,
     Rank integer not null
 );
 
@@ -73,7 +73,7 @@ create table Problem (
 
 create table HoldRule (
     Id integer primary key not null,
-    Name varchar(30) not null unique,
+    Name varchar(30) unique not null,
     Description varchar(1000) null
 );
 
@@ -105,7 +105,7 @@ create table ProblemStyleSymbol (
 
 create table GeneralRule (
     Id integer primary key not null,
-    Name varchar(20) not null,
+    Name varchar(20) unique not null,
 	Description varchar(250) null
 );
 

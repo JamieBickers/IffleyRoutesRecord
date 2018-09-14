@@ -42,6 +42,22 @@
           }
         }
       },
+      "MessagePack/1.7.3.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Reflection.Emit": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0",
+          "System.Threading.Tasks.Extensions": "4.3.0",
+          "System.ValueTuple": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/MessagePack.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MessagePack.dll": {}
+        }
+      },
       "Microsoft.ApplicationInsights/2.4.0": {
         "type": "package",
         "dependencies": {
@@ -133,154 +149,178 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.dll": {}
         }
       },
-      "Microsoft.AspNetCore.All/2.0.8": {
+      "Microsoft.AspNetCore.All/2.1.3": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore": "2.0.3",
-          "Microsoft.AspNetCore.Antiforgery": "2.0.3",
-          "Microsoft.AspNetCore.ApplicationInsights.HostingStartup": "2.0.3",
-          "Microsoft.AspNetCore.Authentication": "2.0.4",
-          "Microsoft.AspNetCore.Authentication.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Authentication.Cookies": "2.0.4",
-          "Microsoft.AspNetCore.Authentication.Core": "2.0.3",
-          "Microsoft.AspNetCore.Authentication.Facebook": "2.0.4",
-          "Microsoft.AspNetCore.Authentication.Google": "2.0.4",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.4",
-          "Microsoft.AspNetCore.Authentication.MicrosoftAccount": "2.0.4",
-          "Microsoft.AspNetCore.Authentication.OAuth": "2.0.4",
-          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "2.0.4",
-          "Microsoft.AspNetCore.Authentication.Twitter": "2.0.4",
-          "Microsoft.AspNetCore.Authorization": "2.0.4",
-          "Microsoft.AspNetCore.Authorization.Policy": "2.0.4",
-          "Microsoft.AspNetCore.AzureAppServices.HostingStartup": "2.0.3",
-          "Microsoft.AspNetCore.AzureAppServicesIntegration": "2.0.3",
-          "Microsoft.AspNetCore.CookiePolicy": "2.0.4",
-          "Microsoft.AspNetCore.Cors": "2.0.3",
-          "Microsoft.AspNetCore.Cryptography.Internal": "2.0.3",
-          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "2.0.3",
-          "Microsoft.AspNetCore.DataProtection": "2.0.3",
-          "Microsoft.AspNetCore.DataProtection.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.DataProtection.AzureStorage": "2.0.3",
-          "Microsoft.AspNetCore.DataProtection.Extensions": "2.0.3",
-          "Microsoft.AspNetCore.Diagnostics": "2.0.3",
-          "Microsoft.AspNetCore.Diagnostics.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "2.0.3",
-          "Microsoft.AspNetCore.Hosting": "2.0.3",
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Hosting.Server.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Html.Abstractions": "2.0.2",
-          "Microsoft.AspNetCore.Http": "2.0.3",
-          "Microsoft.AspNetCore.Http.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Http.Extensions": "2.0.3",
-          "Microsoft.AspNetCore.Http.Features": "2.0.3",
-          "Microsoft.AspNetCore.HttpOverrides": "2.0.3",
-          "Microsoft.AspNetCore.Identity": "2.0.3",
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.0.3",
-          "Microsoft.AspNetCore.JsonPatch": "2.0.0",
-          "Microsoft.AspNetCore.Localization": "2.0.3",
-          "Microsoft.AspNetCore.Localization.Routing": "2.0.3",
-          "Microsoft.AspNetCore.MiddlewareAnalysis": "2.0.3",
-          "Microsoft.AspNetCore.Mvc": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.Abstractions": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.ApiExplorer": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.Core": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.Cors": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.DataAnnotations": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.Formatters.Json": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.Formatters.Xml": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.Localization": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.Razor": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.Razor.Extensions": "2.0.3",
-          "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.RazorPages": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.TagHelpers": "2.0.4",
-          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.0.4",
-          "Microsoft.AspNetCore.NodeServices": "2.0.4",
-          "Microsoft.AspNetCore.Owin": "2.0.3",
-          "Microsoft.AspNetCore.Razor": "2.0.3",
-          "Microsoft.AspNetCore.Razor.Language": "2.0.3",
-          "Microsoft.AspNetCore.Razor.Runtime": "2.0.3",
-          "Microsoft.AspNetCore.ResponseCaching": "2.0.3",
-          "Microsoft.AspNetCore.ResponseCaching.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.ResponseCompression": "2.0.3",
-          "Microsoft.AspNetCore.Rewrite": "2.0.3",
-          "Microsoft.AspNetCore.Routing": "2.0.3",
-          "Microsoft.AspNetCore.Routing.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Server.HttpSys": "2.0.4",
-          "Microsoft.AspNetCore.Server.IISIntegration": "2.0.3",
-          "Microsoft.AspNetCore.Server.Kestrel": "2.0.3",
-          "Microsoft.AspNetCore.Server.Kestrel.Core": "2.0.3",
-          "Microsoft.AspNetCore.Server.Kestrel.Https": "2.0.3",
-          "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv": "2.0.3",
-          "Microsoft.AspNetCore.Session": "2.0.3",
-          "Microsoft.AspNetCore.SpaServices": "2.0.4",
-          "Microsoft.AspNetCore.StaticFiles": "2.0.3",
-          "Microsoft.AspNetCore.WebSockets": "2.0.3",
-          "Microsoft.AspNetCore.WebUtilities": "2.0.3",
-          "Microsoft.CodeAnalysis.Razor": "2.0.3",
-          "Microsoft.Data.Sqlite": "2.0.1",
-          "Microsoft.Data.Sqlite.Core": "2.0.1",
-          "Microsoft.EntityFrameworkCore": "2.0.3",
-          "Microsoft.EntityFrameworkCore.Design": "2.0.3",
-          "Microsoft.EntityFrameworkCore.InMemory": "2.0.3",
-          "Microsoft.EntityFrameworkCore.Relational": "2.0.3",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.0.3",
-          "Microsoft.EntityFrameworkCore.Sqlite": "2.0.3",
-          "Microsoft.EntityFrameworkCore.Sqlite.Core": "2.0.3",
-          "Microsoft.EntityFrameworkCore.Tools": "2.0.3",
-          "Microsoft.Extensions.Caching.Abstractions": "2.0.2",
-          "Microsoft.Extensions.Caching.Memory": "2.0.2",
-          "Microsoft.Extensions.Caching.Redis": "2.0.2",
-          "Microsoft.Extensions.Caching.SqlServer": "2.0.2",
-          "Microsoft.Extensions.Configuration": "2.0.2",
-          "Microsoft.Extensions.Configuration.Abstractions": "2.0.2",
-          "Microsoft.Extensions.Configuration.AzureKeyVault": "2.0.2",
-          "Microsoft.Extensions.Configuration.Binder": "2.0.2",
-          "Microsoft.Extensions.Configuration.CommandLine": "2.0.2",
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.0.2",
-          "Microsoft.Extensions.Configuration.FileExtensions": "2.0.2",
-          "Microsoft.Extensions.Configuration.Ini": "2.0.2",
-          "Microsoft.Extensions.Configuration.Json": "2.0.2",
-          "Microsoft.Extensions.Configuration.UserSecrets": "2.0.2",
-          "Microsoft.Extensions.Configuration.Xml": "2.0.2",
-          "Microsoft.Extensions.DependencyInjection": "2.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0",
-          "Microsoft.Extensions.DiagnosticAdapter": "2.0.1",
-          "Microsoft.Extensions.FileProviders.Abstractions": "2.0.1",
-          "Microsoft.Extensions.FileProviders.Composite": "2.0.1",
-          "Microsoft.Extensions.FileProviders.Embedded": "2.0.1",
-          "Microsoft.Extensions.FileProviders.Physical": "2.0.1",
-          "Microsoft.Extensions.FileSystemGlobbing": "2.0.1",
-          "Microsoft.Extensions.Hosting.Abstractions": "2.0.3",
-          "Microsoft.Extensions.Identity.Core": "2.0.3",
-          "Microsoft.Extensions.Identity.Stores": "2.0.3",
-          "Microsoft.Extensions.Localization": "2.0.3",
-          "Microsoft.Extensions.Localization.Abstractions": "2.0.3",
-          "Microsoft.Extensions.Logging": "2.0.2",
-          "Microsoft.Extensions.Logging.Abstractions": "2.0.2",
-          "Microsoft.Extensions.Logging.AzureAppServices": "2.0.2",
-          "Microsoft.Extensions.Logging.Configuration": "2.0.2",
-          "Microsoft.Extensions.Logging.Console": "2.0.2",
-          "Microsoft.Extensions.Logging.Debug": "2.0.2",
-          "Microsoft.Extensions.Logging.EventSource": "2.0.2",
-          "Microsoft.Extensions.Logging.TraceSource": "2.0.2",
-          "Microsoft.Extensions.ObjectPool": "2.0.0",
-          "Microsoft.Extensions.Options": "2.0.2",
-          "Microsoft.Extensions.Options.ConfigurationExtensions": "2.0.2",
-          "Microsoft.Extensions.Primitives": "2.0.0",
-          "Microsoft.Extensions.WebEncoders": "2.0.2",
-          "Microsoft.Net.Http.Headers": "2.0.3",
-          "Microsoft.VisualStudio.Web.BrowserLink": "2.0.3"
+          "Microsoft.AspNet.WebApi.Client": "5.2.6",
+          "Microsoft.AspNetCore": "2.1.3",
+          "Microsoft.AspNetCore.Antiforgery": "2.1.1",
+          "Microsoft.AspNetCore.ApplicationInsights.HostingStartup": "2.1.1",
+          "Microsoft.AspNetCore.Authentication": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Authentication.Cookies": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.Core": "2.1.1",
+          "Microsoft.AspNetCore.Authentication.Facebook": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.Google": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.MicrosoftAccount": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.OAuth": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.Twitter": "2.1.2",
+          "Microsoft.AspNetCore.Authentication.WsFederation": "2.1.2",
+          "Microsoft.AspNetCore.Authorization": "2.1.2",
+          "Microsoft.AspNetCore.Authorization.Policy": "2.1.2",
+          "Microsoft.AspNetCore.AzureAppServices.HostingStartup": "2.1.1",
+          "Microsoft.AspNetCore.AzureAppServicesIntegration": "2.1.1",
+          "Microsoft.AspNetCore.Connections.Abstractions": "2.1.3",
+          "Microsoft.AspNetCore.CookiePolicy": "2.1.2",
+          "Microsoft.AspNetCore.Cors": "2.1.1",
+          "Microsoft.AspNetCore.Cryptography.Internal": "2.1.1",
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "2.1.1",
+          "Microsoft.AspNetCore.DataProtection": "2.1.1",
+          "Microsoft.AspNetCore.DataProtection.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.DataProtection.AzureKeyVault": "2.1.1",
+          "Microsoft.AspNetCore.DataProtection.AzureStorage": "2.1.1",
+          "Microsoft.AspNetCore.DataProtection.Extensions": "2.1.1",
+          "Microsoft.AspNetCore.Diagnostics": "2.1.1",
+          "Microsoft.AspNetCore.Diagnostics.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "2.1.1",
+          "Microsoft.AspNetCore.HostFiltering": "2.1.1",
+          "Microsoft.AspNetCore.Hosting": "2.1.1",
+          "Microsoft.AspNetCore.Hosting.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Hosting.Server.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Html.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Http": "2.1.1",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Http.Connections": "1.0.3",
+          "Microsoft.AspNetCore.Http.Connections.Common": "1.0.3",
+          "Microsoft.AspNetCore.Http.Extensions": "2.1.1",
+          "Microsoft.AspNetCore.Http.Features": "2.1.1",
+          "Microsoft.AspNetCore.HttpOverrides": "2.1.1",
+          "Microsoft.AspNetCore.HttpsPolicy": "2.1.1",
+          "Microsoft.AspNetCore.Identity": "2.1.3",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "2.1.3",
+          "Microsoft.AspNetCore.Identity.UI": "2.1.3",
+          "Microsoft.AspNetCore.JsonPatch": "2.1.1",
+          "Microsoft.AspNetCore.Localization": "2.1.1",
+          "Microsoft.AspNetCore.Localization.Routing": "2.1.1",
+          "Microsoft.AspNetCore.MiddlewareAnalysis": "2.1.1",
+          "Microsoft.AspNetCore.Mvc": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Abstractions": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.ApiExplorer": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Core": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Cors": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.DataAnnotations": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Formatters.Json": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Formatters.Xml": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Localization": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Razor": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Razor.Extensions": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation": "2.1.1",
+          "Microsoft.AspNetCore.Mvc.RazorPages": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.TagHelpers": "2.1.2",
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "2.1.2",
+          "Microsoft.AspNetCore.NodeServices": "2.1.1",
+          "Microsoft.AspNetCore.Owin": "2.1.1",
+          "Microsoft.AspNetCore.Razor": "2.1.2",
+          "Microsoft.AspNetCore.Razor.Design": "2.1.2",
+          "Microsoft.AspNetCore.Razor.Language": "2.1.2",
+          "Microsoft.AspNetCore.Razor.Runtime": "2.1.2",
+          "Microsoft.AspNetCore.ResponseCaching": "2.1.1",
+          "Microsoft.AspNetCore.ResponseCaching.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.ResponseCompression": "2.1.1",
+          "Microsoft.AspNetCore.Rewrite": "2.1.1",
+          "Microsoft.AspNetCore.Routing": "2.1.1",
+          "Microsoft.AspNetCore.Routing.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Server.HttpSys": "2.1.1",
+          "Microsoft.AspNetCore.Server.IISIntegration": "2.1.1",
+          "Microsoft.AspNetCore.Server.Kestrel": "2.1.3",
+          "Microsoft.AspNetCore.Server.Kestrel.Core": "2.1.3",
+          "Microsoft.AspNetCore.Server.Kestrel.Https": "2.1.3",
+          "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions": "2.1.3",
+          "Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv": "2.1.3",
+          "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets": "2.1.3",
+          "Microsoft.AspNetCore.Session": "2.1.1",
+          "Microsoft.AspNetCore.SignalR": "1.0.3",
+          "Microsoft.AspNetCore.SignalR.Common": "1.0.3",
+          "Microsoft.AspNetCore.SignalR.Core": "1.0.3",
+          "Microsoft.AspNetCore.SignalR.Protocols.Json": "1.0.3",
+          "Microsoft.AspNetCore.SignalR.Redis": "1.0.3",
+          "Microsoft.AspNetCore.SpaServices": "2.1.1",
+          "Microsoft.AspNetCore.SpaServices.Extensions": "2.1.1",
+          "Microsoft.AspNetCore.StaticFiles": "2.1.1",
+          "Microsoft.AspNetCore.WebSockets": "2.1.1",
+          "Microsoft.AspNetCore.WebUtilities": "2.1.1",
+          "Microsoft.CodeAnalysis.Razor": "2.1.2",
+          "Microsoft.Data.Sqlite": "2.1.0",
+          "Microsoft.Data.Sqlite.Core": "2.1.0",
+          "Microsoft.EntityFrameworkCore": "2.1.2",
+          "Microsoft.EntityFrameworkCore.Abstractions": "2.1.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "2.1.2",
+          "Microsoft.EntityFrameworkCore.Design": "2.1.2",
+          "Microsoft.EntityFrameworkCore.InMemory": "2.1.2",
+          "Microsoft.EntityFrameworkCore.Relational": "2.1.2",
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.1.2",
+          "Microsoft.EntityFrameworkCore.Sqlite": "2.1.2",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "2.1.2",
+          "Microsoft.EntityFrameworkCore.Tools": "2.1.2",
+          "Microsoft.Extensions.Caching.Abstractions": "2.1.2",
+          "Microsoft.Extensions.Caching.Memory": "2.1.2",
+          "Microsoft.Extensions.Caching.Redis": "2.1.2",
+          "Microsoft.Extensions.Caching.SqlServer": "2.1.2",
+          "Microsoft.Extensions.Configuration": "2.1.1",
+          "Microsoft.Extensions.Configuration.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Configuration.AzureKeyVault": "2.1.1",
+          "Microsoft.Extensions.Configuration.Binder": "2.1.1",
+          "Microsoft.Extensions.Configuration.CommandLine": "2.1.1",
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.1.1",
+          "Microsoft.Extensions.Configuration.FileExtensions": "2.1.1",
+          "Microsoft.Extensions.Configuration.Ini": "2.1.1",
+          "Microsoft.Extensions.Configuration.Json": "2.1.1",
+          "Microsoft.Extensions.Configuration.KeyPerFile": "2.1.1",
+          "Microsoft.Extensions.Configuration.UserSecrets": "2.1.1",
+          "Microsoft.Extensions.Configuration.Xml": "2.1.1",
+          "Microsoft.Extensions.DependencyInjection": "2.1.1",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.1",
+          "Microsoft.Extensions.DiagnosticAdapter": "2.1.0",
+          "Microsoft.Extensions.FileProviders.Abstractions": "2.1.1",
+          "Microsoft.Extensions.FileProviders.Composite": "2.1.1",
+          "Microsoft.Extensions.FileProviders.Embedded": "2.1.1",
+          "Microsoft.Extensions.FileProviders.Physical": "2.1.1",
+          "Microsoft.Extensions.FileSystemGlobbing": "2.1.1",
+          "Microsoft.Extensions.Hosting": "2.1.1",
+          "Microsoft.Extensions.Hosting.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Http": "2.1.1",
+          "Microsoft.Extensions.Identity.Core": "2.1.3",
+          "Microsoft.Extensions.Identity.Stores": "2.1.3",
+          "Microsoft.Extensions.Localization": "2.1.1",
+          "Microsoft.Extensions.Localization.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Logging": "2.1.1",
+          "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Logging.AzureAppServices": "2.1.1",
+          "Microsoft.Extensions.Logging.Configuration": "2.1.1",
+          "Microsoft.Extensions.Logging.Console": "2.1.1",
+          "Microsoft.Extensions.Logging.Debug": "2.1.1",
+          "Microsoft.Extensions.Logging.EventSource": "2.1.1",
+          "Microsoft.Extensions.Logging.TraceSource": "2.1.1",
+          "Microsoft.Extensions.ObjectPool": "2.1.1",
+          "Microsoft.Extensions.Options": "2.1.1",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "2.1.1",
+          "Microsoft.Extensions.Primitives": "2.1.1",
+          "Microsoft.Extensions.WebEncoders": "2.1.1",
+          "Microsoft.Net.Http.Headers": "2.1.1",
+          "Microsoft.VisualStudio.Web.BrowserLink": "2.1.1"
         },
         "compile": {
-          "lib/netcoreapp2.0/_._": {}
+          "lib/netcoreapp2.1/_._": {}
         },
         "runtime": {
-          "lib/netcoreapp2.0/_._": {}
+          "lib/netcoreapp2.1/_._": {}
         },
         "build": {
-          "build/netcoreapp2.0/Microsoft.AspNetCore.All.targets": {}
+          "build/netcoreapp2.1/Microsoft.AspNetCore.All.props": {},
+          "build/netcoreapp2.1/Microsoft.AspNetCore.All.targets": {}
         }
       },
       "Microsoft.AspNetCore.Antiforgery/2.1.1": {
@@ -458,22 +498,22 @@
           "build/netcoreapp2.1/Microsoft.AspNetCore.App.targets": {}
         }
       },
-      "Microsoft.AspNetCore.ApplicationInsights.HostingStartup/2.0.3": {
+      "Microsoft.AspNetCore.ApplicationInsights.HostingStartup/2.1.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.ApplicationInsights.AspNetCore": "2.1.1",
-          "Microsoft.AspNetCore.Hosting": "2.0.3",
-          "Microsoft.AspNetCore.Razor.Runtime": "2.0.3",
-          "Microsoft.Extensions.Configuration.Json": "2.0.2",
-          "Microsoft.Extensions.DiagnosticAdapter": "2.0.1",
-          "Microsoft.Extensions.Logging": "2.0.2",
-          "Microsoft.Extensions.Logging.Configuration": "2.0.2"
+          "Microsoft.AspNetCore.Hosting": "2.1.1",
+          "Microsoft.AspNetCore.Razor.Runtime": "2.1.1",
+          "Microsoft.Extensions.Configuration.Json": "2.1.1",
+          "Microsoft.Extensions.DiagnosticAdapter": "2.1.0",
+          "Microsoft.Extensions.Logging": "2.1.1",
+          "Microsoft.Extensions.Logging.Configuration": "2.1.1"
         },
         "compile": {
-          "lib/netcoreapp2.0/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.dll": {}
+          "lib/netcoreapp2.1/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp2.0/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.dll": {}
+          "lib/netcoreapp2.1/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.dll": {}
         }
       },
       "Microsoft.AspNetCore.Authentication/2.1.2": {
@@ -661,24 +701,24 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Authorization.Policy.dll": {}
         }
       },
-      "Microsoft.AspNetCore.AzureAppServices.HostingStartup/2.0.3": {
+      "Microsoft.AspNetCore.AzureAppServices.HostingStartup/2.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.AzureAppServicesIntegration": "2.0.3",
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.0.3"
+          "Microsoft.AspNetCore.AzureAppServicesIntegration": "2.1.1",
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.1.1"
         },
         "compile": {
-          "lib/netcoreapp2.0/Microsoft.AspNetCore.AzureAppServices.HostingStartup.dll": {}
+          "lib/netcoreapp2.1/Microsoft.AspNetCore.AzureAppServices.HostingStartup.dll": {}
         },
         "runtime": {
-          "lib/netcoreapp2.0/Microsoft.AspNetCore.AzureAppServices.HostingStartup.dll": {}
+          "lib/netcoreapp2.1/Microsoft.AspNetCore.AzureAppServices.HostingStartup.dll": {}
         }
       },
-      "Microsoft.AspNetCore.AzureAppServicesIntegration/2.0.3": {
+      "Microsoft.AspNetCore.AzureAppServicesIntegration/2.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Hosting": "2.0.3",
-          "Microsoft.Extensions.Logging.AzureAppServices": "2.0.2"
+          "Microsoft.AspNetCore.Hosting": "2.1.1",
+          "Microsoft.Extensions.Logging.AzureAppServices": "2.1.1"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.AzureAppServicesIntegration.dll": {}
@@ -780,10 +820,24 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.DataProtection.AzureStorage/2.0.3": {
+      "Microsoft.AspNetCore.DataProtection.AzureKeyVault/2.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.DataProtection": "2.0.3",
+          "Microsoft.AspNetCore.DataProtection": "2.1.1",
+          "Microsoft.Azure.KeyVault": "2.3.2",
+          "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.14.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.AzureKeyVault.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.AzureKeyVault.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.DataProtection.AzureStorage/2.1.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.DataProtection": "2.1.1",
           "WindowsAzure.Storage": "8.1.4"
         },
         "compile": {
@@ -1640,14 +1694,14 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv/2.0.3": {
+      "Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv/2.1.3": {
         "type": "package",
         "dependencies": {
           "Libuv": "1.10.0",
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions": "2.0.3",
-          "Microsoft.Extensions.Logging.Abstractions": "2.0.2",
-          "Microsoft.Extensions.Options": "2.0.2"
+          "Microsoft.AspNetCore.Hosting.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions": "2.1.3",
+          "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Options": "2.1.1"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv.dll": {}
@@ -1743,6 +1797,21 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.SignalR.Redis/1.0.3": {
+        "type": "package",
+        "dependencies": {
+          "MessagePack": "1.7.3.4",
+          "Microsoft.AspNetCore.SignalR.Core": "1.0.3",
+          "Microsoft.Extensions.Options": "2.1.1",
+          "StackExchange.Redis.StrongName": "1.2.6"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Redis.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Redis.dll": {}
         }
       },
       "Microsoft.AspNetCore.SpaServices/2.1.1": {
@@ -1851,6 +1920,23 @@
         },
         "runtime": {
           "lib/netstandard1.4/Microsoft.Azure.KeyVault.WebKey.dll": {}
+        }
+      },
+      "Microsoft.Azure.Services.AppAuthentication/1.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.14.2",
+          "NETStandard.Library": "1.6.1",
+          "System.Diagnostics.Process": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.4/Microsoft.Azure.Services.AppAuthentication.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.4/Microsoft.Azure.Services.AppAuthentication.dll": {}
+        },
+        "build": {
+          "build/_._": {}
         }
       },
       "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
@@ -2067,11 +2153,17 @@
           }
         }
       },
-      "Microsoft.Data.Sqlite/2.0.1": {
+      "Microsoft.Data.Sqlite/2.1.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "2.0.1",
-          "SQLitePCLRaw.bundle_green": "1.1.7"
+          "Microsoft.Data.Sqlite.Core": "2.1.0",
+          "SQLitePCLRaw.bundle_green": "1.1.11"
+        },
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
         }
       },
       "Microsoft.Data.Sqlite.Core/2.1.0": {
@@ -2255,12 +2347,12 @@
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.dll": {}
         }
       },
-      "Microsoft.Extensions.Caching.Redis/2.0.2": {
+      "Microsoft.Extensions.Caching.Redis/2.1.2": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "2.0.2",
-          "Microsoft.Extensions.Options": "2.0.2",
-          "StackExchange.Redis.StrongName": "1.2.4"
+          "Microsoft.Extensions.Caching.Abstractions": "2.1.2",
+          "Microsoft.Extensions.Options": "2.1.1",
+          "StackExchange.Redis.StrongName": "1.2.6"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Redis.dll": {}
@@ -2307,13 +2399,13 @@
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Configuration.AzureKeyVault/2.0.2": {
+      "Microsoft.Extensions.Configuration.AzureKeyVault/2.1.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.Azure.KeyVault": "2.3.2",
-          "Microsoft.Extensions.Configuration": "2.0.2",
-          "Microsoft.Extensions.Configuration.FileExtensions": "2.0.2",
-          "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.14.1"
+          "Microsoft.Azure.Services.AppAuthentication": "1.0.1",
+          "Microsoft.Extensions.Configuration": "2.1.1",
+          "Microsoft.Extensions.Configuration.FileExtensions": "2.1.1"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.AzureKeyVault.dll": {}
@@ -2678,15 +2770,15 @@
           "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Logging.AzureAppServices/2.0.2": {
+      "Microsoft.Extensions.Logging.AzureAppServices/2.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.0.2",
-          "Microsoft.Extensions.Configuration.Json": "2.0.2",
-          "Microsoft.Extensions.Logging": "2.0.2",
-          "Microsoft.Extensions.Logging.Abstractions": "2.0.2",
-          "Microsoft.Extensions.Logging.Configuration": "2.0.2",
-          "System.ValueTuple": "4.4.0"
+          "Microsoft.Extensions.Configuration.EnvironmentVariables": "2.1.1",
+          "Microsoft.Extensions.Configuration.Json": "2.1.1",
+          "Microsoft.Extensions.Logging": "2.1.1",
+          "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
+          "Microsoft.Extensions.Logging.Configuration": "2.1.1",
+          "System.ValueTuple": "4.5.0"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.Logging.AzureAppServices.dll": {}
@@ -2836,7 +2928,7 @@
           "lib/netstandard2.0/Microsoft.Extensions.WebEncoders.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Clients.ActiveDirectory/3.14.1": {
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/3.14.2": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
@@ -3213,13 +3305,13 @@
           "lib/netstandard1.4/Microsoft.Rest.ClientRuntime.Azure.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Web.BrowserLink/2.0.3": {
+      "Microsoft.VisualStudio.Web.BrowserLink/2.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Http.Abstractions": "2.0.3",
-          "Microsoft.AspNetCore.Http.Extensions": "2.0.3",
-          "Microsoft.Extensions.FileProviders.Physical": "2.0.1"
+          "Microsoft.AspNetCore.Hosting.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.1.1",
+          "Microsoft.AspNetCore.Http.Extensions": "2.1.1",
+          "Microsoft.Extensions.FileProviders.Physical": "2.1.1"
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.VisualStudio.Web.BrowserLink.dll": {}
@@ -3776,7 +3868,7 @@
           "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
-      "StackExchange.Redis.StrongName/1.2.4": {
+      "StackExchange.Redis.StrongName/1.2.6": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.1",
@@ -4122,6 +4214,49 @@
             "rid": "unix"
           },
           "runtimes/win/lib/netstandard1.3/System.Diagnostics.FileVersionInfo.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Diagnostics.Process/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "Microsoft.Win32.Primitives": "4.3.0",
+          "Microsoft.Win32.Registry": "4.3.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.IO.FileSystem.Primitives": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0",
+          "System.Threading.Thread": "4.3.0",
+          "System.Threading.ThreadPool": "4.3.0",
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.4/System.Diagnostics.Process.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/linux/lib/netstandard1.4/System.Diagnostics.Process.dll": {
+            "assetType": "runtime",
+            "rid": "linux"
+          },
+          "runtimes/osx/lib/netstandard1.4/System.Diagnostics.Process.dll": {
+            "assetType": "runtime",
+            "rid": "osx"
+          },
+          "runtimes/win/lib/netstandard1.4/System.Diagnostics.Process.dll": {
             "assetType": "runtime",
             "rid": "win"
           }
@@ -5429,7 +5564,7 @@
           "ref/netstandard1.2/System.Threading.Timer.dll": {}
         }
       },
-      "System.ValueTuple/4.4.0": {
+      "System.ValueTuple/4.5.0": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.0/_._": {}
@@ -5602,7 +5737,9 @@
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "Microsoft.AspNetCore.App": "2.1.3",
-          "Microsoft.EntityFrameworkCore.Sqlite": "2.1.2"
+          "Microsoft.CodeAnalysis.FxCopAnalyzers": "2.6.1",
+          "Microsoft.EntityFrameworkCore.Sqlite": "2.1.2",
+          "Newtonsoft.Json": "11.0.2"
         },
         "compile": {
           "bin/placeholder/IffleyRoutesRecord.Logic.dll": {}
@@ -5630,6 +5767,23 @@
         "runtimes/win-arm/native/libuv.dll",
         "runtimes/win-x64/native/libuv.dll",
         "runtimes/win-x86/native/libuv.dll"
+      ]
+    },
+    "MessagePack/1.7.3.4": {
+      "sha512": "QSKZVq6BmNaz/B4n0bAM/moQnc4E6XZ7uXRbJcEXxUzZufJiDYDE6awYqDtNz6acupYoPt2QupGV4rpyPCRRtg==",
+      "type": "package",
+      "path": "messagepack/1.7.3.4",
+      "files": [
+        "lib/net45/MessagePack.dll",
+        "lib/net45/MessagePack.xml",
+        "lib/net47/MessagePack.dll",
+        "lib/net47/MessagePack.xml",
+        "lib/netstandard1.6/MessagePack.dll",
+        "lib/netstandard1.6/MessagePack.xml",
+        "lib/netstandard2.0/MessagePack.dll",
+        "lib/netstandard2.0/MessagePack.xml",
+        "messagepack.1.7.3.4.nupkg.sha512",
+        "messagepack.nuspec"
       ]
     },
     "Microsoft.ApplicationInsights/2.4.0": {
@@ -5711,26 +5865,16 @@
         "microsoft.aspnetcore.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.All/2.0.8": {
-      "sha512": "gWVS0txQ/JSpIHS2Wlxjr9L0TlOShy1v+QFOM1tMJoYEdVsw2a0yvP7Mi++vsn1VL9dmMeGaUsVpWTb4M00e5Q==",
+    "Microsoft.AspNetCore.All/2.1.3": {
+      "sha512": "sONJWvZ77mrokOESkW6BEIITAAZau4PRf+8F6nT4ZOeb94GYQbJzVFhH+UVdfquIjXtZE+/rF5SicQnvKznEmA==",
       "type": "package",
-      "path": "microsoft.aspnetcore.all/2.0.8",
+      "path": "microsoft.aspnetcore.all/2.1.3",
       "files": [
         ".signature.p7s",
-        "build/PublishWithAspNetCoreTargetManifest.targets",
-        "build/aspnetcore-store-2.0.0-common.xml",
-        "build/aspnetcore-store-2.0.0-linux-x64.xml",
-        "build/aspnetcore-store-2.0.0-osx-x64.xml",
-        "build/aspnetcore-store-2.0.0-win7-x64.xml",
-        "build/aspnetcore-store-2.0.0-win7-x86.xml",
-        "build/aspnetcore-store-2.0.3.xml",
-        "build/aspnetcore-store-2.0.5.xml",
-        "build/aspnetcore-store-2.0.6.xml",
-        "build/aspnetcore-store-2.0.7.xml",
-        "build/aspnetcore-store-2.0.8.xml",
-        "build/netcoreapp2.0/Microsoft.AspNetCore.All.targets",
-        "lib/netcoreapp2.0/_._",
-        "microsoft.aspnetcore.all.2.0.8.nupkg.sha512",
+        "build/netcoreapp2.1/Microsoft.AspNetCore.All.props",
+        "build/netcoreapp2.1/Microsoft.AspNetCore.All.targets",
+        "lib/netcoreapp2.1/_._",
+        "microsoft.aspnetcore.all.2.1.3.nupkg.sha512",
         "microsoft.aspnetcore.all.nuspec"
       ]
     },
@@ -5759,17 +5903,19 @@
         "microsoft.aspnetcore.app.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.ApplicationInsights.HostingStartup/2.0.3": {
-      "sha512": "OU63ZlYdzXKmQ62npj4H0Pic6pmnJiGXjSN22Di6n2mZ9zQhk08eZcQVjLpOqUVM0VGUGPhIuZqqZsJBX164OA==",
+    "Microsoft.AspNetCore.ApplicationInsights.HostingStartup/2.1.1": {
+      "sha512": "Oy1uQ2XXt44dfglxdPy4mHSJNwFKxogr12lKwre5AYEn+JFWMiuga76hR0XMt+eeG8CDrKxXywKDe4e46lAfIw==",
       "type": "package",
-      "path": "microsoft.aspnetcore.applicationinsights.hostingstartup/2.0.3",
+      "path": "microsoft.aspnetcore.applicationinsights.hostingstartup/2.1.1",
       "files": [
         ".signature.p7s",
         "lib/net461/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.dll",
         "lib/net461/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.xml",
         "lib/netcoreapp2.0/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.dll",
         "lib/netcoreapp2.0/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.xml",
-        "microsoft.aspnetcore.applicationinsights.hostingstartup.2.0.3.nupkg.sha512",
+        "lib/netcoreapp2.1/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.dll",
+        "lib/netcoreapp2.1/Microsoft.AspNetCore.ApplicationInsights.HostingStartup.xml",
+        "microsoft.aspnetcore.applicationinsights.hostingstartup.2.1.1.nupkg.sha512",
         "microsoft.aspnetcore.applicationinsights.hostingstartup.nuspec"
       ]
     },
@@ -5941,29 +6087,31 @@
         "microsoft.aspnetcore.authorization.policy.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.AzureAppServices.HostingStartup/2.0.3": {
-      "sha512": "LX0g9/vHRpKjSsu5MFVly0taGhCLE9StmGkmUqy5TnwJMdUxuhWfU4Yrz7JN8VaKax43wrw8w0YJwBhymzB2og==",
+    "Microsoft.AspNetCore.AzureAppServices.HostingStartup/2.1.1": {
+      "sha512": "q3Wms9qKNNu1tUSvprscetBbYlxvDc22sUU/6g0n8q7i3ZeAMPIc99RemP6b8JSlFeT7g0kUefiTbvSaZsmQMg==",
       "type": "package",
-      "path": "microsoft.aspnetcore.azureappservices.hostingstartup/2.0.3",
+      "path": "microsoft.aspnetcore.azureappservices.hostingstartup/2.1.1",
       "files": [
         ".signature.p7s",
         "lib/net461/Microsoft.AspNetCore.AzureAppServices.HostingStartup.dll",
         "lib/net461/Microsoft.AspNetCore.AzureAppServices.HostingStartup.xml",
         "lib/netcoreapp2.0/Microsoft.AspNetCore.AzureAppServices.HostingStartup.dll",
         "lib/netcoreapp2.0/Microsoft.AspNetCore.AzureAppServices.HostingStartup.xml",
-        "microsoft.aspnetcore.azureappservices.hostingstartup.2.0.3.nupkg.sha512",
+        "lib/netcoreapp2.1/Microsoft.AspNetCore.AzureAppServices.HostingStartup.dll",
+        "lib/netcoreapp2.1/Microsoft.AspNetCore.AzureAppServices.HostingStartup.xml",
+        "microsoft.aspnetcore.azureappservices.hostingstartup.2.1.1.nupkg.sha512",
         "microsoft.aspnetcore.azureappservices.hostingstartup.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.AzureAppServicesIntegration/2.0.3": {
-      "sha512": "/zGE76JQsbdPmMAflYylEGxUjo6eEPNUaicTiyXPtbwUs6C0q5esOvNZ09hZInM6smWS+Socyn0+vXLwdajGpw==",
+    "Microsoft.AspNetCore.AzureAppServicesIntegration/2.1.1": {
+      "sha512": "I/o1X63sKiWUF2TDF3wFvNl4IsXcSg7+NfL4KWh4sJVuQazhTsmWI7/QSkM/wbaMu0d+r3qNl1yxVpLkOfua9w==",
       "type": "package",
-      "path": "microsoft.aspnetcore.azureappservicesintegration/2.0.3",
+      "path": "microsoft.aspnetcore.azureappservicesintegration/2.1.1",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.AzureAppServicesIntegration.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.AzureAppServicesIntegration.xml",
-        "microsoft.aspnetcore.azureappservicesintegration.2.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.azureappservicesintegration.2.1.1.nupkg.sha512",
         "microsoft.aspnetcore.azureappservicesintegration.nuspec"
       ]
     },
@@ -6053,15 +6201,27 @@
         "microsoft.aspnetcore.dataprotection.abstractions.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.DataProtection.AzureStorage/2.0.3": {
-      "sha512": "CssOzEk+Uzr/wmGy4mnjM41yKzC9NXPcZ26rdk6YZjpserQYFtDReWfn/gmbRvyKh4Hns8OTJaN/FecwMl8UHQ==",
+    "Microsoft.AspNetCore.DataProtection.AzureKeyVault/2.1.1": {
+      "sha512": "Q9syQrE7hWoG1a53LM/eLpkRCw8qofwkYzvnRWpMTqu1kqyDR63T9ZFnzooF5WwOweRw+wTdyK7LOHPVZKvDiA==",
       "type": "package",
-      "path": "microsoft.aspnetcore.dataprotection.azurestorage/2.0.3",
+      "path": "microsoft.aspnetcore.dataprotection.azurekeyvault/2.1.1",
+      "files": [
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.AzureKeyVault.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.AzureKeyVault.xml",
+        "microsoft.aspnetcore.dataprotection.azurekeyvault.2.1.1.nupkg.sha512",
+        "microsoft.aspnetcore.dataprotection.azurekeyvault.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.DataProtection.AzureStorage/2.1.1": {
+      "sha512": "3zZLXAjCZi8IRtvNaQmrQNzVwh1xGIy1NL9ZbOsqNkI09Tr4XBTNWIE2jjChwQoubmMO6BfQW7+mxZSY883cMg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.dataprotection.azurestorage/2.1.1",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.AzureStorage.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.DataProtection.AzureStorage.xml",
-        "microsoft.aspnetcore.dataprotection.azurestorage.2.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.dataprotection.azurestorage.2.1.1.nupkg.sha512",
         "microsoft.aspnetcore.dataprotection.azurestorage.nuspec"
       ]
     },
@@ -6791,15 +6951,15 @@
         "microsoft.aspnetcore.server.kestrel.transport.abstractions.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv/2.0.3": {
-      "sha512": "FBwRXcAe/7VUA4DCrpnLN8ONtl6BC37SLBXVnqjQ44ofDjKHY24I8geMqAAZ8o7qTMLKbrgJyenjUiIHwVhW0g==",
+    "Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv/2.1.3": {
+      "sha512": "Pup2mMPolse7B35Z3afTziB+E9X626BZSo2H2Cd2/1A7TQSajafxLs64Oz2NgUNpWnRNTez90HichJjy5OHbew==",
       "type": "package",
-      "path": "microsoft.aspnetcore.server.kestrel.transport.libuv/2.0.3",
+      "path": "microsoft.aspnetcore.server.kestrel.transport.libuv/2.1.3",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv.xml",
-        "microsoft.aspnetcore.server.kestrel.transport.libuv.2.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.server.kestrel.transport.libuv.2.1.3.nupkg.sha512",
         "microsoft.aspnetcore.server.kestrel.transport.libuv.nuspec"
       ]
     },
@@ -6877,6 +7037,18 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.xml",
         "microsoft.aspnetcore.signalr.protocols.json.1.0.3.nupkg.sha512",
         "microsoft.aspnetcore.signalr.protocols.json.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.SignalR.Redis/1.0.3": {
+      "sha512": "IwozFLwC+Uow0WqfYTtyL/9fj9QfR63/Kmv56alj8kwn49PLeSFlgRv9GluXx2ceucYivVudjJEbckDTddw+GQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.signalr.redis/1.0.3",
+      "files": [
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Redis.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Redis.xml",
+        "microsoft.aspnetcore.signalr.redis.1.0.3.nupkg.sha512",
+        "microsoft.aspnetcore.signalr.redis.nuspec"
       ]
     },
     "Microsoft.AspNetCore.SpaServices/2.1.1": {
@@ -6967,6 +7139,22 @@
         "lib/netstandard1.4/Microsoft.Azure.KeyVault.WebKey.xml",
         "microsoft.azure.keyvault.webkey.2.0.7.nupkg.sha512",
         "microsoft.azure.keyvault.webkey.nuspec"
+      ]
+    },
+    "Microsoft.Azure.Services.AppAuthentication/1.0.1": {
+      "sha512": "oSVQ+YLgn0PfDLBRwOtHrkw06Pc6HvqIVrtFFWMg/1eafY+Hbrm1CSXnzXKXJwqUUv0ynvuwqzjN+IFR3g588w==",
+      "type": "package",
+      "path": "microsoft.azure.services.appauthentication/1.0.1",
+      "files": [
+        "build/Microsoft.Azure.Services.AppAuthentication.targets",
+        "lib/net452/Microsoft.Azure.Services.AppAuthentication.dll",
+        "lib/net452/Microsoft.Azure.Services.AppAuthentication.runtimeconfig.json",
+        "lib/net452/Microsoft.Azure.Services.AppAuthentication.xml",
+        "lib/netstandard1.4/Microsoft.Azure.Services.AppAuthentication.dll",
+        "lib/netstandard1.4/Microsoft.Azure.Services.AppAuthentication.runtimeconfig.json",
+        "lib/netstandard1.4/Microsoft.Azure.Services.AppAuthentication.xml",
+        "microsoft.azure.services.appauthentication.1.0.1.nupkg.sha512",
+        "microsoft.azure.services.appauthentication.nuspec"
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
@@ -7283,12 +7471,14 @@
         "microsoft.data.odata.nuspec"
       ]
     },
-    "Microsoft.Data.Sqlite/2.0.1": {
-      "sha512": "jJXCZniFDwHGnRYd9WD3vswQCyIXk0/gsne9TLFWIpy6oK4kAcKD1BTncaHQmVg0pp/YmRBKXVIh4yXSHqbsGQ==",
+    "Microsoft.Data.Sqlite/2.1.0": {
+      "sha512": "0gM/OsHZgICnN7+Qld69S6LON3vTO2MHFAvm3Ji77Tv+sbJL0tIPx7mdvgH0MJ72bslWnm2Y6Su3jYAv52Q0SA==",
       "type": "package",
-      "path": "microsoft.data.sqlite/2.0.1",
+      "path": "microsoft.data.sqlite/2.1.0",
       "files": [
-        "microsoft.data.sqlite.2.0.1.nupkg.sha512",
+        ".signature.p7s",
+        "lib/netstandard2.0/_._",
+        "microsoft.data.sqlite.2.1.0.nupkg.sha512",
         "microsoft.data.sqlite.nuspec"
       ]
     },
@@ -7474,15 +7664,15 @@
         "microsoft.extensions.caching.memory.nuspec"
       ]
     },
-    "Microsoft.Extensions.Caching.Redis/2.0.2": {
-      "sha512": "jbdKO6GKymVT717CBuOB6gzSUEBb+HSA69IqD4z9HEfY4A9kKkHuAowyP3bwH84DxbT5Vsd0xna4/uWwNqDlEw==",
+    "Microsoft.Extensions.Caching.Redis/2.1.2": {
+      "sha512": "Nj83RtXJQ5utUpW+kcadyDQ6qHaFpMEW2NGXD5rWJXsNsP9IQmubv8KlQB590z48NSJq2H3qgn4pN9XzuHy+ng==",
       "type": "package",
-      "path": "microsoft.extensions.caching.redis/2.0.2",
+      "path": "microsoft.extensions.caching.redis/2.1.2",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.Redis.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.Redis.xml",
-        "microsoft.extensions.caching.redis.2.0.2.nupkg.sha512",
+        "microsoft.extensions.caching.redis.2.1.2.nupkg.sha512",
         "microsoft.extensions.caching.redis.nuspec"
       ]
     },
@@ -7522,15 +7712,15 @@
         "microsoft.extensions.configuration.abstractions.nuspec"
       ]
     },
-    "Microsoft.Extensions.Configuration.AzureKeyVault/2.0.2": {
-      "sha512": "75PReSfZLRmAF0YZ1m9hQsbwMn5kit7yL+MFzDfbfszH0zDQBvqlu1gQVZJb0yjn5+5Dz9RR6SpkqV9jnpIDVQ==",
+    "Microsoft.Extensions.Configuration.AzureKeyVault/2.1.1": {
+      "sha512": "TIY9Ooa2AAisbZ2xkv3+nBoGy+kLoEJKcAXkLZ9DbbDyT60sWDqU1DObo/tlbbKJX9HrZJQsl+X8LP3S4QJBxg==",
       "type": "package",
-      "path": "microsoft.extensions.configuration.azurekeyvault/2.0.2",
+      "path": "microsoft.extensions.configuration.azurekeyvault/2.1.1",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.AzureKeyVault.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.AzureKeyVault.xml",
-        "microsoft.extensions.configuration.azurekeyvault.2.0.2.nupkg.sha512",
+        "microsoft.extensions.configuration.azurekeyvault.2.1.1.nupkg.sha512",
         "microsoft.extensions.configuration.azurekeyvault.nuspec"
       ]
     },
@@ -7877,15 +8067,15 @@
         "microsoft.extensions.logging.abstractions.nuspec"
       ]
     },
-    "Microsoft.Extensions.Logging.AzureAppServices/2.0.2": {
-      "sha512": "fRbDNL/u9DFLz21YnM0idUP/Qyav/5k6VdGp5gyRHgPNyD4Q0ZOBvhlV79hLH3hdujzdKA8GX/DFbUDStI+m+Q==",
+    "Microsoft.Extensions.Logging.AzureAppServices/2.1.1": {
+      "sha512": "RWTgH1+Lwt4FEC8LFnTr1E17spqdikV1rn+/6MT4zr3Xej5Y0iKrH0on2e31B/pJad41Vym/9PpXX+hpHtVlMg==",
       "type": "package",
-      "path": "microsoft.extensions.logging.azureappservices/2.0.2",
+      "path": "microsoft.extensions.logging.azureappservices/2.1.1",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.Extensions.Logging.AzureAppServices.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Logging.AzureAppServices.xml",
-        "microsoft.extensions.logging.azureappservices.2.0.2.nupkg.sha512",
+        "microsoft.extensions.logging.azureappservices.2.1.1.nupkg.sha512",
         "microsoft.extensions.logging.azureappservices.nuspec"
       ]
     },
@@ -8022,230 +8212,34 @@
         "microsoft.extensions.webencoders.nuspec"
       ]
     },
-    "Microsoft.IdentityModel.Clients.ActiveDirectory/3.14.1": {
-      "sha512": "GlyzF4FWsn3LXC6rrzw6Yg2nMbGLx+7JS9a6Z8n7jhqPa5cMiNEX01tBUO1v3A9p1mk+gQzHWJheAsSpOLp/ew==",
+    "Microsoft.IdentityModel.Clients.ActiveDirectory/3.14.2": {
+      "sha512": "TNsJJMiRnkeby1ovThVoV9yFsPWjAdluwOA+Nf0LtSsBVVrKQv8Qp4kYOgyNwMVj+pDwbhXISySk+4HyHVWNZQ==",
       "type": "package",
-      "path": "microsoft.identitymodel.clients.activedirectory/3.14.1",
+      "path": "microsoft.identitymodel.clients.activedirectory/3.14.2",
       "files": [
         "lib/MonoAndroid10/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.XML",
         "lib/MonoAndroid10/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
-        "lib/MonoAndroid10/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.pdb",
         "lib/MonoAndroid10/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
-        "lib/MonoAndroid10/Microsoft.IdentityModel.Clients.ActiveDirectory.pdb",
         "lib/MonoAndroid10/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
         "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.XML",
         "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
-        "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.pdb",
         "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
-        "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.pdb",
         "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
         "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.XML",
         "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
-        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.pdb",
         "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
-        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.pdb",
         "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
         "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.XML",
         "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
-        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.pdb",
         "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
-        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.pdb",
         "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
         "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
-        "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.pdb",
         "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
-        "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.pdb",
         "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
         "lib/portable-net45+win/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
-        "lib/portable-net45+win/Microsoft.IdentityModel.Clients.ActiveDirectory.pdb",
         "lib/portable-net45+win/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
-        "microsoft.identitymodel.clients.activedirectory.3.14.1.nupkg.sha512",
-        "microsoft.identitymodel.clients.activedirectory.nuspec",
-        "src/src/ADAL.Common/AdalEventSource.cs",
-        "src/src/ADAL.Common/AuthenticationContextIntegratedAuthExtensions.cs",
-        "src/src/ADAL.Common/AuthenticationResult.cs",
-        "src/src/ADAL.Common/ClientAssertionCertificate.cs",
-        "src/src/ADAL.Common/CommonAssemblyInfo.cs",
-        "src/src/ADAL.Common/Constants.cs",
-        "src/src/ADAL.Common/CryptographyHelper.cs",
-        "src/src/ADAL.Common/EncodingHelper.cs",
-        "src/src/ADAL.Common/LocalSettingsHelper.cs",
-        "src/src/ADAL.Common/Logger.cs",
-        "src/src/ADAL.Common/PromptBehavior.cs",
-        "src/src/ADAL.Common/TokenCache.cs",
-        "src/src/ADAL.Common/WebProxyProvider.cs",
-        "src/src/ADAL.PCL.Android/ADAL.PCL.Android.csproj",
-        "src/src/ADAL.PCL.Android/AuthenticationAgentActivity.cs",
-        "src/src/ADAL.PCL.Android/AuthenticationAgentContinuationHelper.cs",
-        "src/src/ADAL.PCL.Android/AuthenticationRequest.cs",
-        "src/src/ADAL.PCL.Android/BrokerConstants.cs",
-        "src/src/ADAL.PCL.Android/BrokerHelper.cs",
-        "src/src/ADAL.PCL.Android/BrokerProxy.cs",
-        "src/src/ADAL.PCL.Android/Constants.cs",
-        "src/src/ADAL.PCL.Android/CryptographyHelper.cs",
-        "src/src/ADAL.PCL.Android/DeviceAuthHelper.cs",
-        "src/src/ADAL.PCL.Android/Logger.cs",
-        "src/src/ADAL.PCL.Android/PlatformInformation.cs",
-        "src/src/ADAL.PCL.Android/PlatformParameters.cs",
-        "src/src/ADAL.PCL.Android/Properties/AssemblyInfo.cs",
-        "src/src/ADAL.PCL.Android/Resources/AboutResources.txt",
-        "src/src/ADAL.PCL.Android/Resources/Resource.Designer.cs",
-        "src/src/ADAL.PCL.Android/Resources/Values/Strings.xml",
-        "src/src/ADAL.PCL.Android/Resources/layout/WebAuthenticationBroker.axml",
-        "src/src/ADAL.PCL.Android/TokenCachePlugin.cs",
-        "src/src/ADAL.PCL.Android/WebProxyProvider.cs",
-        "src/src/ADAL.PCL.Android/WebUI.cs",
-        "src/src/ADAL.PCL.Android/WebUIFactory.cs",
-        "src/src/ADAL.PCL.CoreCLR/ADAL.PCL.CoreCLR.csproj",
-        "src/src/ADAL.PCL.CoreCLR/BrokerHelper.cs",
-        "src/src/ADAL.PCL.CoreCLR/ClientAssertionCertificate.cs",
-        "src/src/ADAL.PCL.CoreCLR/CryptographyHelper.cs",
-        "src/src/ADAL.PCL.CoreCLR/DeviceAuthHelper.cs",
-        "src/src/ADAL.PCL.CoreCLR/PlatformInformation.cs",
-        "src/src/ADAL.PCL.CoreCLR/PlatformParameters.cs",
-        "src/src/ADAL.PCL.CoreCLR/Properties/AssemblyInfo.cs",
-        "src/src/ADAL.PCL.CoreCLR/TokenCachePlugin.cs",
-        "src/src/ADAL.PCL.CoreCLR/WebProxyProvider.cs",
-        "src/src/ADAL.PCL.CoreCLR/WebUIFactory.cs",
-        "src/src/ADAL.PCL.Desktop/ADAL.PCL.Desktop.csproj",
-        "src/src/ADAL.PCL.Desktop/BrokerHelper.cs",
-        "src/src/ADAL.PCL.Desktop/CryptographyHelper.cs",
-        "src/src/ADAL.PCL.Desktop/CustomWebBrowser.CustomWebBrowserEvent.cs",
-        "src/src/ADAL.PCL.Desktop/CustomWebBrowser.cs",
-        "src/src/ADAL.PCL.Desktop/DeviceAuthHelper.cs",
-        "src/src/ADAL.PCL.Desktop/InteractiveWebUI.cs",
-        "src/src/ADAL.PCL.Desktop/Native/BCryptNative.cs",
-        "src/src/ADAL.PCL.Desktop/Native/ICngAlgorithm.cs",
-        "src/src/ADAL.PCL.Desktop/Native/ICngAsymmetricAlgorithm.cs",
-        "src/src/ADAL.PCL.Desktop/Native/NCryptNative.cs",
-        "src/src/ADAL.PCL.Desktop/Native/RSACng.cs",
-        "src/src/ADAL.PCL.Desktop/Native/Win32Native.cs",
-        "src/src/ADAL.PCL.Desktop/Native/X509Native.cs",
-        "src/src/ADAL.PCL.Desktop/NavigateErrorStatus.cs",
-        "src/src/ADAL.PCL.Desktop/PlatformInformation.cs",
-        "src/src/ADAL.PCL.Desktop/PlatformParameters.cs",
-        "src/src/ADAL.PCL.Desktop/Properties/AssemblyInfo.cs",
-        "src/src/ADAL.PCL.Desktop/SecureClientSecret.cs",
-        "src/src/ADAL.PCL.Desktop/SilentWebUI.cs",
-        "src/src/ADAL.PCL.Desktop/SilentWebUIDoneEventArgs.cs",
-        "src/src/ADAL.PCL.Desktop/SilentWindowsFormsAuthenticationDialog.cs",
-        "src/src/ADAL.PCL.Desktop/StaTaskScheduler.cs",
-        "src/src/ADAL.PCL.Desktop/TokenCachePlugin.cs",
-        "src/src/ADAL.PCL.Desktop/UserPasswordCredential.cs",
-        "src/src/ADAL.PCL.Desktop/WebBrowserInterfaces.cs",
-        "src/src/ADAL.PCL.Desktop/WebBrowserNavigateErrorEventArgs.cs",
-        "src/src/ADAL.PCL.Desktop/WebUI.cs",
-        "src/src/ADAL.PCL.Desktop/WebUIFactory.cs",
-        "src/src/ADAL.PCL.Desktop/WinFormWebAuthenticationDialog.cs",
-        "src/src/ADAL.PCL.Desktop/WindowsFormsWebAuthenticationDialogBase.cs",
-        "src/src/ADAL.PCL.WinRT/ADAL.PCL.WinRT.csproj",
-        "src/src/ADAL.PCL.WinRT/BrokerHelper.cs",
-        "src/src/ADAL.PCL.WinRT/CryptographyHelper.cs",
-        "src/src/ADAL.PCL.WinRT/DeviceAuthHelper.cs",
-        "src/src/ADAL.PCL.WinRT/PlatformInformation.cs",
-        "src/src/ADAL.PCL.WinRT/PlatformParameters.cs",
-        "src/src/ADAL.PCL.WinRT/Properties/AssemblyInfo.cs",
-        "src/src/ADAL.PCL.WinRT/TokenCachePlugin.cs",
-        "src/src/ADAL.PCL.WinRT/WebUI.cs",
-        "src/src/ADAL.PCL.WinRT/WebUIFactory.cs",
-        "src/src/ADAL.PCL.iOS/ADAL.PCL.iOS.csproj",
-        "src/src/ADAL.PCL.iOS/AdalCustomUrlProtocol.cs",
-        "src/src/ADAL.PCL.iOS/AdalInitializer.cs",
-        "src/src/ADAL.PCL.iOS/AuthenticationAgentUINavigationController.cs",
-        "src/src/ADAL.PCL.iOS/AuthenticationAgentUIViewController.cs",
-        "src/src/ADAL.PCL.iOS/AuthenticationContinuationHelper.cs",
-        "src/src/ADAL.PCL.iOS/BrokerConstants.cs",
-        "src/src/ADAL.PCL.iOS/BrokerHelper.cs",
-        "src/src/ADAL.PCL.iOS/BrokerKeyHelper.cs",
-        "src/src/ADAL.PCL.iOS/Constants.cs",
-        "src/src/ADAL.PCL.iOS/CryptographyHelper.cs",
-        "src/src/ADAL.PCL.iOS/DeviceAuthHelper.cs",
-        "src/src/ADAL.PCL.iOS/GlobalSuppressions.cs",
-        "src/src/ADAL.PCL.iOS/Logger.cs",
-        "src/src/ADAL.PCL.iOS/PlatformInformation.cs",
-        "src/src/ADAL.PCL.iOS/PlatformParameters.cs",
-        "src/src/ADAL.PCL.iOS/Properties/AssemblyInfo.cs",
-        "src/src/ADAL.PCL.iOS/TokenCachePlugin.cs",
-        "src/src/ADAL.PCL.iOS/WebUI.cs",
-        "src/src/ADAL.PCL.iOS/WebUIFactory.cs",
-        "src/src/ADAL.PCL/ADAL.PCL.csproj",
-        "src/src/ADAL.PCL/AdalOption.cs",
-        "src/src/ADAL.PCL/AuthenticationContext.cs",
-        "src/src/ADAL.PCL/AuthenticationParameters.cs",
-        "src/src/ADAL.PCL/AuthenticationResult.cs",
-        "src/src/ADAL.PCL/Authority/Authenticator.cs",
-        "src/src/ADAL.PCL/Authority/AuthenticatorTemplate.cs",
-        "src/src/ADAL.PCL/Authority/AuthenticatorTemplateList.cs",
-        "src/src/ADAL.PCL/Authority/AuthorizationResult.cs",
-        "src/src/ADAL.PCL/Authority/DeviceAuthJWTResponse.cs",
-        "src/src/ADAL.PCL/Authority/IdToken.cs",
-        "src/src/ADAL.PCL/Authority/RequestData.cs",
-        "src/src/ADAL.PCL/Authority/RequestParameters.cs",
-        "src/src/ADAL.PCL/Authority/TokenResponse.cs",
-        "src/src/ADAL.PCL/Cache/CacheQueryData.cs",
-        "src/src/ADAL.PCL/Cache/TokenCacheKey.cs",
-        "src/src/ADAL.PCL/ClientAssertion.cs",
-        "src/src/ADAL.PCL/ClientCredential.cs",
-        "src/src/ADAL.PCL/ClientCreds/ClientKey.cs",
-        "src/src/ADAL.PCL/ClientCreds/JsonWebToken.cs",
-        "src/src/ADAL.PCL/DeviceCodeResult.cs",
-        "src/src/ADAL.PCL/Exceptions/AdalException.cs",
-        "src/src/ADAL.PCL/Exceptions/AdalServiceException.cs",
-        "src/src/ADAL.PCL/Exceptions/AdalSilentTokenAcquisitionException.cs",
-        "src/src/ADAL.PCL/Exceptions/AdalUserMismatchException.cs",
-        "src/src/ADAL.PCL/Exceptions/HttpRequestWrapperException.cs",
-        "src/src/ADAL.PCL/Flows/AcquireTokenByAuthorizationCodeHandler.cs",
-        "src/src/ADAL.PCL/Flows/AcquireTokenForClientHandler.cs",
-        "src/src/ADAL.PCL/Flows/AcquireTokenHandlerBase.cs",
-        "src/src/ADAL.PCL/Flows/AcquireTokenInteractiveHandler.cs",
-        "src/src/ADAL.PCL/Flows/AcquireTokenOnBehalfHandler.cs",
-        "src/src/ADAL.PCL/Flows/AcquireTokenSilentHandler.cs",
-        "src/src/ADAL.PCL/Flows/AuthenticationResultEx.cs",
-        "src/src/ADAL.PCL/Flows/CallState.cs",
-        "src/src/ADAL.PCL/Flows/DeviceCode/AcquireDeviceCodeHandler.cs",
-        "src/src/ADAL.PCL/Flows/DeviceCode/AcquireTokenByDeviceCodeHandler.cs",
-        "src/src/ADAL.PCL/Flows/DeviceCode/DeviceCodeResponse.cs",
-        "src/src/ADAL.PCL/Flows/NonInteractive/AcquireTokenNonInteractiveHandler.cs",
-        "src/src/ADAL.PCL/Flows/NonInteractive/MexParser.cs",
-        "src/src/ADAL.PCL/Flows/NonInteractive/UserRealmDiscoveryResponse.cs",
-        "src/src/ADAL.PCL/Flows/NonInteractive/WsTrustRequest.cs",
-        "src/src/ADAL.PCL/Flows/NonInteractive/WsTrustResponse.cs",
-        "src/src/ADAL.PCL/Http/AdalHttpClient.cs",
-        "src/src/ADAL.PCL/Http/HttpClientFactory.cs",
-        "src/src/ADAL.PCL/Http/HttpClientWrapper.cs",
-        "src/src/ADAL.PCL/Http/HttpMessageHandlerFactory.cs",
-        "src/src/ADAL.PCL/Http/HttpWebResponseWrapper.cs",
-        "src/src/ADAL.PCL/Http/IHttpWebResponse.cs",
-        "src/src/ADAL.PCL/IAdalLogCallback.cs",
-        "src/src/ADAL.PCL/IClientAssertionCertificate.cs",
-        "src/src/ADAL.PCL/IPlatformParameters.cs",
-        "src/src/ADAL.PCL/ISecureClientSecret.cs",
-        "src/src/ADAL.PCL/Platform/IBrokerHelper.cs",
-        "src/src/ADAL.PCL/Platform/ICryptographyHelper.cs",
-        "src/src/ADAL.PCL/Platform/IDeviceAuthHelper.cs",
-        "src/src/ADAL.PCL/Platform/IHttpClient.cs",
-        "src/src/ADAL.PCL/Platform/IHttpClientFactory.cs",
-        "src/src/ADAL.PCL/Platform/ITokenCachePlugin.cs",
-        "src/src/ADAL.PCL/Platform/IWebProxyProvider.cs",
-        "src/src/ADAL.PCL/Platform/IWebUI.cs",
-        "src/src/ADAL.PCL/Platform/IWebUIFactory.cs",
-        "src/src/ADAL.PCL/Platform/LoggerBase.cs",
-        "src/src/ADAL.PCL/Platform/PlatformInformationBase.cs",
-        "src/src/ADAL.PCL/Platform/PlatformPlugin.cs",
-        "src/src/ADAL.PCL/Properties/AssemblyInfo.cs",
-        "src/src/ADAL.PCL/TokenCache.cs",
-        "src/src/ADAL.PCL/TokenCacheItem.cs",
-        "src/src/ADAL.PCL/TokenCacheNotificationArgs.cs",
-        "src/src/ADAL.PCL/UserAssertion.cs",
-        "src/src/ADAL.PCL/UserCredential.cs",
-        "src/src/ADAL.PCL/UserIdentifier.cs",
-        "src/src/ADAL.PCL/UserInfo.cs",
-        "src/src/ADAL.PCL/Utilities/AdalIdHelper.cs",
-        "src/src/ADAL.PCL/Utilities/Base64UrlEncoder.cs",
-        "src/src/ADAL.PCL/Utilities/Constants.cs",
-        "src/src/ADAL.PCL/Utilities/EncodingHelper.cs",
-        "src/src/ADAL.PCL/Utilities/JsonHelper.cs",
-        "src/src/ADAL.PCL/Utilities/OAuthConstants.cs"
+        "microsoft.identitymodel.clients.activedirectory.3.14.2.nupkg.sha512",
+        "microsoft.identitymodel.clients.activedirectory.nuspec"
       ]
     },
     "Microsoft.IdentityModel.Logging/5.2.0": {
@@ -8771,15 +8765,15 @@
         "microsoft.rest.clientruntime.azure.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.BrowserLink/2.0.3": {
-      "sha512": "7jUOHGd7nVB/Zlh+sugV0jiNf2KCdfqAIpAje9V5JXGvmP1b3GKB4Vl2groWo+IUFTtFoRwUZpeYfR42w8Gexw==",
+    "Microsoft.VisualStudio.Web.BrowserLink/2.1.1": {
+      "sha512": "6mQC24ZyX1hsTB4PISXmMmq1iUykP9asVl3btWm8WB88KT7EWc/Kq4L5jVnMnWsCoMhaBah47ohO1ve4W9S0Ew==",
       "type": "package",
-      "path": "microsoft.visualstudio.web.browserlink/2.0.3",
+      "path": "microsoft.visualstudio.web.browserlink/2.1.1",
       "files": [
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.BrowserLink.dll",
         "lib/netstandard2.0/Microsoft.VisualStudio.Web.BrowserLink.xml",
-        "microsoft.visualstudio.web.browserlink.2.0.3.nupkg.sha512",
+        "microsoft.visualstudio.web.browserlink.2.1.1.nupkg.sha512",
         "microsoft.visualstudio.web.browserlink.nuspec"
       ]
     },
@@ -9707,10 +9701,10 @@
         "sqlitepclraw.provider.e_sqlite3.netstandard11.nuspec"
       ]
     },
-    "StackExchange.Redis.StrongName/1.2.4": {
-      "sha512": "qrfSB1BnmM17V20A4yvvNA0HNiDgnBd/CcjaeMKMA4qtup1uuBUMyhl20oj31fRVo71E/fXTbmQCuM9ytBJs6w==",
+    "StackExchange.Redis.StrongName/1.2.6": {
+      "sha512": "UFmT1/JYu1PLiRwkyvEPVHk/tVTJa8Ka2rb9yzidzDoQARvhBVRpaWUeaP81373v54jupDBvAoGHGl0EY/HphQ==",
       "type": "package",
-      "path": "stackexchange.redis.strongname/1.2.4",
+      "path": "stackexchange.redis.strongname/1.2.6",
       "files": [
         "lib/net45/StackExchange.Redis.StrongName.dll",
         "lib/net45/StackExchange.Redis.StrongName.xml",
@@ -9718,7 +9712,7 @@
         "lib/net46/StackExchange.Redis.StrongName.xml",
         "lib/netstandard1.5/StackExchange.Redis.StrongName.dll",
         "lib/netstandard1.5/StackExchange.Redis.StrongName.xml",
-        "stackexchange.redis.strongname.1.2.4.nupkg.sha512",
+        "stackexchange.redis.strongname.1.2.6.nupkg.sha512",
         "stackexchange.redis.strongname.nuspec"
       ]
     },
@@ -10490,6 +10484,61 @@
         "runtimes/win/lib/netstandard1.3/System.Diagnostics.FileVersionInfo.dll",
         "system.diagnostics.fileversioninfo.4.3.0.nupkg.sha512",
         "system.diagnostics.fileversioninfo.nuspec"
+      ]
+    },
+    "System.Diagnostics.Process/4.3.0": {
+      "sha512": "J0wOX07+QASQblsfxmIMFc9Iq7KTXYL3zs2G/Xc704Ylv3NpuVdo6gij6V3PGiptTxqsK0K7CdXenRvKUnkA2g==",
+      "type": "package",
+      "path": "system.diagnostics.process/4.3.0",
+      "files": [
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Diagnostics.Process.dll",
+        "lib/net461/System.Diagnostics.Process.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net46/System.Diagnostics.Process.dll",
+        "ref/net461/System.Diagnostics.Process.dll",
+        "ref/netstandard1.3/System.Diagnostics.Process.dll",
+        "ref/netstandard1.3/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/de/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/es/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/fr/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/it/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/ja/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/ko/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/ru/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/zh-hans/System.Diagnostics.Process.xml",
+        "ref/netstandard1.3/zh-hant/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/System.Diagnostics.Process.dll",
+        "ref/netstandard1.4/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/de/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/es/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/fr/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/it/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/ja/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/ko/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/ru/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/zh-hans/System.Diagnostics.Process.xml",
+        "ref/netstandard1.4/zh-hant/System.Diagnostics.Process.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/linux/lib/netstandard1.4/System.Diagnostics.Process.dll",
+        "runtimes/osx/lib/netstandard1.4/System.Diagnostics.Process.dll",
+        "runtimes/win/lib/net46/System.Diagnostics.Process.dll",
+        "runtimes/win/lib/net461/System.Diagnostics.Process.dll",
+        "runtimes/win/lib/netstandard1.4/System.Diagnostics.Process.dll",
+        "runtimes/win7/lib/netcore50/_._",
+        "system.diagnostics.process.4.3.0.nupkg.sha512",
+        "system.diagnostics.process.nuspec"
       ]
     },
     "System.Diagnostics.StackTrace/4.3.0": {
@@ -14139,11 +14188,12 @@
         "system.threading.timer.nuspec"
       ]
     },
-    "System.ValueTuple/4.4.0": {
-      "sha512": "BahUww/+mdP4ARCAh2RQhQTg13wYLVrBb9SYVgW8ZlrwjraGCXHGjo0oIiUfZ34LUZkMMR+RAzR7dEY4S1HeQQ==",
+    "System.ValueTuple/4.5.0": {
+      "sha512": "xZtSZNEHGa+tGsKuP4sh257vxJ/yemShz4EusmomkynMzuEDDjVaErBNewpzEF6swUgbcrSQAX3ELsEp1zCOwA==",
       "type": "package",
-      "path": "system.valuetuple/4.4.0",
+      "path": "system.valuetuple/4.5.0",
       "files": [
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -14158,6 +14208,7 @@
         "lib/netstandard2.0/_._",
         "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
         "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "lib/uap10.0.16299/_._",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
@@ -14165,18 +14216,16 @@
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
         "ref/net461/System.ValueTuple.dll",
-        "ref/net461/System.ValueTuple.xml",
         "ref/net47/System.ValueTuple.dll",
-        "ref/net47/System.ValueTuple.xml",
         "ref/netcoreapp2.0/_._",
         "ref/netstandard2.0/_._",
         "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
-        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "ref/uap10.0.16299/_._",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.valuetuple.4.4.0.nupkg.sha512",
+        "system.valuetuple.4.5.0.nupkg.sha512",
         "system.valuetuple.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -14551,7 +14600,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "IffleyRoutesRecord.Logic >= 1.0.0",
-      "Microsoft.AspNetCore.All >= 2.0.8",
+      "Microsoft.AspNetCore.All >= 2.1.3",
       "Microsoft.AspNetCore.App >= 2.1.3",
       "Microsoft.CodeAnalysis.FxCopAnalyzers >= 2.6.1",
       "Microsoft.EntityFrameworkCore.Sqlite >= 2.1.2",
@@ -14606,7 +14655,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.All": {
             "target": "Package",
-            "version": "[2.0.8, )"
+            "version": "[2.1.3, )"
           },
           "Microsoft.AspNetCore.App": {
             "target": "Package",

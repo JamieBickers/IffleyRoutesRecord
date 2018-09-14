@@ -4,7 +4,7 @@ using System;
 
 namespace IffleyRoutesRecord.Controllers
 {
-    [Route("test")]
+    [Route("[controller]")]
     [ApiController]
     public class TestController : ControllerBase
     {
@@ -12,7 +12,7 @@ namespace IffleyRoutesRecord.Controllers
         public IActionResult Shutdown()
         {
             Environment.Exit(0);
-            throw new Exception();
+            throw new InvalidOperationException();
         }
     }
 }

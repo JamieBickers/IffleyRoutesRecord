@@ -1,6 +1,7 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.Interfaces;
-using IffleyRoutesRecord.Logic.Models;
+using IffleyRoutesRecord.Logic.Managers;
+using IffleyRoutesRecord.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,7 @@ namespace IffleyRoutesRecord
             services.AddMvc();
             services.AddDbContext<IffleyRoutesRecordContext>(
                 options => options.UseSqlite(@"Data Source=C:\Users\bicke\OneDrive\Desktop\IffleyRoutesRecord\IffleyRoutes.db;"));
+            services.AddMemoryCache();
 
             services.AddTransient<IStyleSymbolManager, StyleSymbolManager>();
             services.AddTransient<IRuleManager, RuleManager>();
@@ -48,11 +50,12 @@ namespace IffleyRoutesRecord
 
             app.UseStaticFiles();
 
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller}/{action}/{id?}");
             });
         }
     }

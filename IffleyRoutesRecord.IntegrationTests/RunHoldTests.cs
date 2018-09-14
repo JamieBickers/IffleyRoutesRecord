@@ -1,36 +1,25 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Sent;
-using Newtonsoft.Json;
+﻿using IffleyRoutesRecord.Logic.DTOs.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord.IntegrationTests
 {
     public static class RunHoldTests
     {
-        public static async Task Run(Uri baseUri, HttpClient httpClient)
+        public static async Task Run(Uri baseUri, TestRunner testRunner)
         {
             var holdUri = new Uri(baseUri, "hold/");
+            var hold1Uri = new Uri(holdUri, "1");
 
-            string getResult = (await (await httpClient.GetAsync(new Uri(holdUri, "1"))).Content.ReadAsStringAsync()).ToLower();
-            string expectedGetResult = JsonConvert.SerializeObject(hold).ToLower();
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(hold1Uri, hold);
 
-            var getResults = (await (await httpClient.GetAsync(holdUri)).Content.ReadAsAsync<IEnumerable<HoldDto>>());
-
-            if (getResults.Count() < 117)
-            {
-                throw new Exception();
-            }
-
-            if (getResults.Any(holdResult => holdResult.HoldId == 0 || string.IsNullOrWhiteSpace(holdResult.Name)))
-            {
-                throw new Exception();
-            }
+            await testRunner.GetAndAssertResultSatisfiesPredicateAsync<IEnumerable<HoldResponse>>(holdUri,
+                result => result.Count() >= 117 && !result.Any(holdResult => holdResult.HoldId == 0 || string.IsNullOrWhiteSpace(holdResult.Name)));
         }
 
-        private static readonly HoldDto hold = new HoldDto()
+        private static readonly HoldResponse hold = new HoldResponse()
         {
             HoldId = 1,
             Name = "1"

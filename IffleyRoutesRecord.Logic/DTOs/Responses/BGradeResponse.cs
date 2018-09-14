@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IffleyRoutesRecord.Logic.DTOs.Sent
+namespace IffleyRoutesRecord.Logic.DTOs.Responses
 {
-    public class BGradeDto : BaseGradeDto
+    public class BGradeResponse : BaseGradeResponse
     {
     }
 }

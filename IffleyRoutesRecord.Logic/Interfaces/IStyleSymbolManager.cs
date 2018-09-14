@@ -1,13 +1,13 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Sent;
+﻿using IffleyRoutesRecord.Logic.DTOs.Responses;
 using System.Collections.Generic;
 
 namespace IffleyRoutesRecord.Logic.Interfaces
 {
     public interface IStyleSymbolManager
     {
-        StyleSymbolDto GetStyleSymbol(int styleSymbolId);
-        IEnumerable<StyleSymbolDto> GetStyleSymbols();
-        IEnumerable<StyleSymbolDto> GetStyleSymbolsOnProblem(int problemId);
+        StyleSymbolResponse GetStyleSymbol(int styleSymbolId);
+        IEnumerable<StyleSymbolResponse> GetStyleSymbols();
+        IEnumerable<StyleSymbolResponse> GetStyleSymbolsOnProblem(int problemId);
         void AddProblemStyleSymbolsToDatabase(IEnumerable<int> styleSymbolIds, int problemId);
     }
 }

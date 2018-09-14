@@ -2,12 +2,10 @@
 
 namespace IffleyRoutesRecord.Logic.Entities
 {
-    public abstract class BaseGrade
+    public abstract class BaseGrade : BaseNamedEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public int Rank { get; set; }
 
-        public List<Problem> Problems { get; set; }
+        public List<Problem> Problems { get; private set; }
     }
 }

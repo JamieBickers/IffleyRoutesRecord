@@ -1,6 +1,6 @@
-﻿namespace IffleyRoutesRecord.Logic.DTOs.Sent
+﻿namespace IffleyRoutesRecord.Logic.DTOs.Responses
 {
-    public class ProblemRuleDto
+    public class ProblemRuleResponse
     {
         public int ProblemRuleId { get; set; }
         public string Name { get; set; }

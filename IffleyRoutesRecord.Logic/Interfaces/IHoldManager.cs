@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using IffleyRoutesRecord.Logic.DTOs.Received;
-using IffleyRoutesRecord.Logic.DTOs.Sent;
+using IffleyRoutesRecord.Logic.DTOs.Requests;
+using IffleyRoutesRecord.Logic.DTOs.Responses;
 
 namespace IffleyRoutesRecord.Logic.Interfaces
 {
     public interface IHoldManager
     {
-        HoldDto GetHold(int holdId);
-        IEnumerable<HoldDto> GetHolds();
-        IList<HoldOnProblemDto> GetHoldsOnProblem(int problemId);
-        void AddProblemHoldsToDatabase(IList<CreateHoldOnProblemDto> holds, int problemId);
+        HoldResponse GetHold(int holdId);
+        IEnumerable<HoldResponse> GetHolds();
+        IList<HoldOnProblemResponse> GetHoldsOnProblem(int problemId);
+        void AddProblemHoldsToDatabase(IList<CreateHoldOnProblemRequest> holds, int problemId);
     }
 }

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IffleyRoutesRecord.Logic.DTOs.Sent;
+using IffleyRoutesRecord.Logic.DTOs.Responses;
 using IffleyRoutesRecord.Logic.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IffleyRoutesRecord.Controllers
 {
-    [Route("rule")]
+    [Route("[controller]")]
     [ApiController]
     public class RuleController : ControllerBase
     {
@@ -21,25 +21,25 @@ namespace IffleyRoutesRecord.Controllers
         }
 
         [HttpGet("problem/{ruleId}")]
-        public ActionResult<ProblemRuleDto> GetProblemRule(int ruleId)
+        public ActionResult<ProblemRuleResponse> GetProblemRule(int ruleId)
         {
             return ruleManager.GetProblemRule(ruleId);
         }
 
         [HttpGet("problem")]
-        public ActionResult<IEnumerable<ProblemRuleDto>> GetProblemRules()
+        public ActionResult<IEnumerable<ProblemRuleResponse>> GetProblemRules()
         {
             return ruleManager.GetAllProblemRules().ToList();
         }
 
         [HttpGet("hold/{ruleId}")]
-        public ActionResult<HoldRuleDto> GetHoldRule(int ruleId)
+        public ActionResult<HoldRuleResponse> GetHoldRule(int ruleId)
         {
             return ruleManager.GetHoldRule(ruleId);
         }
 
         [HttpGet("hold")]
-        public ActionResult<IEnumerable<HoldRuleDto>> GetHoldRules()
+        public ActionResult<IEnumerable<HoldRuleResponse>> GetHoldRules()
         {
             return ruleManager.GetAllHoldRules().ToList();
         }

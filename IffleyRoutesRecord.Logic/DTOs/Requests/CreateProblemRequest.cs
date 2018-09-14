@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace IffleyRoutesRecord.Logic.DTOs.Received
+namespace IffleyRoutesRecord.Logic.DTOs.Requests
 {
-    public class CreateProblemDto : IValidatableObject
+    public class CreateProblemRequest : IValidatableObject
     {
         [Required]
         [MaxLength(100)]
@@ -29,8 +29,8 @@ namespace IffleyRoutesRecord.Logic.DTOs.Received
         [Range(1, int.MaxValue)]
         public int? FurlongGradeId { get; set; }
 
-        public IList<CreateHoldOnProblemDto> Holds { get; set; }
-        public IEnumerable<CreateProblemRuleDto> NewRules { get; set; }
+        public IList<CreateHoldOnProblemRequest> Holds { get; set; }
+        public IEnumerable<CreateProblemRuleRequest> NewRules { get; set; }
         public IEnumerable<int> ExistingRuleIds { get; set; }
         public IEnumerable<int> StyleSymbolIds { get; set; }
 

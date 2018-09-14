@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IffleyRoutesRecord.Logic.DTOs.Sent;
+using IffleyRoutesRecord.Logic.DTOs.Responses;
 using IffleyRoutesRecord.Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IffleyRoutesRecord.Controllers
 {
-    [Route("hold")]
+    [Route("[controller]")]
     [ApiController]
     public class HoldController : ControllerBase
     {
@@ -18,13 +18,15 @@ namespace IffleyRoutesRecord.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<HoldDto>> GetHolds()
+        [ResponseCache(Duration = 60 * 60 * 24)]
+        public ActionResult<IEnumerable<HoldResponse>> GetHolds()
         {
             return holdManager.GetHolds().ToList();
         }
 
         [HttpGet("{holdId}")]
-        public ActionResult<HoldDto> GetHold(int holdId)
+        [ResponseCache(Duration = 60 * 60 * 24)]
+        public ActionResult<HoldResponse> GetHold(int holdId)
         {
             return holdManager.GetHold(holdId);
         }

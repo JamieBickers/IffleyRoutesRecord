@@ -1,115 +1,80 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Received;
-using IffleyRoutesRecord.Logic.DTOs.Sent;
-using Newtonsoft.Json;
+﻿using IffleyRoutesRecord.Logic.DTOs.Requests;
+using IffleyRoutesRecord.Logic.DTOs.Responses;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
+using System.Globalization;
 using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord.IntegrationTests
 {
     static class RunProblemTests
     {
-        public static async Task Run(Uri baseUri, HttpClient httpClient)
+        public static async Task Run(Uri baseUri, TestRunner testRunner)
         {
             var problemUri = new Uri(baseUri, "problem/");
-
-            var problemToCreate1 = ProblemToCreate1;
-            var problemToCreate2 = ProblemToCreate2;
-
-            string asJsonString1 = JsonConvert.SerializeObject(problemToCreate1);
-            string asJsonString2 = JsonConvert.SerializeObject(problemToCreate2);
-
-            var putResult1 = await httpClient.PutAsync(problemUri, new StringContent(asJsonString1, Encoding.UTF8, "application/json"));
-            var putResult2 = await httpClient.PutAsync(problemUri, new StringContent(asJsonString2, Encoding.UTF8, "application/json"));
-
-            string expectedGetResult1 = JsonConvert.SerializeObject(ProblemToRead1).ToLower();
-            string expectedGetResult2 = JsonConvert.SerializeObject(ProblemToRead2).ToLower();
-
-            if (!putResult1.IsSuccessStatusCode || !putResult2.IsSuccessStatusCode)
-            {
-                throw new Exception();
-            }
-
-            string putResultContent1 = (await putResult1.Content.ReadAsStringAsync()).ToLower();
-            string putResultContent2 = (await putResult2.Content.ReadAsStringAsync()).ToLower();
-            if (putResultContent1 != expectedGetResult1 || putResultContent2 != expectedGetResult2)
-            {
-                throw new Exception();
-            }
-
             var problem1Uri = new Uri(problemUri, "1");
             var problem2Uri = new Uri(problemUri, "2");
 
-            var getResult1 = await httpClient.GetAsync(problem1Uri);
-            var getResult2 = await httpClient.GetAsync(problem2Uri);
+            await testRunner.PostAndAssertResultEqualsAsync(problemUri, ProblemToCreate1, ProblemToRead1);
+            await testRunner.PostAndAssertResultEqualsAsync(problemUri, ProblemToCreate2, ProblemToRead2);
 
-            string getResultContent1 = (await getResult1.Content.ReadAsStringAsync()).ToLower();
-            string getResultContent2 = (await getResult2.Content.ReadAsStringAsync()).ToLower();
-
-            if (expectedGetResult1 != getResultContent1 || expectedGetResult2 != getResultContent2)
-            {
-                throw new Exception();
-            }
-
-            string getResults = (await (await httpClient.GetAsync(problemUri)).Content.ReadAsStringAsync()).ToLower();
-            string expectedResults = JsonConvert.SerializeObject(ProblemsToRead).ToLower();
-
-            if (getResults != expectedResults)
-            {
-                throw new Exception();
-            }
+            // Do in this order with repition to test with and without caching
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(problem1Uri, ProblemToRead1);
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(problemUri, ProblemsToRead);
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(problem2Uri, ProblemToRead2);
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(problemUri, ProblemsToRead);
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(problem1Uri, ProblemToRead1);
+            await testRunner.GetAndAssertResultEqualsExpectedAsync(problem2Uri, ProblemToRead2);
         }
 
-        private static readonly ProblemDto ProblemToRead1 = new ProblemDto()
+        private static readonly ProblemResponse ProblemToRead1 = new ProblemResponse()
         {
             ProblemId = 1,
             Name = "Test Problem 1",
             Description = "Test Description 1",
-            DateSet = DateTimeOffset.Parse("2018-01-01"),
+            DateSet = DateTimeOffset.Parse("2018-01-01", CultureInfo.InvariantCulture),
             FirstAscent = "Test First Ascent",
-            TechGrade = new TechGradeDto()
+            TechGrade = new TechGradeResponse()
             {
                 GradeId = 1,
                 Name = "4a-",
                 Rank = 1
             },
-            BGrade = new BGradeDto()
+            BGrade = new BGradeResponse()
             {
                 GradeId = 1,
                 Name = "B0",
                 Rank = 1
             },
-            PoveyGrade = new PoveyGradeDto()
+            PoveyGrade = new PoveyGradeResponse()
             {
                 GradeId = 1,
                 Name = "Easy",
                 Rank = 1
             },
-            FurlongGrade = new FurlongGradeDto()
+            FurlongGrade = new FurlongGradeResponse()
             {
                 GradeId = 1,
                 Name = "A",
                 Rank = 1
             },
-            Holds = new List<HoldOnProblemDto>()
+            Holds = new List<HoldOnProblemResponse>()
             {
-                new HoldOnProblemDto()
+                new HoldOnProblemResponse()
                 {
                     HoldId = 46,
                     Name = "46",
                     IsStandingStartHold = true,
-                    HoldRules = new List<HoldRuleDto>()
+                    HoldRules = new List<HoldRuleResponse>()
                 },
-                new HoldOnProblemDto()
+                new HoldOnProblemResponse()
                 {
                     HoldId = 45,
                     Name = "45",
                     IsStandingStartHold = true,
-                    HoldRules = new List<HoldRuleDto>()
+                    HoldRules = new List<HoldRuleResponse>()
                     {
-                        new HoldRuleDto()
+                        new HoldRuleResponse()
                         {
                             HoldRuleId = 1,
                             Name = "Slope Only"
@@ -117,29 +82,29 @@ namespace IffleyRoutesRecord.IntegrationTests
                     }
                 }
             },
-            Rules = new List<ProblemRuleDto>()
+            Rules = new List<ProblemRuleResponse>()
             {
-                new ProblemRuleDto()
+                new ProblemRuleResponse()
                 {
                     ProblemRuleId = 1,
                     Name = "No Chips"
                 }
             },
-            StyleSymbols = new List<StyleSymbolDto>()
+            StyleSymbols = new List<StyleSymbolResponse>()
             {
-                new StyleSymbolDto()
+                new StyleSymbolResponse()
                 {
                     StyleSymbolId = 1,
                     Name = "One Star",
                     Description = ""
                 },
-                new StyleSymbolDto()
+                new StyleSymbolResponse()
                 {
                     StyleSymbolId = 2,
                     Name = "Two Stars",
                     Description = ""
                 },
-                new StyleSymbolDto()
+                new StyleSymbolResponse()
                 {
                     StyleSymbolId = 3,
                     Name = "Three Stars",
@@ -148,35 +113,35 @@ namespace IffleyRoutesRecord.IntegrationTests
             }
         };
 
-        private static readonly ProblemDto ProblemToRead2 = new ProblemDto()
+        private static readonly ProblemResponse ProblemToRead2 = new ProblemResponse()
         {
             ProblemId = 2,
             Name = "Test Problem 2",
             Description = "Test Description 2",
             FirstAscent = "Test First Ascent",
-            TechGrade = new TechGradeDto()
+            TechGrade = new TechGradeResponse()
             {
                 GradeId = 1,
                 Name = "4a-",
                 Rank = 1
             },
-            Holds = new List<HoldOnProblemDto>()
+            Holds = new List<HoldOnProblemResponse>()
             {
-                new HoldOnProblemDto()
+                new HoldOnProblemResponse()
                 {
                     HoldId = 85,
                     Name = "85",
                     IsStandingStartHold = true,
-                    HoldRules = new List<HoldRuleDto>()
+                    HoldRules = new List<HoldRuleResponse>()
                 },
-                new HoldOnProblemDto()
+                new HoldOnProblemResponse()
                 {
                     HoldId = 55,
                     Name = "55",
                     IsStandingStartHold = true,
-                    HoldRules = new List<HoldRuleDto>()
+                    HoldRules = new List<HoldRuleResponse>()
                     {
-                        new HoldRuleDto()
+                        new HoldRuleResponse()
                         {
                             HoldRuleId = 1,
                             Name = "Slope Only"
@@ -184,49 +149,49 @@ namespace IffleyRoutesRecord.IntegrationTests
                     }
                 }
             },
-            Rules = new List<ProblemRuleDto>(),
-            StyleSymbols = new List<StyleSymbolDto>()
+            Rules = new List<ProblemRuleResponse>(),
+            StyleSymbols = new List<StyleSymbolResponse>()
         };
 
-        private static readonly List<ProblemDto> ProblemsToRead = new List<ProblemDto>()
+        private static readonly List<ProblemResponse> ProblemsToRead = new List<ProblemResponse>()
         {
             ProblemToRead1,
             ProblemToRead2
         };
 
-        private static CreateProblemDto ProblemToCreate1 = new CreateProblemDto()
+        private static readonly CreateProblemRequest ProblemToCreate1 = new CreateProblemRequest()
         {
             Name = "Test Problem 1",
             Description = "Test Description 1",
-            DateSet = DateTimeOffset.Parse("2018-01-01"),
+            DateSet = DateTimeOffset.Parse("2018-01-01", CultureInfo.InvariantCulture),
             FirstAscent = "Test First Ascent",
             TechGradeId = 1,
             BGradeId = 1,
             PoveyGradeId = 1,
             FurlongGradeId = 1,
-            Holds = new List<CreateHoldOnProblemDto>()
+            Holds = new List<CreateHoldOnProblemRequest>()
                     {
-                        new CreateHoldOnProblemDto()
+                        new CreateHoldOnProblemRequest()
                         {
                             HoldId = 46,
                             IsStandingStartHold = true
                         },
-                        new CreateHoldOnProblemDto()
+                        new CreateHoldOnProblemRequest()
                         {
                             HoldId = 45,
                             IsStandingStartHold = true,
-                            NewHoldRules = new List<CreateHoldRuleDto>()
+                            NewHoldRules = new List<CreateHoldRuleRequest>()
                             {
-                                new CreateHoldRuleDto()
+                                new CreateHoldRuleRequest()
                                 {
                                     Name = "Slope Only"
                                 }
                             }
                         }
                     },
-            NewRules = new List<CreateProblemRuleDto>()
+            NewRules = new List<CreateProblemRuleRequest>()
                     {
-                        new CreateProblemRuleDto()
+                        new CreateProblemRuleRequest()
                         {
                             Name = "No Chips"
                         }
@@ -234,21 +199,21 @@ namespace IffleyRoutesRecord.IntegrationTests
             StyleSymbolIds = new List<int>() { 1, 2, 3 }
         };
 
-        private static readonly CreateProblemDto ProblemToCreate2 = new CreateProblemDto()
+        private static readonly CreateProblemRequest ProblemToCreate2 = new CreateProblemRequest()
         {
             Name = "Test Problem 2",
             Description = "Test Description 2",
             DateSet = null,
             FirstAscent = "Test First Ascent",
             TechGradeId = 1,
-            Holds = new List<CreateHoldOnProblemDto>()
+            Holds = new List<CreateHoldOnProblemRequest>()
             {
-                new CreateHoldOnProblemDto()
+                new CreateHoldOnProblemRequest()
                 {
                     HoldId = 85,
                     IsStandingStartHold = true
                 },
-                new CreateHoldOnProblemDto()
+                new CreateHoldOnProblemRequest()
                 {
                     HoldId = 55,
                     IsStandingStartHold = true,

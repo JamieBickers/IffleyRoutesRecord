@@ -1,4 +1,4 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Sent;
+﻿using IffleyRoutesRecord.Logic.DTOs.Responses;
 using IffleyRoutesRecord.Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace IffleyRoutesRecord.Controllers
 {
-    [Route("styleSymbol")]
+    [Route("[controller]")]
     [ApiController]
     public class StyleSymbolController : Controller
     {
@@ -18,13 +18,15 @@ namespace IffleyRoutesRecord.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<StyleSymbolDto>> GetStyleSymbols()
+        [ResponseCache(Duration = 60 * 60 * 24)]
+        public ActionResult<IEnumerable<StyleSymbolResponse>> GetStyleSymbols()
         {
             return styleSymbolManager.GetStyleSymbols().ToList();
         }
 
         [HttpGet("{styleSymbolId}")]
-        public ActionResult<StyleSymbolDto> GetStyleSymbol(int styleSymbolId)
+        [ResponseCache(Duration = 60 * 60 * 24)]
+        public ActionResult<StyleSymbolResponse> GetStyleSymbol(int styleSymbolId)
         {
             return styleSymbolManager.GetStyleSymbol(styleSymbolId);
         }

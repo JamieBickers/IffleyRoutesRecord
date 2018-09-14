@@ -6,22 +6,23 @@ using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord.IntegrationTests
 {
-    class Program
+    internal static class Program
     {
         static async Task Main()
         {
             ResetDatabase();
 
             var baseUri = new Uri("http://localhost:61469/");
-            var httpClient = HttpClientFactory.Create();
+            var clientApi = new ClientApi(HttpClientFactory.Create());
+            var testRunner = new TestRunner(clientApi);
 
-            //TODO: Add rule tests
-            await Task.WhenAll(
-                RunProblemTests.Run(baseUri, httpClient),
-                RunStyleSymbolTests.Run(baseUri, httpClient),
-                RunHoldTests.Run(baseUri, httpClient));
+            await RunProblemTests.Run(baseUri, testRunner);
+            await RunStyleSymbolTests.Run(baseUri, testRunner);
+            await RunHoldTests.Run(baseUri, testRunner);
+            await RunRuleTests.Run(baseUri, testRunner);
+            await RunGradeTests.Run(baseUri, testRunner);
 
-            await Shutdown(baseUri, httpClient);
+            await clientApi.ShutdownAsync(baseUri);
         }
 
         private static void ResetDatabase()
@@ -32,11 +33,6 @@ namespace IffleyRoutesRecord.IntegrationTests
             command.CommandText = File.ReadAllText(@"C:\Users\bicke\OneDrive\Desktop\IffleyRoutesRecord\SQL\ResetDatabase.sql");
             command.ExecuteNonQuery();
             connection.Close();
-        }
-
-        private static async Task Shutdown(Uri baseUri, HttpClient httpClient)
-        {
-            await httpClient.GetAsync(new Uri(baseUri, "test/shutdown"));
         }
     }
 }

@@ -1,53 +1,78 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Sent;
+using IffleyRoutesRecord.Logic.DTOs.Responses;
 using IffleyRoutesRecord.Logic.Entities;
 using IffleyRoutesRecord.Logic.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IffleyRoutesRecord.Logic.Models
+namespace IffleyRoutesRecord.Logic.Managers
 {
     public class ProblemReader : IProblemReader
     {
         private readonly IffleyRoutesRecordContext iffleyRoutesRecordContext;
+        private readonly IMemoryCache cache;
         private readonly IStyleSymbolManager styleSymbolManager;
         private readonly IRuleManager ruleManager;
         private readonly IHoldManager holdManager;
         private readonly IGradeManager gradeManager;
 
-        public ProblemReader(IffleyRoutesRecordContext iffleyRoutesRecordContext, IStyleSymbolManager styleSymbolManager,
+        public ProblemReader(IffleyRoutesRecordContext iffleyRoutesRecordContext, IMemoryCache cache, IStyleSymbolManager styleSymbolManager,
             IRuleManager ruleManager, IHoldManager holdManager, IGradeManager gradeManager)
         {
             this.iffleyRoutesRecordContext = iffleyRoutesRecordContext;
+            this.cache = cache;
             this.styleSymbolManager = styleSymbolManager;
             this.ruleManager = ruleManager;
             this.holdManager = holdManager;
             this.gradeManager = gradeManager;
         }
 
-        public ProblemDto GetProblem(int problemId)
+        public ProblemResponse GetProblem(int problemId)
         {
-            var problem = GetProblemFromDatabase(problemId);
+            if (cache.TryRetrieveItemWithId<ProblemResponse>(problemId, problem => problem.ProblemId, out var problemResponse))
+            {
+                return problemResponse;
+            }
 
-            if (problem is null)
+            var problemDbo = GetProblemFromDatabase(problemId);
+
+            if (problemDbo is null)
             {
                 return null;
             }
 
-            return CreateProblemDto(problem);
+            problemResponse = CreateProblemResponse(problemDbo);
+
+            return problemResponse;
         }
 
-        public IEnumerable<ProblemDto> GetProblems()
+        public IEnumerable<ProblemResponse> GetProblems()
         {
-            return iffleyRoutesRecordContext
+            if (cache.TryRetrieveAllItems<ProblemResponse>(out var problems))
+            {
+                return problems;
+            }
+
+            problems = iffleyRoutesRecordContext
                 .Problem
                 .AsEnumerable()
-                .Select(problem => CreateProblemDto(problem));
+                .Select(problem => CreateProblemResponse(problem));
+
+            cache.CacheListOfItems(problems, CacheItemPriority.Normal);
+
+            return problems;
         }
 
-        private ProblemDto CreateProblemDto(Problem problem)
+        private ProblemResponse CreateProblemResponse(Problem problem)
         {
-            return new ProblemDto()
+            if (problem is null)
+            {
+                throw new ArgumentNullException(nameof(problem));
+            }
+
+            return new ProblemResponse()
             {
                 ProblemId = problem.Id,
                 Name = problem.Name,
@@ -59,8 +84,8 @@ namespace IffleyRoutesRecord.Logic.Models
                 PoveyGrade = gradeManager.GetPoveyGradeOnProblem(problem.Id),
                 FurlongGrade = gradeManager.GetFurlongGradeOnProblem(problem.Id),
                 Holds = holdManager.GetHoldsOnProblem(problem.Id),
-                Rules = ruleManager.GetProblemRules(problem.Id),
-                StyleSymbols = styleSymbolManager.GetStyleSymbolsOnProblem(problem.Id)
+                Rules = ruleManager.GetProblemRules(problem.Id).ToList(),
+                StyleSymbols = styleSymbolManager.GetStyleSymbolsOnProblem(problem.Id).ToList()
             };
         }
 

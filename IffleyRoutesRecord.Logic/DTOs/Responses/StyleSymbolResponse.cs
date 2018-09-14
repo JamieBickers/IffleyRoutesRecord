@@ -1,6 +1,6 @@
-﻿namespace IffleyRoutesRecord.Logic.DTOs.Sent
+﻿namespace IffleyRoutesRecord.Logic.DTOs.Responses
 {
-    public class StyleSymbolDto
+    public class StyleSymbolResponse
     {
         public int StyleSymbolId { get; set; }
         public string Name { get; set; }

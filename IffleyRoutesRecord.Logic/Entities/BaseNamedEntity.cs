@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IffleyRoutesRecord.Logic.DTOs.Sent
+namespace IffleyRoutesRecord.Logic.Entities
 {
-    public class HoldDto
+    public abstract class BaseNamedEntity : BaseEntity
     {
-        public int HoldId { get; set; }
         public string Name { get; set; }
     }
 }

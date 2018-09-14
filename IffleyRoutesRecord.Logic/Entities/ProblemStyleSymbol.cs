@@ -1,8 +1,7 @@
 ﻿namespace IffleyRoutesRecord.Logic.Entities
 {
-    public class ProblemStyleSymbol
+    public class ProblemStyleSymbol : BaseEntity
     {
-        public int Id { get; set; }
         public int ProblemId { get; set; }
         public int StyleSymbolId { get; set; }
 

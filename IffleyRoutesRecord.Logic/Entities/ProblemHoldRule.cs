@@ -1,8 +1,7 @@
 ﻿namespace IffleyRoutesRecord.Logic.Entities
 {
-    public class ProblemHoldRule
+    public class ProblemHoldRule : BaseEntity
     {
-        public int Id { get; set; }
         public int ProblemHoldId { get; set; }
         public int HoldRuleId { get; set; }
 
