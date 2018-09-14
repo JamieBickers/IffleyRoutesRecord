@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IffleyRoutesRecord.Logic.DataAccess
 {
+    /// <summary>
+    /// Repository for all problem related entities
+    /// </summary>
     public class IffleyRoutesRecordContext : DbContext
     {
         public IffleyRoutesRecordContext(DbContextOptions<IffleyRoutesRecordContext> options) : base(options)

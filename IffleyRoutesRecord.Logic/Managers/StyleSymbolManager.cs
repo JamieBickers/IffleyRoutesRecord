@@ -12,12 +12,12 @@ namespace IffleyRoutesRecord.Logic.Managers
 {
     public class StyleSymbolManager : IStyleSymbolManager
     {
-        private readonly IffleyRoutesRecordContext iffleyRoutesRecordContext;
+        private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
 
-        public StyleSymbolManager(IffleyRoutesRecordContext iffleyRoutesRecordContext, IMemoryCache cache)
+        public StyleSymbolManager(IffleyRoutesRecordContext repository, IMemoryCache cache)
         {
-            this.iffleyRoutesRecordContext = iffleyRoutesRecordContext;
+            this.repository = repository;
             this.cache = cache;
         }
 
@@ -29,7 +29,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return styleSymbolResponse;
             }
 
-            var styleSymbol = iffleyRoutesRecordContext.StyleSymbol.Single(symbol => symbol.Id == styleSymbolId);
+            var styleSymbol = repository.StyleSymbol.Single(symbol => symbol.Id == styleSymbolId);
             return CreateStyleSymbolResponse(styleSymbol);
         }
 
@@ -40,7 +40,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return styleSymbolsFromCache;
             }
 
-            var styleSymbols = iffleyRoutesRecordContext.StyleSymbol.Select(CreateStyleSymbolResponse);
+            var styleSymbols = repository.StyleSymbol.Select(CreateStyleSymbolResponse);
             cache.CacheListOfItems(styleSymbols, CacheItemPriority.High);
 
             return styleSymbols;
@@ -48,7 +48,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public IEnumerable<StyleSymbolResponse> GetStyleSymbolsOnProblem(int problemId)
         {
-            var problem = iffleyRoutesRecordContext
+            var problem = repository
                 .Problem
                 .Include(problemDbo => problemDbo.ProblemStyleSymbols)
                 .ThenInclude(problemStyleSymbol => problemStyleSymbol.StyleSymbol)
@@ -62,38 +62,6 @@ namespace IffleyRoutesRecord.Logic.Managers
                     Name = problemStyleSymbol.StyleSymbol.Name,
                     Description = problemStyleSymbol.StyleSymbol.Description
                 });
-        }
-
-        public void AddProblemStyleSymbolsToDatabase(IEnumerable<int> styleSymbolIds, int problemId)
-        {
-            if (styleSymbolIds != null)
-            {
-                ValidateAddProblemStyleSymbolsRequest(styleSymbolIds, problemId);
-
-                foreach (int styleSymbolId in styleSymbolIds)
-                {
-                    iffleyRoutesRecordContext.ProblemStyleSymbol.Add(new ProblemStyleSymbol()
-                    {
-                        StyleSymbolId = styleSymbolId,
-                        ProblemId = problemId
-                    });
-                }
-            }
-        }
-
-        private void ValidateAddProblemStyleSymbolsRequest(IEnumerable<int> styleSymbolIds, int problemId)
-        {
-            if (styleSymbolIds is null)
-            {
-                throw new ArgumentNullException(nameof(styleSymbolIds));
-            }
-
-            iffleyRoutesRecordContext.Problem.VerifyEntityWithIdExists(problemId);
-
-            foreach (int styleSymbolId in styleSymbolIds)
-            {
-                iffleyRoutesRecordContext.StyleSymbol.VerifyEntityWithIdExists(styleSymbolId);
-            }
         }
 
         private StyleSymbolResponse CreateStyleSymbolResponse(StyleSymbol styleSymbol)

@@ -2,6 +2,9 @@
 
 namespace IffleyRoutesRecord.Logic.Exceptions
 {
+    /// <summary>
+    /// The exception thrown when the name being used already exists in the database
+    /// </summary>
     public class EntityWithNameAlreadyExistsException : Exception
     {
         public EntityWithNameAlreadyExistsException()

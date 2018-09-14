@@ -8,6 +8,5 @@ namespace IffleyRoutesRecord.Logic.Interfaces
         StyleSymbolResponse GetStyleSymbol(int styleSymbolId);
         IEnumerable<StyleSymbolResponse> GetStyleSymbols();
         IEnumerable<StyleSymbolResponse> GetStyleSymbolsOnProblem(int problemId);
-        void AddProblemStyleSymbolsToDatabase(IEnumerable<int> styleSymbolIds, int problemId);
     }
 }

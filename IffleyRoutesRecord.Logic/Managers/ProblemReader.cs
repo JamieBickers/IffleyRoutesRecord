@@ -11,17 +11,17 @@ namespace IffleyRoutesRecord.Logic.Managers
 {
     public class ProblemReader : IProblemReader
     {
-        private readonly IffleyRoutesRecordContext iffleyRoutesRecordContext;
+        private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
         private readonly IStyleSymbolManager styleSymbolManager;
         private readonly IRuleManager ruleManager;
         private readonly IHoldManager holdManager;
         private readonly IGradeManager gradeManager;
 
-        public ProblemReader(IffleyRoutesRecordContext iffleyRoutesRecordContext, IMemoryCache cache, IStyleSymbolManager styleSymbolManager,
+        public ProblemReader(IffleyRoutesRecordContext repository, IMemoryCache cache, IStyleSymbolManager styleSymbolManager,
             IRuleManager ruleManager, IHoldManager holdManager, IGradeManager gradeManager)
         {
-            this.iffleyRoutesRecordContext = iffleyRoutesRecordContext;
+            this.repository = repository;
             this.cache = cache;
             this.styleSymbolManager = styleSymbolManager;
             this.ruleManager = ruleManager;
@@ -36,7 +36,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return problemResponse;
             }
 
-            var problemDbo = GetProblemFromDatabase(problemId);
+            var problemDbo = repository.Problem.SingleOrDefault(route => route.Id == problemId);
 
             if (problemDbo is null)
             {
@@ -55,7 +55,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return problems;
             }
 
-            problems = iffleyRoutesRecordContext
+            problems = repository
                 .Problem
                 .AsEnumerable()
                 .Select(problem => CreateProblemResponse(problem));
@@ -65,6 +65,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             return problems;
         }
 
+        //TODO: Simplify?
         private ProblemResponse CreateProblemResponse(Problem problem)
         {
             if (problem is null)
@@ -87,11 +88,6 @@ namespace IffleyRoutesRecord.Logic.Managers
                 Rules = ruleManager.GetProblemRules(problem.Id).ToList(),
                 StyleSymbols = styleSymbolManager.GetStyleSymbolsOnProblem(problem.Id).ToList()
             };
-        }
-
-        private Problem GetProblemFromDatabase(int problemId)
-        {
-            return iffleyRoutesRecordContext.Problem.SingleOrDefault(route => route.Id == problemId);
         }
     }
 }

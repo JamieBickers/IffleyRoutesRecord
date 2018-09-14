@@ -11,7 +11,6 @@ namespace IffleyRoutesRecord.Logic.Interfaces
         IEnumerable<ProblemRuleResponse> GetAllProblemRules();
         IEnumerable<HoldRuleResponse> GetHoldRules(int holdId, int problemId);
         IEnumerable<ProblemRuleResponse> GetProblemRules(int problemId);
-        void AddRulesToDatabase(IEnumerable<CreateProblemRuleRequest> newRules, IEnumerable<int> existingRuleIds, int problemId);
         HoldRuleResponse GetHoldRule(int ruleId);
         IEnumerable<HoldRuleResponse> GetAllHoldRules();
     }

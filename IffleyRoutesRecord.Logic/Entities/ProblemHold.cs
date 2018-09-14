@@ -12,6 +12,6 @@ namespace IffleyRoutesRecord.Logic.Entities
         public Problem Problem { get; set; }
         public Hold Hold { get; set; }
 
-        public List<ProblemHoldRule> ProblemHoldRules { get; private set; }
+        public ICollection<ProblemHoldRule> ProblemHoldRules { get; set; }
     }
 }

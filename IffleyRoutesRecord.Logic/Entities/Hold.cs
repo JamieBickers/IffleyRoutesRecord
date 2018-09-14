@@ -7,7 +7,7 @@ namespace IffleyRoutesRecord.Logic.Entities
         public int? ParentHoldId { get; set; }
         public Hold ParentHold { get; set; }
 
-        public List<ProblemHold> ProblemHolds { get; private set; }
-        public List<Hold> ParentHolds { get; private set; }
+        public ICollection<ProblemHold> ProblemHolds { get; private set; }
+        public ICollection<Hold> ParentHolds { get; private set; }
     }
 }

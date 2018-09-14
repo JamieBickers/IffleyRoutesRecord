@@ -12,12 +12,12 @@ namespace IffleyRoutesRecord.Logic.Managers
 {
     public class RuleManager : IRuleManager
     {
-        private readonly IffleyRoutesRecordContext iffleyRoutesRecordContext;
+        private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
 
-        public RuleManager(IffleyRoutesRecordContext iffleyRoutesRecordContext, IMemoryCache cache)
+        public RuleManager(IffleyRoutesRecordContext repository, IMemoryCache cache)
         {
-            this.iffleyRoutesRecordContext = iffleyRoutesRecordContext;
+            this.repository = repository;
             this.cache = cache;
         }
 
@@ -28,7 +28,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return problemRule;
             }
 
-            var rule = iffleyRoutesRecordContext.GeneralRule.Single(ruleDbo => ruleDbo.Id == ruleId);
+            var rule = repository.GeneralRule.Single(ruleDbo => ruleDbo.Id == ruleId);
             return CreateProblemRuleResponse(rule);
         }
 
@@ -39,7 +39,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return rules;
             }
 
-            var ruleResponses = iffleyRoutesRecordContext.GeneralRule.Select(CreateProblemRuleResponse);
+            var ruleResponses = repository.GeneralRule.Select(CreateProblemRuleResponse);
             cache.CacheListOfItems(ruleResponses, CacheItemPriority.Normal);
 
             return ruleResponses;
@@ -52,7 +52,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return holdRule;
             }
 
-            var rule = iffleyRoutesRecordContext.HoldRule.Single(ruleDbo => ruleDbo.Id == ruleId);
+            var rule = repository.HoldRule.Single(ruleDbo => ruleDbo.Id == ruleId);
             return CreateHoldRuleResponse(rule);
         }
 
@@ -63,7 +63,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return rules;
             }
 
-            var ruleResponses = iffleyRoutesRecordContext.HoldRule.Select(CreateHoldRuleResponse);
+            var ruleResponses = repository.HoldRule.Select(CreateHoldRuleResponse);
             cache.CacheListOfItems(ruleResponses, CacheItemPriority.Normal);
 
             return ruleResponses;
@@ -71,7 +71,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public IEnumerable<ProblemRuleResponse> GetProblemRules(int problemId)
         {
-            return iffleyRoutesRecordContext.ProblemRule
+            return repository.ProblemRule
                 .Where(rule => rule.ProblemId == problemId).Select(rule => new ProblemRuleResponse()
                 {
                     ProblemRuleId = rule.Id,
@@ -82,7 +82,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public IEnumerable<HoldRuleResponse> GetHoldRules(int holdId, int problemId)
         {
-            return iffleyRoutesRecordContext.ProblemHoldRule
+            return repository.ProblemHoldRule
                 .Where(problemHoldRule => problemHoldRule.ProblemHold.ProblemId == problemId && problemHoldRule.ProblemHold.HoldId == holdId)
                 .Select(problemHoldRule => new HoldRuleResponse()
                 {
@@ -90,72 +90,6 @@ namespace IffleyRoutesRecord.Logic.Managers
                     Name = problemHoldRule.HoldRule.Name,
                     Description = problemHoldRule.HoldRule.Description
                 });
-        }
-
-        public void AddRulesToDatabase(IEnumerable<CreateProblemRuleRequest> newRules, IEnumerable<int> existingRuleIds, int problemId)
-        {
-            ValidateAddProblemRulesRequest(newRules, existingRuleIds, problemId);
-            AddNewRulesToDatabase(newRules, problemId);
-            AddExistingRulesToDatabase(existingRuleIds, problemId);
-        }
-
-        private void ValidateAddProblemRulesRequest(IEnumerable<CreateProblemRuleRequest> newRules, IEnumerable<int> existingRuleIds, int problemId)
-        {
-            iffleyRoutesRecordContext.Problem.VerifyEntityWithIdExists(problemId);
-
-            if (newRules != null)
-            {
-                foreach (var newRule in newRules)
-                {
-                    iffleyRoutesRecordContext.GeneralRule.VerifyEntityWithNameDoesNotExists(newRule.Name);
-                }
-            }
-
-            if (existingRuleIds != null)
-            {
-                foreach (int ruleId in existingRuleIds)
-                {
-                    iffleyRoutesRecordContext.GeneralRule.VerifyEntityWithIdExists(ruleId);
-                }
-            }
-        }
-
-        private void AddExistingRulesToDatabase(IEnumerable<int> existingRuleIds, int problemId)
-        {
-            if (existingRuleIds != null)
-            {
-                foreach (int ruleId in existingRuleIds)
-                {
-                    iffleyRoutesRecordContext.ProblemRule.Add(new ProblemRule()
-                    {
-                        GeneralRuleId = ruleId,
-                        ProblemId = problemId
-                    });
-                }
-            }
-        }
-
-        private void AddNewRulesToDatabase(IEnumerable<CreateProblemRuleRequest> newRules, int problemId)
-        {
-            if (newRules != null)
-            {
-                foreach (var rule in newRules)
-                {
-                    var generalRuleDbo = new GeneralRule()
-                    {
-                        Name = rule.Name,
-                        Description = rule.Description
-                    };
-
-                    iffleyRoutesRecordContext.GeneralRule.Add(generalRuleDbo);
-
-                    iffleyRoutesRecordContext.ProblemRule.Add(new ProblemRule()
-                    {
-                        GeneralRuleId = generalRuleDbo.Id,
-                        ProblemId = problemId
-                    });
-                }
-            }
         }
 
         private ProblemRuleResponse CreateProblemRuleResponse(GeneralRule rule)

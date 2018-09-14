@@ -6,6 +6,6 @@ namespace IffleyRoutesRecord.Logic.Entities
     {
         public int Rank { get; set; }
 
-        public List<Problem> Problems { get; private set; }
+        public ICollection<Problem> Problems { get; private set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Logic.Managers;
+using IffleyRoutesRecord.Logic.Validators;
 using IffleyRoutesRecord.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,12 +28,9 @@ namespace IffleyRoutesRecord
                 options => options.UseSqlite(@"Data Source=C:\Users\bicke\OneDrive\Desktop\IffleyRoutesRecord\IffleyRoutes.db;"));
             services.AddMemoryCache();
 
-            services.AddTransient<IStyleSymbolManager, StyleSymbolManager>();
-            services.AddTransient<IRuleManager, RuleManager>();
-            services.AddTransient<IHoldManager, HoldManager>();
-            services.AddTransient<IGradeManager, GradeManager>();
-            services.AddTransient<IProblemReader, ProblemReader>();
-            services.AddTransient<IProblemCreator, ProblemCreator>();
+            RegisterManagers(services);
+
+            services.AddTransient<IProblemRequestValidator, ProblemRequestValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +55,16 @@ namespace IffleyRoutesRecord
                     name: "default",
                     template: "{controller}/{action}/{id?}");
             });
+        }
+
+        private static void RegisterManagers(IServiceCollection services)
+        {
+            services.AddTransient<IStyleSymbolManager, StyleSymbolManager>();
+            services.AddTransient<IRuleManager, RuleManager>();
+            services.AddTransient<IHoldManager, HoldManager>();
+            services.AddTransient<IGradeManager, GradeManager>();
+            services.AddTransient<IProblemReader, ProblemReader>();
+            services.AddTransient<IProblemCreator, ProblemCreator>();
         }
     }
 }

@@ -12,12 +12,12 @@ namespace IffleyRoutesRecord.Logic.Managers
 {
     public class GradeManager : IGradeManager
     {
-        private readonly IffleyRoutesRecordContext iffleyRoutesRecordContext;
+        private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
 
-        public GradeManager(IffleyRoutesRecordContext iffleyRoutesRecordContext, IMemoryCache cache)
+        public GradeManager(IffleyRoutesRecordContext repository, IMemoryCache cache)
         {
-            this.iffleyRoutesRecordContext = iffleyRoutesRecordContext;
+            this.repository = repository;
             this.cache = cache;
         }
 
@@ -28,7 +28,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return gradeResponse;
             }
 
-            var grade = iffleyRoutesRecordContext.TechGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
+            var grade = repository.TechGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
 
             if (grade == null)
             {
@@ -45,7 +45,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return gradeResponse;
             }
 
-            var grade = iffleyRoutesRecordContext.BGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
+            var grade = repository.BGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
 
             if (grade == null)
             {
@@ -62,7 +62,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return gradeResponse;
             }
 
-            var grade = iffleyRoutesRecordContext.PoveyGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
+            var grade = repository.PoveyGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
 
             if (grade == null)
             {
@@ -79,7 +79,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return gradeResponse;
             }
 
-            var grade = iffleyRoutesRecordContext.FurlongGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
+            var grade = repository.FurlongGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
 
             if (grade == null)
             {
@@ -96,7 +96,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return grades.ToList();
             }
 
-            grades = iffleyRoutesRecordContext.TechGrade
+            grades = repository.TechGrade
                 .Select(CreateTechGradeResponse)
                 .OrderBy(grade => grade.Rank);
 
@@ -111,7 +111,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return grades.ToList();
             }
 
-            grades = iffleyRoutesRecordContext.BGrade
+            grades = repository.BGrade
                 .Select(CreateBGradeResponse)
                 .OrderBy(grade => grade.Rank);
 
@@ -126,7 +126,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return grades.ToList();
             }
 
-            grades = iffleyRoutesRecordContext.PoveyGrade
+            grades = repository.PoveyGrade
                 .Select(CreatePoveyGradeResponse)
                 .OrderBy(grade => grade.Rank);
 
@@ -141,7 +141,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return grades.ToList();
             }
 
-            grades = iffleyRoutesRecordContext.FurlongGrade
+            grades = repository.FurlongGrade
                 .Select(CreateFurlongGradeResponse)
                 .OrderBy(grade => grade.Rank);
 
@@ -151,7 +151,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public TechGradeResponse GetTechGradeOnProblem(int problemId)
         {
-            var problem = iffleyRoutesRecordContext.Problem
+            var problem = repository.Problem
                 .Include(prob => prob.TechGrade)
                 .SingleOrDefault(prob => prob.Id == problemId);
 
@@ -170,7 +170,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public BGradeResponse GetBGradeOnProblem(int problemId)
         {
-            var problem = iffleyRoutesRecordContext.Problem
+            var problem = repository.Problem
                 .Include(prob => prob.BGrade)
                 .SingleOrDefault(prob => prob.Id == problemId);
 
@@ -189,7 +189,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public PoveyGradeResponse GetPoveyGradeOnProblem(int problemId)
         {
-            var problem = iffleyRoutesRecordContext.Problem
+            var problem = repository.Problem
                 .Include(prob => prob.PoveyGrade)
                 .SingleOrDefault(prob => prob.Id == problemId);
 
@@ -208,7 +208,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public FurlongGradeResponse GetFurlongGradeOnProblem(int problemId)
         {
-            var problem = iffleyRoutesRecordContext.Problem
+            var problem = repository.Problem
                 .Include(prob => prob.FurlongGrade)
                 .SingleOrDefault(prob => prob.Id == problemId);
 

@@ -4,31 +4,24 @@ using IffleyRoutesRecord.Logic.DTOs.Requests;
 using IffleyRoutesRecord.Logic.DTOs.Responses;
 using IffleyRoutesRecord.Logic.Entities;
 using IffleyRoutesRecord.Logic.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace IffleyRoutesRecord.Logic.Managers
 {
     public class ProblemCreator : IProblemCreator
     {
-        private readonly IffleyRoutesRecordContext iffleyRoutesRecordContext;
+        private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
-        private readonly IStyleSymbolManager styleSymbolManager;
-        private readonly IRuleManager ruleManager;
-        private readonly IHoldManager holdManager;
-        private readonly IGradeManager gradeManager;
         private readonly IProblemReader problemReader;
+        private readonly IProblemRequestValidator validator;
 
-        public ProblemCreator(IffleyRoutesRecordContext iffleyRoutesRecordContext, IMemoryCache cache, IStyleSymbolManager styleSymbolManager,
-            IRuleManager ruleManager, IHoldManager holdManager, IGradeManager gradeManager, IProblemReader problemReader)
+        public ProblemCreator(IffleyRoutesRecordContext repository, IMemoryCache cache,
+            IProblemReader problemReader, IProblemRequestValidator validator)
         {
-            this.iffleyRoutesRecordContext = iffleyRoutesRecordContext;
+            this.repository = repository;
             this.cache = cache;
-            this.styleSymbolManager = styleSymbolManager;
-            this.ruleManager = ruleManager;
-            this.holdManager = holdManager;
-            this.gradeManager = gradeManager;
             this.problemReader = problemReader;
+            this.validator = validator;
         }
 
         public ProblemResponse CreateProblem(CreateProblemRequest problem)
@@ -38,15 +31,18 @@ namespace IffleyRoutesRecord.Logic.Managers
                 throw new ArgumentNullException(nameof(problem));
             }
 
-            ValidateCreateProblemRequestion(problem);
+            validator.Validate(problem);
 
             var problemDbo = AddProblemToDatabase(problem);
-            ruleManager.AddRulesToDatabase(problem.NewRules, problem.ExistingRuleIds, problemDbo.Id);
-            holdManager.AddProblemHoldsToDatabase(problem.Holds, problemDbo.Id);
-            styleSymbolManager.AddProblemStyleSymbolsToDatabase(problem.StyleSymbolIds, problemDbo.Id);
 
-            iffleyRoutesRecordContext.SaveChanges();
+            repository.SaveChanges();
 
+            return UpdateCache(problemDbo);
+        }
+
+        private ProblemResponse UpdateCache(Problem problemDbo)
+        {
+            // If an unexpected error occurs we want to clear the relevant cache to maintain data integrity
             try
             {
                 var problemResponse = problemReader.GetProblem(problemDbo.Id);
@@ -65,58 +61,10 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
         }
 
-        private void ValidateCreateProblemRequestion(CreateProblemRequest problem)
-        {
-            if (problem is null)
-            {
-                throw new ArgumentNullException(nameof(problem));
-            }
-
-            iffleyRoutesRecordContext.Problem.VerifyEntityWithNameDoesNotExists(problem.Name);
-
-            VerifyGradeExists(problem.TechGradeId, iffleyRoutesRecordContext.TechGrade);
-            VerifyGradeExists(problem.BGradeId, iffleyRoutesRecordContext.BGrade);
-            VerifyGradeExists(problem.PoveyGradeId, iffleyRoutesRecordContext.PoveyGrade);
-            VerifyGradeExists(problem.FurlongGradeId, iffleyRoutesRecordContext.FurlongGrade);
-        }
-
-        private void VerifyGradeExists<TGrade>(int? gradeId, DbSet<TGrade> grades) where TGrade : BaseEntity
-        {
-            if (grades is null)
-            {
-                throw new ArgumentNullException(nameof(grades));
-            }
-
-            if (gradeId is null)
-            {
-                return;
-            }
-            else
-            {
-                grades.VerifyEntityWithIdExists(gradeId.Value);
-            }
-        }
-
         private Problem AddProblemToDatabase(CreateProblemRequest problem)
         {
-            if (problem is null)
-            {
-                throw new ArgumentNullException(nameof(problem));
-            }
-
-            var problemDbo = new Problem()
-            {
-                Name = problem.Name,
-                Description = problem.Description,
-                TechGradeId = problem.TechGradeId,
-                BGradeId = problem.BGradeId,
-                PoveyGradeId = problem.PoveyGradeId,
-                FurlongGradeId = problem.FurlongGradeId,
-                DateSet = problem.DateSet,
-                FirstAscent = problem.FirstAscent
-            };
-
-            iffleyRoutesRecordContext.Problem.Add(problemDbo);
+            var problemDbo = Mapper.Map(problem);
+            repository.Problem.Add(problemDbo);
             return problemDbo;
         }
     }

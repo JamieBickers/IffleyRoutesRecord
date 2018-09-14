@@ -18,8 +18,8 @@ namespace IffleyRoutesRecord.Logic.Entities
         public PoveyGrade PoveyGrade { get; set; }
         public FurlongGrade FurlongGrade { get; set; }
 
-        public List<ProblemHold> ProblemHolds { get; private set; }
-        public List<ProblemRule> ProblemRules { get; private set; }
-        public List<ProblemStyleSymbol> ProblemStyleSymbols { get; private set; }
+        public ICollection<ProblemHold> ProblemHolds { get; set; }
+        public ICollection<ProblemRule> ProblemRules { get; set; }
+        public ICollection<ProblemStyleSymbol> ProblemStyleSymbols { get; set; }
     }
 }

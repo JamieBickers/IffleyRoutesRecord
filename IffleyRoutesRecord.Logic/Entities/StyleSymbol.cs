@@ -7,6 +7,6 @@ namespace IffleyRoutesRecord.Logic.Entities
         public string Description { get; set; }
         public string SymbolFilePath { get; set; }
 
-        public List<ProblemStyleSymbol> ProblemStyleSymbols { get; private set; }
+        public ICollection<ProblemStyleSymbol> ProblemStyleSymbols { get; private set; }
     }
 }
