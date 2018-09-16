@@ -1,10 +1,7 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Requests;
 using IffleyRoutesRecord.Logic.DTOs.Responses;
-using IffleyRoutesRecord.Logic.Entities;
 using IffleyRoutesRecord.Logic.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,7 +26,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
 
             var rule = repository.GeneralRule.Single(ruleDbo => ruleDbo.Id == ruleId);
-            return CreateProblemRuleResponse(rule);
+            return Mapper.Map(rule);
         }
 
         public IEnumerable<ProblemRuleResponse> GetAllProblemRules()
@@ -39,7 +36,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return rules;
             }
 
-            var ruleResponses = repository.GeneralRule.Select(CreateProblemRuleResponse);
+            var ruleResponses = repository.GeneralRule.Select(Mapper.Map);
             cache.CacheListOfItems(ruleResponses, CacheItemPriority.Normal);
 
             return ruleResponses;
@@ -53,7 +50,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
 
             var rule = repository.HoldRule.Single(ruleDbo => ruleDbo.Id == ruleId);
-            return CreateHoldRuleResponse(rule);
+            return Mapper.Map(rule);
         }
 
         public IEnumerable<HoldRuleResponse> GetAllHoldRules()
@@ -63,7 +60,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return rules;
             }
 
-            var ruleResponses = repository.HoldRule.Select(CreateHoldRuleResponse);
+            var ruleResponses = repository.HoldRule.Select(Mapper.Map);
             cache.CacheListOfItems(ruleResponses, CacheItemPriority.Normal);
 
             return ruleResponses;
@@ -72,12 +69,8 @@ namespace IffleyRoutesRecord.Logic.Managers
         public IEnumerable<ProblemRuleResponse> GetProblemRules(int problemId)
         {
             return repository.ProblemRule
-                .Where(rule => rule.ProblemId == problemId).Select(rule => new ProblemRuleResponse()
-                {
-                    ProblemRuleId = rule.Id,
-                    Name = rule.GeneralRule.Name,
-                    Description = rule.GeneralRule.Description
-                });
+                .Where(rule => rule.ProblemId == problemId)
+                .Select(Mapper.Map);
         }
 
         public IEnumerable<HoldRuleResponse> GetHoldRules(int holdId, int problemId)
@@ -90,36 +83,6 @@ namespace IffleyRoutesRecord.Logic.Managers
                     Name = problemHoldRule.HoldRule.Name,
                     Description = problemHoldRule.HoldRule.Description
                 });
-        }
-
-        private ProblemRuleResponse CreateProblemRuleResponse(GeneralRule rule)
-        {
-            if (rule is null)
-            {
-                throw new ArgumentNullException(nameof(rule));
-            }
-
-            return new ProblemRuleResponse()
-            {
-                ProblemRuleId = rule.Id,
-                Name = rule.Name,
-                Description = rule.Description
-            };
-        }
-
-        private HoldRuleResponse CreateHoldRuleResponse(HoldRule rule)
-        {
-            if (rule is null)
-            {
-                throw new ArgumentNullException(nameof(rule));
-            }
-
-            return new HoldRuleResponse()
-            {
-                HoldRuleId = rule.Id,
-                Name = rule.Name,
-                Description = rule.Description
-            };
         }
     }
 }

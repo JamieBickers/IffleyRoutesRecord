@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord.IntegrationTests
@@ -31,6 +34,13 @@ namespace IffleyRoutesRecord.IntegrationTests
             AssertAreEqual(result, expectedResult);
         }
 
+        public async Task PostWithModelErrorsAsync<TContent>(Uri uri, TContent content, string expectedErrorJson)
+        {
+            var (errors, statusCode) = await clientApi.PostWithStatusCodeAsync<TContent>(uri, content);
+            AssertAreEqual(statusCode, HttpStatusCode.BadRequest);
+            AssertAreEqual(errors, expectedErrorJson);
+        }
+
         private static void AssertAreEqual<T>(T first, T second)
         {
             string firstSerialized = Serialize(first);
@@ -53,6 +63,24 @@ namespace IffleyRoutesRecord.IntegrationTests
         private static string Serialize(object data)
         {
             return JsonConvert.SerializeObject(data).ToUpperInvariant();
+        }
+
+        private static void AssertContainSameElements(IEnumerable<string> first, IEnumerable<string> second)
+        {
+            if (first is null)
+            {
+                throw new ArgumentNullException(nameof(first));
+            }
+
+            if (second is null)
+            {
+                throw new ArgumentNullException(nameof(second));
+            }
+
+            if (first.Count() != second.Count())
+            {
+
+            }
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.DTOs.Responses;
-using IffleyRoutesRecord.Logic.Entities;
 using IffleyRoutesRecord.Logic.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,7 +33,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return null;
             }
 
-            return CreateTechGradeResponse(grade);
+            return Mapper.Map(grade);
         }
 
         public BGradeResponse GetBGrade(int gradeId)
@@ -52,7 +50,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return null;
             }
 
-            return CreateBGradeResponse(grade);
+            return Mapper.Map(grade);
         }
 
         public PoveyGradeResponse GetPoveyGrade(int gradeId)
@@ -69,7 +67,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return null;
             }
 
-            return CreatePoveyGradeResponse(grade);
+            return Mapper.Map(grade);
         }
 
         public FurlongGradeResponse GetFurlongGrade(int gradeId)
@@ -86,7 +84,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return null;
             }
 
-            return CreateFurlongGradeResponse(grade);
+            return Mapper.Map(grade);
         }
 
         public IList<TechGradeResponse> GetTechGrades()
@@ -97,7 +95,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
 
             grades = repository.TechGrade
-                .Select(CreateTechGradeResponse)
+                .Select(Mapper.Map)
                 .OrderBy(grade => grade.Rank);
 
             cache.CacheListOfItems(grades, CacheItemPriority.High);
@@ -112,7 +110,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
 
             grades = repository.BGrade
-                .Select(CreateBGradeResponse)
+                .Select(Mapper.Map)
                 .OrderBy(grade => grade.Rank);
 
             cache.CacheListOfItems(grades, CacheItemPriority.High);
@@ -127,7 +125,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
 
             grades = repository.PoveyGrade
-                .Select(CreatePoveyGradeResponse)
+                .Select(Mapper.Map)
                 .OrderBy(grade => grade.Rank);
 
             cache.CacheListOfItems(grades, CacheItemPriority.High);
@@ -142,7 +140,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
 
             grades = repository.FurlongGrade
-                .Select(CreateFurlongGradeResponse)
+                .Select(Mapper.Map)
                 .OrderBy(grade => grade.Rank);
 
             cache.CacheListOfItems(grades, CacheItemPriority.High);
@@ -222,66 +220,6 @@ namespace IffleyRoutesRecord.Logic.Managers
                 GradeId = problem.FurlongGradeId.Value,
                 Name = problem.FurlongGrade.Name,
                 Rank = problem.FurlongGrade.Rank
-            };
-        }
-
-        private TechGradeResponse CreateTechGradeResponse(TechGrade grade)
-        {
-            if (grade is null)
-            {
-                throw new ArgumentNullException(nameof(grade));
-            }
-
-            return new TechGradeResponse()
-            {
-                GradeId = grade.Id,
-                Name = grade.Name,
-                Rank = grade.Rank
-            };
-        }
-
-        private BGradeResponse CreateBGradeResponse(BGrade grade)
-        {
-            if (grade is null)
-            {
-                throw new ArgumentNullException(nameof(grade));
-            }
-
-            return new BGradeResponse()
-            {
-                GradeId = grade.Id,
-                Name = grade.Name,
-                Rank = grade.Rank
-            };
-        }
-
-        private PoveyGradeResponse CreatePoveyGradeResponse(PoveyGrade grade)
-        {
-            if (grade is null)
-            {
-                throw new ArgumentNullException(nameof(grade));
-            }
-
-            return new PoveyGradeResponse()
-            {
-                GradeId = grade.Id,
-                Name = grade.Name,
-                Rank = grade.Rank
-            };
-        }
-
-        private FurlongGradeResponse CreateFurlongGradeResponse(FurlongGrade grade)
-        {
-            if (grade is null)
-            {
-                throw new ArgumentNullException(nameof(grade));
-            }
-
-            return new FurlongGradeResponse()
-            {
-                GradeId = grade.Id,
-                Name = grade.Name,
-                Rank = grade.Rank
             };
         }
     }

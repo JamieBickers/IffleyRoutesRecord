@@ -3,6 +3,7 @@ using System.Net.Http;
 using Microsoft.Data.Sqlite;
 using System.IO;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace IffleyRoutesRecord.IntegrationTests
 {
@@ -12,11 +13,12 @@ namespace IffleyRoutesRecord.IntegrationTests
         {
             ResetDatabase();
 
-            var baseUri = new Uri("http://localhost:61469/");
+            var baseUri = new Uri("http://localhost:61469/api/");
             var clientApi = new ClientApi(HttpClientFactory.Create());
             var testRunner = new TestRunner(clientApi);
 
             await RunProblemTests.Run(baseUri, testRunner);
+            await RunSimpleInvalidProblemTests.Run(baseUri, testRunner);
             await RunStyleSymbolTests.Run(baseUri, testRunner);
             await RunHoldTests.Run(baseUri, testRunner);
             await RunRuleTests.Run(baseUri, testRunner);
@@ -30,7 +32,7 @@ namespace IffleyRoutesRecord.IntegrationTests
             var connection = new SqliteConnection(@"Data Source=C:\Users\bicke\OneDrive\Desktop\IffleyRoutesRecord\IffleyRoutes.db;");
             connection.Open();
             var command = connection.CreateCommand();
-            command.CommandText = File.ReadAllText(@"C:\Users\bicke\OneDrive\Desktop\IffleyRoutesRecord\SQL\ResetDatabase.sql");
+            command.CommandText = File.ReadAllText(@"..\..\..\..\SQL\ResetDatabase.sql");
             command.ExecuteNonQuery();
             connection.Close();
         }

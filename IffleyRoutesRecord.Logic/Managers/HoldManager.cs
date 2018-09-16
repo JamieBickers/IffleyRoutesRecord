@@ -1,11 +1,8 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Requests;
 using IffleyRoutesRecord.Logic.DTOs.Responses;
-using IffleyRoutesRecord.Logic.Entities;
 using IffleyRoutesRecord.Logic.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,7 +29,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
 
             var hold = repository.Hold.Single(holdDbo => holdDbo.Id == holdId);
-            return CreateHoldDto(hold);
+            return Mapper.Map(hold);
         }
 
         public IEnumerable<HoldResponse> GetHolds()
@@ -42,7 +39,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return holdResponses;
             }
 
-            var holds = repository.Hold.Select(CreateHoldDto);
+            var holds = repository.Hold.Select(Mapper.Map);
             cache.CacheListOfItems(holds, CacheItemPriority.High);
 
             return holds;
@@ -66,20 +63,6 @@ namespace IffleyRoutesRecord.Logic.Managers
                     HoldRules = ruleManager.GetHoldRules(problemHold.Hold.Id, problemId).ToList()
                 })
                 .ToList();
-        }
-
-        private HoldResponse CreateHoldDto(Hold hold)
-        {
-            if (hold is null)
-            {
-                throw new ArgumentNullException(nameof(hold));
-            }
-
-            return new HoldResponse()
-            {
-                HoldId = hold.Id,
-                Name = hold.Name,
-            };
         }
     }
 }

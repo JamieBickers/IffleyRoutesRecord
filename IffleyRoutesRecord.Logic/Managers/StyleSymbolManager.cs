@@ -30,7 +30,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
 
             var styleSymbol = repository.StyleSymbol.Single(symbol => symbol.Id == styleSymbolId);
-            return CreateStyleSymbolResponse(styleSymbol);
+            return Mapper.Map(styleSymbol);
         }
 
         public IEnumerable<StyleSymbolResponse> GetStyleSymbols()
@@ -40,7 +40,7 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return styleSymbolsFromCache;
             }
 
-            var styleSymbols = repository.StyleSymbol.Select(CreateStyleSymbolResponse);
+            var styleSymbols = repository.StyleSymbol.Select(Mapper.Map);
             cache.CacheListOfItems(styleSymbols, CacheItemPriority.High);
 
             return styleSymbols;
@@ -56,27 +56,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             return problem
                 .ProblemStyleSymbols
-                .Select(problemStyleSymbol => new StyleSymbolResponse()
-                {
-                    StyleSymbolId = problemStyleSymbol.StyleSymbolId,
-                    Name = problemStyleSymbol.StyleSymbol.Name,
-                    Description = problemStyleSymbol.StyleSymbol.Description
-                });
-        }
-
-        private StyleSymbolResponse CreateStyleSymbolResponse(StyleSymbol styleSymbol)
-        {
-            if (styleSymbol is null)
-            {
-                throw new ArgumentNullException(nameof(styleSymbol));
-            }
-
-            return new StyleSymbolResponse()
-            {
-                StyleSymbolId = styleSymbol.Id,
-                Name = styleSymbol.Name,
-                Description = styleSymbol.Description
-            };
+                .Select(Mapper.Map);
         }
     }
 }

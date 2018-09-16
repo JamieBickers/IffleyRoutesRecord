@@ -15,6 +15,8 @@ namespace IffleyRoutesRecord.Logic.DTOs.Requests
         public string Description { get; set; }
 
         public DateTimeOffset? DateSet { get; set; }
+
+        [MaxLength(100)]
         public string FirstAscent { get; set; }
 
         [Range(1, int.MaxValue)]

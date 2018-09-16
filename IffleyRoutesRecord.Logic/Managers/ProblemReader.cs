@@ -2,6 +2,7 @@
 using IffleyRoutesRecord.Logic.DTOs.Responses;
 using IffleyRoutesRecord.Logic.Entities;
 using IffleyRoutesRecord.Logic.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
@@ -36,14 +37,14 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return problemResponse;
             }
 
-            var problemDbo = repository.Problem.SingleOrDefault(route => route.Id == problemId);
+            var problemDbo = IncludeAllData(repository.Problem).SingleOrDefault(route => route.Id == problemId);
 
             if (problemDbo is null)
             {
                 return null;
             }
 
-            problemResponse = CreateProblemResponse(problemDbo);
+            problemResponse = Mapper.Map(problemDbo);
 
             return problemResponse;
         }
@@ -55,39 +56,31 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return problems;
             }
 
-            problems = repository
-                .Problem
+            problems = IncludeAllData(repository.Problem)
                 .AsEnumerable()
-                .Select(problem => CreateProblemResponse(problem));
+                .Select(problem => Mapper.Map(problem));
 
             cache.CacheListOfItems(problems, CacheItemPriority.Normal);
 
             return problems;
         }
 
-        //TODO: Simplify?
-        private ProblemResponse CreateProblemResponse(Problem problem)
+        private static IQueryable<Problem> IncludeAllData(IQueryable<Problem> problems)
         {
-            if (problem is null)
-            {
-                throw new ArgumentNullException(nameof(problem));
-            }
-
-            return new ProblemResponse()
-            {
-                ProblemId = problem.Id,
-                Name = problem.Name,
-                Description = problem.Description,
-                DateSet = problem.DateSet,
-                FirstAscent = problem.FirstAscent,
-                TechGrade = gradeManager.GetTechGradeOnProblem(problem.Id),
-                BGrade = gradeManager.GetBGradeOnProblem(problem.Id),
-                PoveyGrade = gradeManager.GetPoveyGradeOnProblem(problem.Id),
-                FurlongGrade = gradeManager.GetFurlongGradeOnProblem(problem.Id),
-                Holds = holdManager.GetHoldsOnProblem(problem.Id),
-                Rules = ruleManager.GetProblemRules(problem.Id).ToList(),
-                StyleSymbols = styleSymbolManager.GetStyleSymbolsOnProblem(problem.Id).ToList()
-            };
+            return problems
+                .Include(problem => problem.TechGrade)
+                .Include(problem => problem.BGrade)
+                .Include(problem => problem.PoveyGrade)
+                .Include(problem => problem.FurlongGrade)
+                .Include(problem => problem.ProblemHolds)
+                    .ThenInclude(problemHold => problemHold.Hold)
+                .Include(problem => problem.ProblemHolds)
+                    .ThenInclude(problemHold => problemHold.ProblemHoldRules)
+                        .ThenInclude(problemHold => problemHold.HoldRule)
+                .Include(problem => problem.ProblemRules)
+                    .ThenInclude(problemRule => problemRule.GeneralRule)
+                .Include(problem => problem.ProblemStyleSymbols)
+                    .ThenInclude(problemStyleSymbol => problemStyleSymbol.StyleSymbol);
         }
     }
 }

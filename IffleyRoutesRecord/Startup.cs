@@ -38,23 +38,11 @@ namespace IffleyRoutesRecord
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
 
-            app.UseStaticFiles();
-
-            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action}/{id?}");
-            });
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMvc();
         }
 
         private static void RegisterManagers(IServiceCollection services)

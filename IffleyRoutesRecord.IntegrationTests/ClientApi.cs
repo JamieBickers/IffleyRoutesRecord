@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -28,25 +29,16 @@ namespace IffleyRoutesRecord.IntegrationTests
             return await httpResult.Content.ReadAsAsync<TResponse>();
         }
 
+        public async Task<(string response, HttpStatusCode statusCode)> PostWithStatusCodeAsync<TContent>(Uri uri, TContent content)
+        {
+            var httpResult = await httpClient.PostAsJsonAsync(uri, content);
+            string response = await httpResult.Content.ReadAsStringAsync();
+            return (response, httpResult.StatusCode);
+        }
+
         public async Task ShutdownAsync(Uri baseUri)
         {
             await httpClient.GetAsync(new Uri(baseUri, "test/shutdown"));
-        }
-
-        public static string Serialize(object data)
-        {
-            return JsonConvert.SerializeObject(data).ToUpperInvariant();
-        }
-
-        private static async Task<string> ProcessHttpResultAsync(HttpResponseMessage httpResult)
-        {
-            if (!httpResult.IsSuccessStatusCode)
-            {
-                throw new HttpListenerException();
-            }
-
-            string resultContent = await httpResult.Content.ReadAsStringAsync();
-            return resultContent.ToUpperInvariant();
         }
     }
 }

@@ -4,7 +4,7 @@ using System;
 
 namespace IffleyRoutesRecord.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class TestController : ControllerBase
     {

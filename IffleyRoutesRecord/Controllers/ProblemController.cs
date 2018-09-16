@@ -8,7 +8,7 @@ using System.Net;
 
 namespace IffleyRoutesRecord.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProblemController : Controller
     {

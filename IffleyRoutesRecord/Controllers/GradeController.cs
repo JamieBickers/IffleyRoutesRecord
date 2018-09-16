@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IffleyRoutesRecord.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class GradeController : ControllerBase
     {

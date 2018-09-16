@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace IffleyRoutesRecord.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class StyleSymbolController : Controller
     {
