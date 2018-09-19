@@ -1,10 +1,11 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Responses;
-using IffleyRoutesRecord.Logic.Entities;
+using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Models.DTOs.Responses;
+using IffleyRoutesRecord.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -41,7 +42,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             if (problemDbo is null)
             {
-                return null;
+                throw new EntityNotFoundException($"No problem with ID {problemId} was found.");
             }
 
             problemResponse = Mapper.Map(problemDbo);

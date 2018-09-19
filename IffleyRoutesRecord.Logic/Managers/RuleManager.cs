@@ -1,6 +1,8 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Responses;
+using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,13 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return problemRule;
             }
 
-            var rule = repository.GeneralRule.Single(ruleDbo => ruleDbo.Id == ruleId);
+            var rule = repository.GeneralRule.SingleOrDefault(ruleDbo => ruleDbo.Id == ruleId);
+
+            if (rule is null)
+            {
+                throw new EntityNotFoundException($"No problem rule with ID {ruleId} was found.");
+            }
+
             return Mapper.Map(rule);
         }
 
@@ -49,7 +57,13 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return holdRule;
             }
 
-            var rule = repository.HoldRule.Single(ruleDbo => ruleDbo.Id == ruleId);
+            var rule = repository.HoldRule.SingleOrDefault(ruleDbo => ruleDbo.Id == ruleId);
+
+            if (rule is null)
+            {
+                throw new EntityNotFoundException($"No hold rule with ID {ruleId} was found.");
+            }
+
             return Mapper.Map(rule);
         }
 
@@ -64,25 +78,6 @@ namespace IffleyRoutesRecord.Logic.Managers
             cache.CacheListOfItems(ruleResponses, CacheItemPriority.Normal);
 
             return ruleResponses;
-        }
-
-        public IEnumerable<ProblemRuleResponse> GetProblemRules(int problemId)
-        {
-            return repository.ProblemRule
-                .Where(rule => rule.ProblemId == problemId)
-                .Select(Mapper.Map);
-        }
-
-        public IEnumerable<HoldRuleResponse> GetHoldRules(int holdId, int problemId)
-        {
-            return repository.ProblemHoldRule
-                .Where(problemHoldRule => problemHoldRule.ProblemHold.ProblemId == problemId && problemHoldRule.ProblemHold.HoldId == holdId)
-                .Select(problemHoldRule => new HoldRuleResponse()
-                {
-                    HoldRuleId = problemHoldRule.HoldRuleId,
-                    Name = problemHoldRule.HoldRule.Name,
-                    Description = problemHoldRule.HoldRule.Description
-                });
         }
     }
 }

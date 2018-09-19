@@ -1,7 +1,8 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Requests;
-using IffleyRoutesRecord.Logic.Entities;
 using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Models.DTOs.Requests;
+using IffleyRoutesRecord.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

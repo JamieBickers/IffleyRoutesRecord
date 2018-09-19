@@ -35,7 +35,8 @@ insert into BGrade (Name, Rank) values
 ('B4', 5),
 ('B5', 6),
 ('B6', 7),
-('B7', 8);
+('B7', 8),
+('B8', 9);
 
 insert into PoveyGrade (Name, Rank) values
 ('Easy', 1),

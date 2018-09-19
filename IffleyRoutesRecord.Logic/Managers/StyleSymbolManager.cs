@@ -1,10 +1,9 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Responses;
-using IffleyRoutesRecord.Logic.Entities;
+using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.Extensions.Caching.Memory;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,7 +28,13 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return styleSymbolResponse;
             }
 
-            var styleSymbol = repository.StyleSymbol.Single(symbol => symbol.Id == styleSymbolId);
+            var styleSymbol = repository.StyleSymbol.SingleOrDefault(symbol => symbol.Id == styleSymbolId);
+
+            if (styleSymbol is null)
+            {
+                throw new EntityNotFoundException($"No style symbol with ID {styleSymbolId} was found.");
+            }
+
             return Mapper.Map(styleSymbol);
         }
 
@@ -44,19 +49,6 @@ namespace IffleyRoutesRecord.Logic.Managers
             cache.CacheListOfItems(styleSymbols, CacheItemPriority.High);
 
             return styleSymbols;
-        }
-
-        public IEnumerable<StyleSymbolResponse> GetStyleSymbolsOnProblem(int problemId)
-        {
-            var problem = repository
-                .Problem
-                .Include(problemDbo => problemDbo.ProblemStyleSymbols)
-                .ThenInclude(problemStyleSymbol => problemStyleSymbol.StyleSymbol)
-                .SingleOrDefault(route => route.Id == problemId);
-
-            return problem
-                .ProblemStyleSymbols
-                .Select(Mapper.Map);
         }
     }
 }

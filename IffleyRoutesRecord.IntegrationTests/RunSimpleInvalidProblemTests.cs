@@ -1,4 +1,4 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Requests;
+﻿using IffleyRoutesRecord.Models.DTOs.Requests;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

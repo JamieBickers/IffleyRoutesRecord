@@ -36,13 +36,16 @@ namespace IffleyRoutesRecord.Middleware
 
             switch (exception)
             {
-                case EntityNotFoundException entityNotFoundException:
+                case EntityNotFoundException _:
                     code = HttpStatusCode.NotFound;
                     break;
-                case EntityWithNameAlreadyExistsException entityWithNameAlreadyExistsException:
+                case EntityWithNameAlreadyExistsException _:
                     code = HttpStatusCode.Conflict;
                     break;
-                case InternalEntityNotFoundException internalEntityNotFoundException:
+                case InternalEntityNotFoundException _:
+                    code = HttpStatusCode.InternalServerError;
+                    break;
+                case EntityCreationException _:
                     code = HttpStatusCode.InternalServerError;
                     break;
                 default:

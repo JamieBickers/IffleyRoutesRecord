@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IffleyRoutesRecord</name>
+    </assembly>
+    <members>
+        <member name="M:IffleyRoutesRecord.Controllers.HoldController.GetHolds">
+            <summary>
+            Gets a list of all holds.
+            </summary>
+            <returns>The full list of holds</returns>
+            <response code="200">The full list of holds</response>
+            <response code="500">Unexpected error</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.HoldController.GetHold(System.Int32)">
+            <summary>
+            Gets a problem by its ID.
+            </summary>
+            <param name="holdId">The ID of the hold to return</param>
+            <returns>The hold with the given ID</returns>
+            <response code="200">The requested hold</response>
+            <response code="404">No hold with the provided ID was found</response>
+            <response code="500">Unexpected error</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.ProblemController.GetProblems">
+            <summary>
+            Gets a list of all problems.
+            </summary>
+            <returns>The full list of problems</returns>
+            <response code="200">The full list of problems</response>
+            <response code="500">Unexpected error</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.ProblemController.GetProblem(System.Int32)">
+            <summary>
+            Gets a problem by its ID.
+            </summary>
+            <param name="problemId">The ID of the problem to return</param>
+            <returns>The problem with the given ID</returns>
+            <response code="200">The requested problem</response>
+            <response code="404">No problem with the provided ID was found</response>
+            <response code="500">Unexpected error</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.ProblemController.CreateProblem(IffleyRoutesRecord.Models.DTOs.Requests.CreateProblemRequest)">
+            <summary>
+            Creates a problem along with any additional rules needed.
+            </summary>
+            <param name="problem">The problem to be created</param>
+            <returns>The created problem</returns>
+            <response code="201">The created problem</response>
+            <response code="404">One of the provided IDs was not found</response>
+            <response code="409">One of the provided names for the problem or a rule already exists</response>
+            <response code="500">Unexpected error</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.RuleController.GetProblemRule(System.Int32)">
+            <summary>
+            Gets a problem rule by its ID.
+            </summary>
+            <param name="ruleId">The ID of the problem rule to return</param>
+            <returns>The problem rule with the given ID</returns>
+            <response code="200">The requested problem rule</response>
+            <response code="404">No problem rule with the provided ID was found</response>
+            <response code="500">Unexpected error</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.RuleController.GetProblemRules">
+            <summary>
+            Gets a list of all problem rules.
+            </summary>
+            <returns>The full list of problem rules</returns>
+            <response code="200">The full list of problem rules</response>
+            <response code="500">Unexpected error</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.RuleController.GetHoldRule(System.Int32)">
+            <summary>
+            Gets a hold rule by its ID.
+            </summary>
+            <param name="ruleId">The ID of the hold rule to return</param>
+            <returns>The hold rule with the given ID</returns>
+            <response code="200">The requested hold rule</response>
+            <response code="404">No hold rule with the provided ID was found</response>
+            <response code="500">Unexpected error</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.RuleController.GetHoldRules">
+            <summary>
+            Gets a list of all hold rules.
+            </summary>
+            <returns>The full list of hold rules</returns>
+            <response code="200">The full list of hold rules</response>
+            <response code="500">Unexpected error</response>
+        </member>
+    </members>
+</doc>

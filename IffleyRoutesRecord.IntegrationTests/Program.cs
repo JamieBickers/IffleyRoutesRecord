@@ -1,9 +1,9 @@
-﻿using System;
+﻿#pragma warning disable CA1812
+using System;
 using System.Net.Http;
-using Microsoft.Data.Sqlite;
 using System.IO;
 using System.Threading.Tasks;
-using System.Reflection;
+using Microsoft.Data.Sqlite;
 
 namespace IffleyRoutesRecord.IntegrationTests
 {

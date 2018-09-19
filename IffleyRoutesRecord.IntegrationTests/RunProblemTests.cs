@@ -1,5 +1,5 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Requests;
-using IffleyRoutesRecord.Logic.DTOs.Responses;
+﻿using IffleyRoutesRecord.Models.DTOs.Requests;
+using IffleyRoutesRecord.Models.DTOs.Responses;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

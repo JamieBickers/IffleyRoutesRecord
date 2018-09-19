@@ -11,6 +11,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.Integrat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.Logic", "IffleyRoutesRecord.Logic\IffleyRoutesRecord.Logic.csproj", "{F2381AD3-1E7D-471F-9606-DBE08012E7A0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D31DD24F-BEF8-44F0-B361-B4EE4EAABD58}"
+	ProjectSection(SolutionItems) = preProject
+		ExistingProblems.json = ExistingProblems.json
+		ParsedExistingProblems.json = ParsedExistingProblems.json
+	EndProjectSection
+	ProjectSection(FolderGlobals) = preProject
+		__JSONSchema = http://json.schemastore.org/asmdef
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{4B0717A0-E2CD-4250-8B93-6F596D93B528}"
+	ProjectSection(SolutionItems) = preProject
+		SQL\CreateTables.sql = SQL\CreateTables.sql
+		SQL\PopulateStaticData.sql = SQL\PopulateStaticData.sql
+		SQL\ResetDatabase.sql = SQL\ResetDatabase.sql
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.Models", "IffleyRoutesRecord.Models\IffleyRoutesRecord.Models.csproj", "{F15789BE-577B-468A-934F-B069EC210AEA}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "IffleyRoutesRecord.ExistingClimbsReader", "IffleyRoutesRecord.ExistingClimbsReader\IffleyRoutesRecord.ExistingClimbsReader.fsproj", "{1A5D6297-51D5-431C-AA38-63BA0E7E9EF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,9 +53,20 @@ Global
 		{F2381AD3-1E7D-471F-9606-DBE08012E7A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2381AD3-1E7D-471F-9606-DBE08012E7A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2381AD3-1E7D-471F-9606-DBE08012E7A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F15789BE-577B-468A-934F-B069EC210AEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F15789BE-577B-468A-934F-B069EC210AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F15789BE-577B-468A-934F-B069EC210AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F15789BE-577B-468A-934F-B069EC210AEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A5D6297-51D5-431C-AA38-63BA0E7E9EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A5D6297-51D5-431C-AA38-63BA0E7E9EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A5D6297-51D5-431C-AA38-63BA0E7E9EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A5D6297-51D5-431C-AA38-63BA0E7E9EF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B0717A0-E2CD-4250-8B93-6F596D93B528} = {D31DD24F-BEF8-44F0-B361-B4EE4EAABD58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E7FD152-7C90-4D8D-9B1E-DF2DD98FF351}

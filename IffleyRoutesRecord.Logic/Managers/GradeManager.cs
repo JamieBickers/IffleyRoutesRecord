@@ -1,7 +1,8 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Responses;
+using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,9 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             var grade = repository.TechGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
 
-            if (grade == null)
+            if (grade is null)
             {
-                return null;
+                throw new EntityNotFoundException($"No tech grade with ID {gradeId} was found.");
             }
 
             return Mapper.Map(grade);
@@ -45,9 +46,9 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             var grade = repository.BGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
 
-            if (grade == null)
+            if (grade is null)
             {
-                return null;
+                throw new EntityNotFoundException($"No B grade with ID {gradeId} was found.");
             }
 
             return Mapper.Map(grade);
@@ -62,9 +63,9 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             var grade = repository.PoveyGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
 
-            if (grade == null)
+            if (grade is null)
             {
-                return null;
+                throw new EntityNotFoundException($"No Povey grade with ID {gradeId} was found.");
             }
 
             return Mapper.Map(grade);
@@ -79,9 +80,9 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             var grade = repository.FurlongGrade.SingleOrDefault(gradeDbo => gradeDbo.Id == gradeId);
 
-            if (grade == null)
+            if (grade is null)
             {
-                return null;
+                throw new EntityNotFoundException($"No Furlong grade with ID {gradeId} was found.");
             }
 
             return Mapper.Map(grade);
@@ -145,82 +146,6 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             cache.CacheListOfItems(grades, CacheItemPriority.High);
             return grades.ToList();
-        }
-
-        public TechGradeResponse GetTechGradeOnProblem(int problemId)
-        {
-            var problem = repository.Problem
-                .Include(prob => prob.TechGrade)
-                .SingleOrDefault(prob => prob.Id == problemId);
-
-            if (problem.TechGradeId is null)
-            {
-                return null;
-            }
-
-            return new TechGradeResponse()
-            {
-                GradeId = problem.TechGradeId.Value,
-                Name = problem.TechGrade.Name,
-                Rank = problem.TechGrade.Rank
-            };
-        }
-
-        public BGradeResponse GetBGradeOnProblem(int problemId)
-        {
-            var problem = repository.Problem
-                .Include(prob => prob.BGrade)
-                .SingleOrDefault(prob => prob.Id == problemId);
-
-            if (problem.BGradeId is null)
-            {
-                return null;
-            }
-
-            return new BGradeResponse()
-            {
-                GradeId = problem.BGradeId.Value,
-                Name = problem.BGrade.Name,
-                Rank = problem.BGrade.Rank
-            };
-        }
-
-        public PoveyGradeResponse GetPoveyGradeOnProblem(int problemId)
-        {
-            var problem = repository.Problem
-                .Include(prob => prob.PoveyGrade)
-                .SingleOrDefault(prob => prob.Id == problemId);
-
-            if (problem.PoveyGradeId is null)
-            {
-                return null;
-            }
-
-            return new PoveyGradeResponse()
-            {
-                GradeId = problem.PoveyGradeId.Value,
-                Name = problem.PoveyGrade.Name,
-                Rank = problem.PoveyGrade.Rank
-            };
-        }
-
-        public FurlongGradeResponse GetFurlongGradeOnProblem(int problemId)
-        {
-            var problem = repository.Problem
-                .Include(prob => prob.FurlongGrade)
-                .SingleOrDefault(prob => prob.Id == problemId);
-
-            if (problem.FurlongGradeId is null)
-            {
-                return null;
-            }
-
-            return new FurlongGradeResponse()
-            {
-                GradeId = problem.FurlongGradeId.Value,
-                Name = problem.FurlongGrade.Name,
-                Rank = problem.FurlongGrade.Rank
-            };
         }
     }
 }

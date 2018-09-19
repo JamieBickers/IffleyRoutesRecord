@@ -1,5 +1,5 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Responses;
-using IffleyRoutesRecord.Logic.Interfaces;
+﻿using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;

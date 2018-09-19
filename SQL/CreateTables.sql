@@ -43,7 +43,7 @@ create table Hold (
 create table Problem (
     Id integer primary key not null,
     Name varchar(100) unique not null,
-    Description varchar (5000) not null,
+    Description varchar (5000) null,
     TechGradeId integer null,
     BGradeId integer null,
     PoveyGradeId integer null,

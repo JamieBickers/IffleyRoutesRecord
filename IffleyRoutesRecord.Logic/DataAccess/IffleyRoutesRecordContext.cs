@@ -1,4 +1,4 @@
-﻿using IffleyRoutesRecord.Logic.Entities;
+﻿using IffleyRoutesRecord.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace IffleyRoutesRecord.Logic.DataAccess

@@ -1,4 +1,4 @@
-﻿using IffleyRoutesRecord.Logic.DTOs.Requests;
+﻿using IffleyRoutesRecord.Models.DTOs.Requests;
 
 namespace IffleyRoutesRecord.Logic.Interfaces
 {

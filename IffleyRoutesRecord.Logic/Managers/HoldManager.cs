@@ -1,7 +1,8 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Responses;
+using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.Interfaces;
-using Microsoft.EntityFrameworkCore;
+using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,13 @@ namespace IffleyRoutesRecord.Logic.Managers
                 return holdResponse;
             }
 
-            var hold = repository.Hold.Single(holdDbo => holdDbo.Id == holdId);
+            var hold = repository.Hold.SingleOrDefault(holdDbo => holdDbo.Id == holdId);
+
+            if (hold is null)
+            {
+                throw new EntityNotFoundException($"No hold with ID {holdId} was found.");
+            }
+
             return Mapper.Map(hold);
         }
 
@@ -43,26 +50,6 @@ namespace IffleyRoutesRecord.Logic.Managers
             cache.CacheListOfItems(holds, CacheItemPriority.High);
 
             return holds;
-        }
-
-        public IList<HoldOnProblemResponse> GetHoldsOnProblem(int problemId)
-        {
-            var problem = repository
-                .Problem
-                .Include(problemDbo => problemDbo.ProblemHolds)
-                .ThenInclude(problemHold => problemHold.Hold)
-                .SingleOrDefault(p => p.Id == problemId);
-
-            return problem.ProblemHolds
-                .OrderBy(problemHold => problemHold.Position)
-                .Select(problemHold => new HoldOnProblemResponse()
-                {
-                    HoldId = problemHold.HoldId,
-                    Name = problemHold.Hold.Name,
-                    IsStandingStartHold = problemHold.IsStandingStartHold,
-                    HoldRules = ruleManager.GetHoldRules(problemHold.Hold.Id, problemId).ToList()
-                })
-                .ToList();
         }
     }
 }

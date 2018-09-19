@@ -1,9 +1,11 @@
 ﻿using System;
 using IffleyRoutesRecord.Logic.DataAccess;
-using IffleyRoutesRecord.Logic.DTOs.Requests;
-using IffleyRoutesRecord.Logic.DTOs.Responses;
-using IffleyRoutesRecord.Logic.Entities;
+using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Models.DTOs.Requests;
+using IffleyRoutesRecord.Models.DTOs.Responses;
+using IffleyRoutesRecord.Models.Entities;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace IffleyRoutesRecord.Logic.Managers
@@ -48,6 +50,11 @@ namespace IffleyRoutesRecord.Logic.Managers
                 var problemResponse = problemReader.GetProblem(problemDbo.Id);
                 cache.AddItemToCachedList(problemResponse);
                 return problemResponse;
+            }
+            // Don't want to return an EntityNotFoundException exception to the users as it is missleading
+            catch (EntityNotFoundException exception)
+            {
+                throw new EntityCreationException(string.Empty, exception);
             }
             catch
             {
