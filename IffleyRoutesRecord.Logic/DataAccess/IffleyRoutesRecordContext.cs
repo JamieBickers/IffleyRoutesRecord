@@ -10,6 +10,7 @@ namespace IffleyRoutesRecord.Logic.DataAccess
     {
         public IffleyRoutesRecordContext(DbContextOptions<IffleyRoutesRecordContext> options) : base(options)
         {
+
         }
 
         public DbSet<BGrade> BGrade { get; set; }

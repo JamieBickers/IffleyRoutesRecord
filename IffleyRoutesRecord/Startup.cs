@@ -6,6 +6,7 @@ using IffleyRoutesRecord.Logic.Validators;
 using IffleyRoutesRecord.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +27,7 @@ namespace IffleyRoutesRecord
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<IffleyRoutesRecordContext>(
-                options => options.UseSqlite(Configuration["Database:ConnectionString"]));
+            SetupDatabase(services);
             services.AddMemoryCache();
             services.AddResponseCaching();
 
@@ -45,11 +45,6 @@ namespace IffleyRoutesRecord
             RegisterManagers(services);
 
             services.AddTransient<IProblemRequestValidator, ProblemRequestValidator>();
-            services.AddTransient<PopulateDatabaseWithExistingProblems, PopulateDatabaseWithExistingProblems>();
-
-            var serviceProvider = services.BuildServiceProvider();
-            var existingProblemsPopulater = serviceProvider.GetRequiredService<PopulateDatabaseWithExistingProblems>();
-            existingProblemsPopulater.Populate();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,6 +74,37 @@ namespace IffleyRoutesRecord
             services.AddTransient<IGradeManager, GradeManager>();
             services.AddTransient<IProblemReader, ProblemReader>();
             services.AddTransient<IProblemCreator, ProblemCreator>();
+        }
+
+        private void SetupDatabase(IServiceCollection services)
+        {
+            //var connectionStringBuilder = new SqliteConnectionStringBuilder() { DataSource = ":memory:" };
+            //string connectionString = connectionStringBuilder.ToString();
+            //var connection = new SqliteConnection(connectionString);
+            //services
+            //  .AddEntityFrameworkSqlite()
+            //  .AddDbContext<IffleyRoutesRecordContext>(
+            //    options => options.UseSqlite(connection)
+            //  );
+
+            services.AddDbContext<IffleyRoutesRecordContext>(
+                options => options.UseSqlite(Configuration["Database:ConnectionString"]));
+
+            var serviceProvider = services.BuildServiceProvider();
+            var context = serviceProvider.GetRequiredService<IffleyRoutesRecordContext>();
+
+            //context.Database.OpenConnection();
+            //context.Database.EnsureCreated();
+
+            //context.TechGrade.Add(new Models.Entities.TechGrade()
+            //{
+            //    Name = "Test Tech Grade",
+            //    Rank = 1
+            //});
+            //context.SaveChanges();
+
+            var converter = new ConvertExistingDataToJson(context);
+            converter.Convert();
         }
     }
 }

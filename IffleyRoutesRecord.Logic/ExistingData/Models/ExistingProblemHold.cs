@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IffleyRoutesRecord.Logic.ExistingData
+namespace IffleyRoutesRecord.Logic.ExistingData.Models
 {
     internal class ExistingProblemHold
     {
