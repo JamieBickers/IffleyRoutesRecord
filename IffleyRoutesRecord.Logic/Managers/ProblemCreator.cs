@@ -36,9 +36,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             validator.Validate(problem);
 
             var problemDbo = AddProblemToDatabase(problem);
-
             repository.SaveChanges();
-
             return UpdateCache(problemDbo);
         }
 

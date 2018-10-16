@@ -34,7 +34,7 @@ namespace IffleyRoutesRecord.Controllers
         }
 
         /// <summary>
-        /// Gets a problem by its ID.
+        /// Gets a hold by its ID.
         /// </summary>
         /// <param name="holdId">The ID of the hold to return</param>
         /// <returns>The hold with the given ID</returns>

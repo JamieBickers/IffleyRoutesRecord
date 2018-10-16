@@ -20,21 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{4B0717A0-E2C
 	ProjectSection(SolutionItems) = preProject
 		SQL\CreateTables.sql = SQL\CreateTables.sql
 		SQL\PopulateStaticData.sql = SQL\PopulateStaticData.sql
-		SQL\ResetDatabase.sql = SQL\ResetDatabase.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.Models", "IffleyRoutesRecord.Models\IffleyRoutesRecord.Models.csproj", "{F15789BE-577B-468A-934F-B069EC210AEA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExistingData", "ExistingData", "{0212720E-3A60-4113-B29A-44EF90EA0B1C}"
-	ProjectSection(SolutionItems) = preProject
-		ExistingData\BGrades.json = ExistingData\BGrades.json
-		ExistingData\ExistingProblems.json = ExistingData\ExistingProblems.json
-		ExistingData\FurlongGrades.json = ExistingData\FurlongGrades.json
-		ExistingData\Holds.json = ExistingData\Holds.json
-		ExistingData\PoveyGrades.json = ExistingData\PoveyGrades.json
-		ExistingData\StyleSymbols.json = ExistingData\StyleSymbols.json
-		ExistingData\TechGrades.json = ExistingData\TechGrades.json
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.PerformanceTests", "IffleyRoutesRecord.PerformanceTests\IffleyRoutesRecord.PerformanceTests.csproj", "{76F4D4ED-82CA-4740-879C-A43FB1B72638}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,13 +52,16 @@ Global
 		{F15789BE-577B-468A-934F-B069EC210AEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F15789BE-577B-468A-934F-B069EC210AEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F15789BE-577B-468A-934F-B069EC210AEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F4D4ED-82CA-4740-879C-A43FB1B72638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F4D4ED-82CA-4740-879C-A43FB1B72638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F4D4ED-82CA-4740-879C-A43FB1B72638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F4D4ED-82CA-4740-879C-A43FB1B72638}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4B0717A0-E2CD-4250-8B93-6F596D93B528} = {D31DD24F-BEF8-44F0-B361-B4EE4EAABD58}
-		{0212720E-3A60-4113-B29A-44EF90EA0B1C} = {D31DD24F-BEF8-44F0-B361-B4EE4EAABD58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6E7FD152-7C90-4D8D-9B1E-DF2DD98FF351}

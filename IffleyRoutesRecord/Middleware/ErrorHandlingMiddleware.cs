@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord.Middleware
 {
+    /// <summary>
+    /// Middleware to handle exceptions
+    /// </summary>
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate next;
@@ -18,6 +19,11 @@ namespace IffleyRoutesRecord.Middleware
             this.next = next;
         }
 
+        /// <summary>
+        /// Invoke the next action in the pipeline
+        /// </summary>
+        /// <param name="context">Current http context</param>
+        /// <returns>A task waiting on the rest of the pipeline</returns>
         public async Task Invoke(HttpContext context)
         {
             try

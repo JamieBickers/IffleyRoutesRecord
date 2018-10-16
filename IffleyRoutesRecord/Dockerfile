@@ -1,8 +1,8 @@
-FROM microsoft/aspnetcore:2.0 AS base
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/aspnetcore-build:2.0 AS build
+FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY IffleyRoutesRecord/IffleyRoutesRecord.csproj IffleyRoutesRecord/
 RUN dotnet restore IffleyRoutesRecord/IffleyRoutesRecord.csproj
@@ -16,4 +16,5 @@ RUN dotnet publish IffleyRoutesRecord.csproj -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "IffleyRoutesRecord.dll"]
+#ENTRYPOINT ["dotnet", "IffleyRoutesRecord.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet IffleyRoutesRecord.dll

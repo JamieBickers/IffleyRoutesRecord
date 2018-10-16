@@ -1,20 +1,22 @@
-﻿#if DEBUG
-#pragma warning disable CA1822
+﻿#pragma warning disable CA1822
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 
 namespace IffleyRoutesRecord.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class TestController : Controller
     {
         [HttpGet("shutdown")]
         public IActionResult Shutdown()
         {
+#if DEBUG
             Environment.Exit(0);
-            throw new InvalidOperationException();
+#endif
+            return StatusCode((int)HttpStatusCode.Forbidden);
         }
     }
 }
-#endif

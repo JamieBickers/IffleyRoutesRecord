@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace IffleyRoutesRecord.IntegrationTests
+namespace IffleyRoutesRecord.IntegrationTests.ApiTests
 {
     static class RunSimpleInvalidProblemTests
     {

@@ -1,9 +1,7 @@
-﻿#pragma warning disable CA1812
+﻿using IffleyRoutesRecord.IntegrationTests.ApiTests;
 using System;
 using System.Net.Http;
-using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
 
 namespace IffleyRoutesRecord.IntegrationTests
 {
@@ -11,8 +9,6 @@ namespace IffleyRoutesRecord.IntegrationTests
     {
         static async Task Main()
         {
-            ResetDatabase();
-
             var baseUri = new Uri("http://localhost:61469/api/");
             var clientApi = new ClientApi(HttpClientFactory.Create());
             var testRunner = new TestRunner(clientApi);
@@ -25,16 +21,6 @@ namespace IffleyRoutesRecord.IntegrationTests
             await RunGradeTests.Run(baseUri, testRunner);
 
             await clientApi.ShutdownAsync(baseUri);
-        }
-
-        private static void ResetDatabase()
-        {
-            var connection = new SqliteConnection(@"Data Source=C:\Users\bicke\OneDrive\Desktop\IffleyRoutesRecord\IffleyRoutes.db;");
-            connection.Open();
-            var command = connection.CreateCommand();
-            command.CommandText = File.ReadAllText(@"..\..\..\..\SQL\ResetDatabase.sql");
-            command.ExecuteNonQuery();
-            connection.Close();
         }
     }
 }

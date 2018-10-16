@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IffleyRoutesRecord.IntegrationTests
+namespace IffleyRoutesRecord.IntegrationTests.ApiTests
 {
     public static class RunRuleTests
     {

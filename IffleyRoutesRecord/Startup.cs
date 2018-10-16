@@ -1,4 +1,5 @@
-﻿using IffleyRoutesRecord.Logic.DataAccess;
+﻿using IffleyRoutesRecord.DatabaseOptions;
+using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.ExistingData;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Logic.Managers;
@@ -11,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord
 {
@@ -31,6 +34,19 @@ namespace IffleyRoutesRecord
             services.AddMemoryCache();
             services.AddResponseCaching();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("Iffley", new Info
@@ -45,6 +61,8 @@ namespace IffleyRoutesRecord
             RegisterManagers(services);
 
             services.AddTransient<IProblemRequestValidator, ProblemRequestValidator>();
+
+            Task.Run(() => PopulateDatabase(services));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +72,8 @@ namespace IffleyRoutesRecord
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowAll");
 
             app.UseSwagger();
 
@@ -78,33 +98,69 @@ namespace IffleyRoutesRecord
 
         private void SetupDatabase(IServiceCollection services)
         {
-            //var connectionStringBuilder = new SqliteConnectionStringBuilder() { DataSource = ":memory:" };
-            //string connectionString = connectionStringBuilder.ToString();
-            //var connection = new SqliteConnection(connectionString);
-            //services
-            //  .AddEntityFrameworkSqlite()
-            //  .AddDbContext<IffleyRoutesRecordContext>(
-            //    options => options.UseSqlite(connection)
-            //  );
+            string databaseType = Configuration["Database:DatabaseType"];
+            string existingDataFilePath = Configuration["Database:ExistingDataPath"];
 
-            services.AddDbContext<IffleyRoutesRecordContext>(
-                options => options.UseSqlite(Configuration["Database:ConnectionString"]));
+            if (databaseType == DatabaseType.Real.ToString())
+            {
+                services.AddDbContext<IffleyRoutesRecordContext>(
+                    options => options.UseSqlite(Configuration["Database:ConnectionString"]));
+            }
+            else if (databaseType == DatabaseType.Memory.ToString())
+            {
+                var connectionStringBuilder = new SqliteConnectionStringBuilder() { DataSource = ":memory:" };
+                string connectionString = connectionStringBuilder.ToString();
+                var connection = new SqliteConnection(connectionString);
 
-            var serviceProvider = services.BuildServiceProvider();
-            var context = serviceProvider.GetRequiredService<IffleyRoutesRecordContext>();
+                services.AddEntityFrameworkSqlite()
+                    .AddDbContext<IffleyRoutesRecordContext>(
+                    options => options.UseSqlite(connection));
 
-            //context.Database.OpenConnection();
-            //context.Database.EnsureCreated();
+                var serviceProvider = services.BuildServiceProvider();
+                var context = serviceProvider.GetRequiredService<IffleyRoutesRecordContext>();
 
-            //context.TechGrade.Add(new Models.Entities.TechGrade()
-            //{
-            //    Name = "Test Tech Grade",
-            //    Rank = 1
-            //});
-            //context.SaveChanges();
+                context.Database.OpenConnection();
+                context.Database.EnsureCreated();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
+        }
 
-            var converter = new ConvertExistingDataToJson(context);
-            converter.Convert();
+        private void PopulateDatabase(IServiceCollection services)
+        {
+            string existingDataFilePath = Configuration["Database:ExistingDataPath"];
+            string populateOption = Configuration["Database:PopulateOption"];
+
+            if (populateOption == DatabasePrePopulationOptions.None.ToString())
+            {
+                // Do nothing
+            }
+            else if (populateOption == DatabasePrePopulationOptions.OnlyStaticData.ToString())
+            {
+                var serviceProvider = services.BuildServiceProvider();
+                var context = serviceProvider.GetRequiredService<IffleyRoutesRecordContext>();
+
+                var staticDataPopulater = new PopulateDatabaseWithStaticData(context, existingDataFilePath);
+                staticDataPopulater.Populate();
+            }
+            else if (populateOption == DatabasePrePopulationOptions.StaticDataAndExistingProblems.ToString())
+            {
+                var serviceProvider = services.BuildServiceProvider();
+                var context = serviceProvider.GetRequiredService<IffleyRoutesRecordContext>();
+
+                var staticDataPopulater = new PopulateDatabaseWithStaticData(context, existingDataFilePath);
+                staticDataPopulater.Populate();
+
+                var existingProblemsPopulater = new PopulateDatabaseWithExistingProblems(
+                    context, existingDataFilePath, serviceProvider.GetRequiredService<IProblemRequestValidator>());
+                existingProblemsPopulater.Populate(false);
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }

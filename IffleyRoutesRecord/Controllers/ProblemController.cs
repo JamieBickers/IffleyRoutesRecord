@@ -4,7 +4,6 @@ using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 
 namespace IffleyRoutesRecord.Controllers
 {

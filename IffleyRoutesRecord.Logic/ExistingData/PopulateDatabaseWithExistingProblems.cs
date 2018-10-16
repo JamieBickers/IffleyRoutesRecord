@@ -1,8 +1,8 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.ExistingData.Models;
 using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.StaticHelpers;
 using IffleyRoutesRecord.Models.DTOs.Requests;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,33 +15,38 @@ namespace IffleyRoutesRecord.Logic.ExistingData
     public class PopulateDatabaseWithExistingProblems
     {
         private readonly IffleyRoutesRecordContext repository;
-        private readonly IConfiguration configuration;
-        private readonly IProblemCreator problemCreator;
+        private readonly string existingDataPath;
+        private readonly IProblemRequestValidator validator;
 
-        public PopulateDatabaseWithExistingProblems(IConfiguration configuration, IProblemCreator problemCreator, IffleyRoutesRecordContext repository)
+        public PopulateDatabaseWithExistingProblems(IffleyRoutesRecordContext repository, string existingDataPath, IProblemRequestValidator validator)
         {
-            this.problemCreator = problemCreator;
-            this.configuration = configuration;
             this.repository = repository;
+            this.existingDataPath = existingDataPath;
+            this.validator = validator;
         }
 
-        public void Populate()
+        public void Populate(bool validate)
         {
-            string json = File.ReadAllText(@"C:\Users\bicke\OneDrive\Desktop\IffleyRoutesRecord\ParsedExistingProblems.json");
+            string json = File.ReadAllText(Path.ChangeExtension(Path.Combine(existingDataPath, "ExistingProblems"), "json"));
             var existingProblems = JsonConvert.DeserializeObject<IEnumerable<ExistingProblem>>(json);
 
-            foreach (var problem in existingProblems)
+            if (validate)
             {
-                ValidateProblem(problem);
+                foreach (var problem in existingProblems)
+                {
+                    ValidateProblem(problem);
+                }
             }
 
             foreach (var problem in existingProblems)
             {
-                StoreProblem(problem);
+                StoreProblem(problem, validate);
             }
+
+            repository.SaveChanges();
         }
 
-        private void StoreProblem(ExistingProblem problem)
+        private void StoreProblem(ExistingProblem problem, bool validate)
         {
             var newProblem = new CreateProblemRequest()
             {
@@ -51,9 +56,75 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                 Holds = new List<CreateHoldOnProblemRequest>()
             };
 
+            AddRules(problem, newProblem);
+            AddHolds(problem, newProblem);
+            AddGrades(problem, newProblem);
+
+            if (validate)
+            {
+                validator.Validate(newProblem);
+            }
+
+            var problemDbo = Mapper.Map(newProblem);
+            repository.Problem.Add(problemDbo);
+        }
+
+        private void AddHolds(ExistingProblem problem, CreateProblemRequest newProblem)
+        {
+            foreach (var hold in problem.Holds)
+            {
+                var newHold = new CreateHoldOnProblemRequest()
+                {
+                    HoldId = repository.Hold.Single(h => h.Name == hold.Hold).Id,
+                    IsStandingStartHold = hold.IsStandingStartHold,
+                    ExistingHoldRuleIds = new List<int>(),
+                    NewHoldRules = new List<CreateHoldRuleRequest>()
+                };
+
+                AddHoldRules(hold, newHold);
+
+                newProblem.Holds.Add(newHold);
+            }
+        }
+
+        private void AddHoldRules(ExistingProblemHold hold, CreateHoldOnProblemRequest newHold)
+        {
+            foreach (string rule in hold.Rules ?? new List<string>())
+            {
+                var existingRule = repository.HoldRule.SingleOrDefault(holdRule => holdRule.Name == rule);
+
+                if (existingRule is null)
+                {
+                    existingRule = repository.HoldRule.Local.SingleOrDefault(holdRule => holdRule.Name == rule);
+                }
+
+                if (existingRule is null)
+                {
+                    newHold.NewHoldRules = newHold.NewHoldRules.Concat(new List<CreateHoldRuleRequest>()
+                        {
+                            new CreateHoldRuleRequest()
+                            {
+                                Name = rule
+                            }
+                        });
+                }
+                else
+                {
+                    newHold.ExistingHoldRuleIds = newHold.ExistingHoldRuleIds.Concat(new List<int>() { existingRule.Id });
+                }
+            }
+        }
+
+        private void AddRules(ExistingProblem problem, CreateProblemRequest newProblem)
+        {
             foreach (string rule in problem.Rules ?? new List<string>())
             {
                 var existingRule = repository.GeneralRule.SingleOrDefault(generalRule => generalRule.Name == rule);
+
+                if (existingRule is null)
+                {
+                    existingRule = repository.GeneralRule.Local.SingleOrDefault(generalRule => generalRule.Name == rule);
+                }
 
                 if (existingRule is null)
                 {
@@ -70,46 +141,9 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                     newProblem.ExistingRuleIds = newProblem.ExistingRuleIds.Concat(new List<int>() { existingRule.Id });
                 }
             }
-
-            foreach (var hold in problem.Holds)
-            {
-                var newHold = new CreateHoldOnProblemRequest()
-                {
-                    HoldId = repository.Hold.Single(h => h.Name == hold.Hold).Id,
-                    IsStandingStartHold = hold.IsStandingStartHold,
-                    ExistingHoldRuleIds = new List<int>(),
-                    NewHoldRules = new List<CreateHoldRuleRequest>()
-                };
-
-                foreach (string rule in hold.Rules ?? new List<string>())
-                {
-                    var existingRule = repository.HoldRule.SingleOrDefault(holdRule => holdRule.Name == rule);
-
-                    if (existingRule is null)
-                    {
-                        newHold.NewHoldRules = newHold.NewHoldRules.Concat(new List<CreateHoldRuleRequest>()
-                        {
-                            new CreateHoldRuleRequest()
-                            {
-                                Name = rule
-                            }
-                        });
-                    }
-                    else
-                    {
-                        newHold.ExistingHoldRuleIds = newHold.ExistingHoldRuleIds.Concat(new List<int>() { existingRule.Id });
-                    }
-                }
-
-                newProblem.Holds.Add(newHold);
-            }
-
-            AddRulesToProblem(problem, newProblem);
-
-            problemCreator.CreateProblem(newProblem);
         }
 
-        private void AddRulesToProblem(ExistingProblem problem, CreateProblemRequest newProblem)
+        private void AddGrades(ExistingProblem problem, CreateProblemRequest newProblem)
         {
             foreach (string grade in problem.Grades)
             {
@@ -147,14 +181,14 @@ namespace IffleyRoutesRecord.Logic.ExistingData
             }
         }
 
-        private void ValidateProblem(ExistingProblem problem)
+        private static void ValidateProblem(ExistingProblem problem)
         {
             ValidateName(problem);
             ValidateGrades(problem);
             ValiadteHolds(problem);
         }
 
-        private void ValiadteHolds(ExistingProblem problem)
+        private static void ValiadteHolds(ExistingProblem problem)
         {
             var validHoldRegexes = new List<string>()
             {
@@ -196,7 +230,7 @@ namespace IffleyRoutesRecord.Logic.ExistingData
             }
         }
 
-        private void ValidateGrades(ExistingProblem problem)
+        private static void ValidateGrades(ExistingProblem problem)
         {
             var validGradeRegexes = new List<string>()
             {
@@ -215,7 +249,7 @@ namespace IffleyRoutesRecord.Logic.ExistingData
             }
         }
 
-        private void ValidateName(ExistingProblem problem)
+        private static void ValidateName(ExistingProblem problem)
         {
             if (problem.Name == "“4b or not …”" || problem.Name == "While Inventing a Nice 4b")
             {
