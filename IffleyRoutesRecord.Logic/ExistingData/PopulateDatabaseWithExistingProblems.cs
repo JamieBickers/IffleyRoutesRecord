@@ -3,9 +3,11 @@ using IffleyRoutesRecord.Logic.ExistingData.Models;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Logic.StaticHelpers;
 using IffleyRoutesRecord.Models.DTOs.Requests;
+using IffleyRoutesRecord.Models.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -27,6 +29,8 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
         public void Populate(bool validate)
         {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             string json = File.ReadAllText(Path.ChangeExtension(Path.Combine(existingDataPath, "ExistingProblems"), "json"));
             var existingProblems = JsonConvert.DeserializeObject<IEnumerable<ExistingProblem>>(json);
 
@@ -38,80 +42,101 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                 }
             }
 
-            foreach (var problem in existingProblems)
-            {
-                StoreProblem(problem, validate);
-            }
+            AddRulesToDatabase(existingProblems);
 
+            double time1 = stopwatch.Elapsed.TotalSeconds;
+            stopwatch.Restart();
+            StoreProblems(existingProblems, validate);
+            double time2 = stopwatch.Elapsed.TotalSeconds;
+            stopwatch.Restart();
             repository.SaveChanges();
+            double time3 = stopwatch.Elapsed.TotalSeconds;
+            double totalRime = time1 + time2 + time3;
         }
 
-        private void StoreProblem(ExistingProblem problem, bool validate)
+        private void AddRulesToDatabase(IEnumerable<ExistingProblem> existingProblems)
         {
-            var newProblem = new CreateProblemRequest()
-            {
-                Name = problem.Name,
-                NewRules = new List<CreateProblemRuleRequest>(),
-                ExistingRuleIds = new List<int>(),
-                Holds = new List<CreateHoldOnProblemRequest>()
-            };
+            var rules = existingProblems
+                .Where(problem => problem.Rules != null)
+                .SelectMany(problem => problem.Rules)
+                .Distinct()
+                .Select(rule => new GeneralRule()
+                {
+                    Name = rule
+                });
 
-            AddRules(problem, newProblem);
-            AddHolds(problem, newProblem);
-            AddGrades(problem, newProblem);
+            repository.GeneralRule.AddRange(rules);
 
-            if (validate)
+            var holdRules = existingProblems
+                .SelectMany(problem => problem.Holds.Where(hold => hold.Rules != null).SelectMany(hold => hold.Rules))
+                .Distinct()
+                .Select(holdRule => new HoldRule()
+                {
+                    Name = holdRule
+                });
+
+            repository.HoldRule.AddRange(holdRules);
+        }
+
+        private void StoreProblems(IEnumerable<ExistingProblem> problems, bool validate)
+        {
+            var holds = repository.Hold.ToList();
+            var holdRules = repository.HoldRule.Local.ToList();
+            var techGrades = repository.TechGrade.ToList();
+            var bGrades = repository.BGrade.ToList();
+            var furlongGrades = repository.FurlongGrade.ToList();
+
+            var newProblems = new List<CreateProblemRequest>();
+            foreach (var problem in problems)
             {
-                validator.Validate(newProblem);
+                var newProblem = new CreateProblemRequest()
+                {
+                    Name = problem.Name,
+                    NewRules = new List<CreateProblemRuleRequest>(),
+                    ExistingRuleIds = new List<int>(),
+                    Holds = new List<CreateHoldOnProblemRequest>()
+                };
+
+                AddRules(problem, newProblem);
+                AddHolds(problem, newProblem, holds, holdRules);
+                AddGrades(problem, newProblem, techGrades, bGrades, furlongGrades);
+
+                if (validate)
+                {
+                    validator.Validate(newProblem);
+                }
+
+                newProblems.Add(newProblem);
             }
 
-            var problemDbo = Mapper.Map(newProblem);
-            repository.Problem.Add(problemDbo);
+            var problemDbos = newProblems.Select(Mapper.Map);
+            repository.Problem.AddRange(problemDbos);
         }
 
-        private void AddHolds(ExistingProblem problem, CreateProblemRequest newProblem)
+        private void AddHolds(ExistingProblem problem, CreateProblemRequest newProblem,
+            IEnumerable<Hold> existingHolds, IEnumerable<HoldRule> existingHoldRules)
         {
             foreach (var hold in problem.Holds)
             {
                 var newHold = new CreateHoldOnProblemRequest()
                 {
-                    HoldId = repository.Hold.Single(h => h.Name == hold.Hold).Id,
+                    HoldId = existingHolds.First(existingHold => existingHold.Name == hold.Hold).Id,
                     IsStandingStartHold = hold.IsStandingStartHold,
                     ExistingHoldRuleIds = new List<int>(),
                     NewHoldRules = new List<CreateHoldRuleRequest>()
                 };
 
-                AddHoldRules(hold, newHold);
-
+                AddHoldRules(hold, newHold, existingHoldRules);
                 newProblem.Holds.Add(newHold);
             }
         }
 
-        private void AddHoldRules(ExistingProblemHold hold, CreateHoldOnProblemRequest newHold)
+        private void AddHoldRules(ExistingProblemHold hold, CreateHoldOnProblemRequest newHold, IEnumerable<HoldRule> existingHoldRules)
         {
             foreach (string rule in hold.Rules ?? new List<string>())
             {
-                var existingRule = repository.HoldRule.SingleOrDefault(holdRule => holdRule.Name == rule);
-
-                if (existingRule is null)
-                {
-                    existingRule = repository.HoldRule.Local.SingleOrDefault(holdRule => holdRule.Name == rule);
-                }
-
-                if (existingRule is null)
-                {
-                    newHold.NewHoldRules = newHold.NewHoldRules.Concat(new List<CreateHoldRuleRequest>()
-                        {
-                            new CreateHoldRuleRequest()
-                            {
-                                Name = rule
-                            }
-                        });
-                }
-                else
-                {
-                    newHold.ExistingHoldRuleIds = newHold.ExistingHoldRuleIds.Concat(new List<int>() { existingRule.Id });
-                }
+                var existingRule = existingHoldRules.First(holdRule => holdRule.Name == rule);
+                newHold.ExistingHoldRuleIds = newHold.ExistingHoldRuleIds.Concat(new List<int>() { existingRule.Id });
             }
         }
 
@@ -119,31 +144,13 @@ namespace IffleyRoutesRecord.Logic.ExistingData
         {
             foreach (string rule in problem.Rules ?? new List<string>())
             {
-                var existingRule = repository.GeneralRule.SingleOrDefault(generalRule => generalRule.Name == rule);
-
-                if (existingRule is null)
-                {
-                    existingRule = repository.GeneralRule.Local.SingleOrDefault(generalRule => generalRule.Name == rule);
-                }
-
-                if (existingRule is null)
-                {
-                    newProblem.NewRules = newProblem.NewRules.Concat(new List<CreateProblemRuleRequest>()
-                    {
-                        new CreateProblemRuleRequest()
-                        {
-                            Name = rule
-                        }
-                    });
-                }
-                else
-                {
-                    newProblem.ExistingRuleIds = newProblem.ExistingRuleIds.Concat(new List<int>() { existingRule.Id });
-                }
+                var existingRule = repository.GeneralRule.Local.First(generalRule => generalRule.Name == rule);
+                newProblem.ExistingRuleIds = newProblem.ExistingRuleIds.Concat(new List<int>() { existingRule.Id });
             }
         }
 
-        private void AddGrades(ExistingProblem problem, CreateProblemRequest newProblem)
+        private void AddGrades(ExistingProblem problem, CreateProblemRequest newProblem, IEnumerable<TechGrade> techGrades,
+            IEnumerable<BGrade> bGrades, IEnumerable<FurlongGrade> furlongGrades)
         {
             foreach (string grade in problem.Grades)
             {
@@ -154,7 +161,7 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                         throw new Exception();
                     }
 
-                    newProblem.TechGradeId = repository.TechGrade.Single(techGrade => techGrade.Name == grade).Id;
+                    newProblem.TechGradeId = techGrades.First(techGrade => techGrade.Name == grade).Id;
                 }
                 else if (Regex.IsMatch(grade, "^B[0-8]$"))
                 {
@@ -163,7 +170,7 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                         throw new Exception();
                     }
 
-                    newProblem.BGradeId = repository.BGrade.Single(bGrade => bGrade.Name == grade).Id;
+                    newProblem.BGradeId = bGrades.First(bGrade => bGrade.Name == grade).Id;
                 }
                 else if (Regex.IsMatch(grade, "^(AAA)|(XXX)$"))
                 {
@@ -172,7 +179,7 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                         throw new Exception();
                     }
 
-                    newProblem.FurlongGradeId = repository.FurlongGrade.Single(furlongGrade => furlongGrade.Name == grade).Id;
+                    newProblem.FurlongGradeId = furlongGrades.First(furlongGrade => furlongGrade.Name == grade).Id;
                 }
                 else
                 {
