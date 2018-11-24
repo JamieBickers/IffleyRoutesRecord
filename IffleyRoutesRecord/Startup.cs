@@ -13,7 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord
 {
@@ -62,7 +61,7 @@ namespace IffleyRoutesRecord
 
             services.AddTransient<IProblemRequestValidator, ProblemRequestValidator>();
 
-            Task.Run(() => PopulateDatabase(services));
+            PopulateDatabase(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -132,6 +131,7 @@ namespace IffleyRoutesRecord
         {
             string existingDataFilePath = Configuration["Database:ExistingDataPath"];
             string populateOption = Configuration["Database:PopulateOption"];
+            bool validate = Configuration.GetValue<bool>("Database:ValidateData");
 
             if (populateOption == DatabasePrePopulationOptions.None.ToString())
             {
@@ -155,7 +155,7 @@ namespace IffleyRoutesRecord
 
                 var existingProblemsPopulater = new PopulateDatabaseWithExistingProblems(
                     context, existingDataFilePath, serviceProvider.GetRequiredService<IProblemRequestValidator>());
-                existingProblemsPopulater.Populate(false);
+                existingProblemsPopulater.Populate(validate);
             }
             else
             {

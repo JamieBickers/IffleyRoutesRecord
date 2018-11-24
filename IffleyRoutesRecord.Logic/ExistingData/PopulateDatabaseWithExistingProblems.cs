@@ -7,7 +7,6 @@ using IffleyRoutesRecord.Models.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -29,8 +28,6 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
         public void Populate(bool validate)
         {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
             string json = File.ReadAllText(Path.ChangeExtension(Path.Combine(existingDataPath, "ExistingProblems"), "json"));
             var existingProblems = JsonConvert.DeserializeObject<IEnumerable<ExistingProblem>>(json);
 
@@ -44,14 +41,8 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
             AddRulesToDatabase(existingProblems);
 
-            double time1 = stopwatch.Elapsed.TotalSeconds;
-            stopwatch.Restart();
             StoreProblems(existingProblems, validate);
-            double time2 = stopwatch.Elapsed.TotalSeconds;
-            stopwatch.Restart();
             repository.SaveChanges();
-            double time3 = stopwatch.Elapsed.TotalSeconds;
-            double totalRime = time1 + time2 + time3;
         }
 
         private void AddRulesToDatabase(IEnumerable<ExistingProblem> existingProblems)
