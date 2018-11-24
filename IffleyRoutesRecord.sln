@@ -26,6 +26,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.Models",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.PerformanceTests", "IffleyRoutesRecord.PerformanceTests\IffleyRoutesRecord.PerformanceTests.csproj", "{76F4D4ED-82CA-4740-879C-A43FB1B72638}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "IffleyRoutesRecord.Website", "IffleyRoutesRecord.Website\", "{D5123A5F-57FF-4511-9D88-C9B0D7475340}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_60342"
+		Debug.AspNetCompiler.PhysicalPath = "IffleyRoutesRecord.Website\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60342\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_60342"
+		Release.AspNetCompiler.PhysicalPath = "IffleyRoutesRecord.Website\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_60342\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "60342"
+		SlnRelativePath = "IffleyRoutesRecord.Website\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +77,10 @@ Global
 		{76F4D4ED-82CA-4740-879C-A43FB1B72638}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F4D4ED-82CA-4740-879C-A43FB1B72638}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76F4D4ED-82CA-4740-879C-A43FB1B72638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5123A5F-57FF-4511-9D88-C9B0D7475340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5123A5F-57FF-4511-9D88-C9B0D7475340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5123A5F-57FF-4511-9D88-C9B0D7475340}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5123A5F-57FF-4511-9D88-C9B0D7475340}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
