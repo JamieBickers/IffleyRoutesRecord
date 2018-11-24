@@ -19,6 +19,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{4B0717A0-E2CD-4250-8B93-6F596D93B528}"
 	ProjectSection(SolutionItems) = preProject
 		SQL\CreateTables.sql = SQL\CreateTables.sql
+		DropAllTables.sql = DropAllTables.sql
 		SQL\PopulateStaticData.sql = SQL\PopulateStaticData.sql
 	EndProjectSection
 EndProject

@@ -103,8 +103,8 @@ namespace IffleyRoutesRecord
 
             if (databaseType == DatabaseType.Real.ToString())
             {
-                services.AddDbContext<IffleyRoutesRecordContext>(
-                    options => options.UseSqlite(Configuration["Database:ConnectionString"]));
+                services.AddDbContext<IffleyRoutesRecordContext>(options =>
+                    options.UseNpgsql(Configuration["Database:ConnectionString"]).EnableSensitiveDataLogging());
             }
             else if (databaseType == DatabaseType.Memory.ToString())
             {
