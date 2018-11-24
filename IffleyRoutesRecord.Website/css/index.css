@@ -1,0 +1,33 @@
+﻿.easyProblem {
+    background: rgba(122, 242, 104, 0.2);
+}
+
+.mediumProblem {
+    background: rgba(5, 2, 217, 0.2);
+}
+
+.thresholdProblem {
+    background: rgba(255, 10, 10, 0.2);
+}
+
+.hardProblem {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    padding: 1%;
+    width: 100%;
+    border-bottom: 1px solid grey;
+    text-align: right;
+}
+
+.paddedButtonGroup {
+    padding-bottom: 0.5%;
+    padding-top: 0.5%;
+    padding-left: 0.2%
+}
+
+.selectedButton {
+    background-color: black;
+    color: white;
+}

@@ -140,7 +140,7 @@ namespace IffleyRoutesRecord.Logic.ExistingData
             }
         }
 
-        private void AddGrades(ExistingProblem problem, CreateProblemRequest newProblem, IEnumerable<TechGrade> techGrades,
+        private static void AddGrades(ExistingProblem problem, CreateProblemRequest newProblem, IEnumerable<TechGrade> techGrades,
             IEnumerable<BGrade> bGrades, IEnumerable<FurlongGrade> furlongGrades)
         {
             foreach (string grade in problem.Grades)

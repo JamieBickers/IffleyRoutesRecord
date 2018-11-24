@@ -7,6 +7,6 @@ function getProblems(callBack) {
             return response.json();
         })
         .then(function (json) {
-            callBack(json)
+            callBack(json);
         });
 }

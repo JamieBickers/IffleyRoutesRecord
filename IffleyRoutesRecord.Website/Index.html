@@ -9,30 +9,33 @@
     <link rel="stylesheet" href="css/libraries/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/libraries/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="css/libraries/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
-    <h1>Iffley</h1>
-    <hr />
-    <table id="problems-table" class="table">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Tech Grade</th>
-                <th scope="col">B Grade</th>
-                <th scope="col">Povey Grade</th>
-                <th scope="col">Furlong Grade</th>
-                <th scope="col">Holds</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <h1>Iffley Problems List</h1>
 
-    <script src="js/libraries/jquery.js"></script>
-    <script src="js/libraries/bootstrap.min.js"></script>
-    <script src="js/libraries/bootstrap.bundle.min.js"></script>
+    <div class="paddedButtonGroup btn-group">
+        <button id="sort-by-name-button" class="btn">Sort by Name</button>
+        <button id="sort-by-grade-button" class="btn">Sort by Grade</button>
+    </div>
+
+    <div>
+        <table id="problems-table" class="table table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Grade</th>
+                    <th>Holds</th>
+                    <th>Rules</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
     <script src="js/api.js"></script>
     <script src="js/problems.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>

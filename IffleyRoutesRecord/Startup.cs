@@ -91,6 +91,7 @@ namespace IffleyRoutesRecord
             services.AddTransient<IRuleManager, RuleManager>();
             services.AddTransient<IHoldManager, HoldManager>();
             services.AddTransient<IGradeManager, GradeManager>();
+            services.AddTransient<IGlobalGradeAssigner, GlobalGradeAssigner>();
             services.AddTransient<IProblemReader, ProblemReader>();
             services.AddTransient<IProblemCreator, ProblemCreator>();
         }
