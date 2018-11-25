@@ -49,6 +49,11 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public void AssignGlobalGrade(ProblemResponse problem)
         {
+            if (problem is null)
+            {
+                throw new ArgumentNullException(nameof(problem));
+            }
+
             if (problem.TechGrade != null)
             {
                 problem.GlobalGrade = problem.TechGrade.Rank;
@@ -83,6 +88,11 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public void AssignGlobalGrades(IEnumerable<ProblemResponse> problems)
         {
+            if (problems is null)
+            {
+                throw new ArgumentNullException(nameof(problems));
+            }
+
             foreach (var problem in problems)
             {
                 AssignGlobalGrade(problem);
