@@ -26,5 +26,7 @@ namespace IffleyRoutesRecord.Logic.DataAccess
         public DbSet<ProblemStyleSymbol> ProblemStyleSymbol { get; set; }
         public DbSet<StyleSymbol> StyleSymbol { get; set; }
         public DbSet<TechGrade> TechGrade { get; set; }
+        public DbSet<ProblemIssue> ProblemIssue { get; set; }
+        public DbSet<Issue> Issue { get; set; }
     }
 }

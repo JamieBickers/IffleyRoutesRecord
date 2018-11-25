@@ -102,3 +102,17 @@ create table "ProblemRule" (
 	foreign key ("ProblemId") references "Problem" ("Id"),
 	foreign key ("GeneralRuleId") references "GeneralRule" ("Id")
 );
+
+create table "ProblemIssue" (
+	"Id" serial primary key not null,
+	"ProblemId" integer not null,
+	"Description" varchar(5000) not null,
+	"SubmittedBy" varchar(50) not null,
+	foreign key ("ProblemId") references "Problem" ("Id")
+);
+
+create table "Issue" (
+	"Id" serial primary key not null,
+	"Description" varchar(5000) not null,
+	"SubmittedBy" varchar(50) not null
+);

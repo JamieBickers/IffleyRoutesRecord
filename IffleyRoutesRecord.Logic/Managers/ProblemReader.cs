@@ -57,12 +57,17 @@ namespace IffleyRoutesRecord.Logic.Managers
             {
                 problems = IncludeAllData(repository.Problem)
                     .AsEnumerable()
-                    .Select(problem => Mapper.Map(problem));
+                    .Select(problem => Mapper.Map(problem))
+                    .ToList();
 
+                globalGradeAssigner.AssignGlobalGrades(problems);
                 cache.CacheListOfItems(problems, CacheItemPriority.Normal);
             }
+            else
+            {
+                globalGradeAssigner.AssignGlobalGrades(problems);
+            }
 
-            globalGradeAssigner.AssignGlobalGrades(problems);
             return problems;
         }
 

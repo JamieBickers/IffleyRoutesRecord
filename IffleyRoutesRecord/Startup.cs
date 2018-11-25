@@ -23,7 +23,7 @@ namespace IffleyRoutesRecord
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; set; }
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -60,6 +60,7 @@ namespace IffleyRoutesRecord
             RegisterManagers(services);
 
             services.AddTransient<IProblemRequestValidator, ProblemRequestValidator>();
+            services.AddTransient<IIssueRequestValidator, IssueRequestValidator>();
 
             PopulateDatabase(services);
         }
@@ -87,6 +88,7 @@ namespace IffleyRoutesRecord
 
         private static void RegisterManagers(IServiceCollection services)
         {
+            services.AddTransient<IIssueManager, IssueManager>();
             services.AddTransient<IStyleSymbolManager, StyleSymbolManager>();
             services.AddTransient<IRuleManager, RuleManager>();
             services.AddTransient<IHoldManager, HoldManager>();
@@ -104,7 +106,7 @@ namespace IffleyRoutesRecord
             if (databaseType == DatabaseType.Real.ToString())
             {
                 services.AddDbContext<IffleyRoutesRecordContext>(options =>
-                    options.UseNpgsql(Configuration["Database:ConnectionString"]).EnableSensitiveDataLogging());
+                    options.UseNpgsql(Configuration["Database:ConnectionString"]));
             }
             else if (databaseType == DatabaseType.Memory.ToString())
             {

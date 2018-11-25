@@ -251,6 +251,11 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
         /// <exception cref="ArgumentNullException"></exception>
         internal static ProblemRuleResponse Map(ProblemRule rule)
         {
+            if (rule is null)
+            {
+                throw new ArgumentNullException(nameof(rule));
+            }
+
             return new ProblemRuleResponse()
             {
                 ProblemRuleId = rule.GeneralRuleId,
@@ -288,11 +293,78 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
         /// <exception cref="ArgumentNullException"></exception>
         internal static StyleSymbolResponse Map(ProblemStyleSymbol problemStyleSymbol)
         {
+            if (problemStyleSymbol is null)
+            {
+                throw new ArgumentNullException(nameof(problemStyleSymbol));
+            }
+
             return new StyleSymbolResponse()
             {
                 StyleSymbolId = problemStyleSymbol.StyleSymbolId,
                 Name = problemStyleSymbol.StyleSymbol.Name,
                 Description = problemStyleSymbol.StyleSymbol.Description
+            };
+        }
+
+        /// <summary>
+        /// Create an Issue entity from a CreateIssueRequest DTO
+        /// </summary>
+        /// <param name="issueRequest">The DTO to map from</param>
+        /// <returns>The corresponding entity</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        internal static Issue Map(CreateIssueRequest issueRequest)
+        {
+            if (issueRequest is null)
+            {
+                throw new ArgumentNullException(nameof(issueRequest));
+            }
+
+            return new Issue()
+            {
+                Description = issueRequest.Description,
+                SubmittedBy = issueRequest.SubmittedBy
+            };
+        }
+
+        /// <summary>
+        /// Create a ProblemIssue entity from a CreateProblemIssueRequest DTO
+        /// </summary>
+        /// <param name="issueRequest">The DTO to map from</param>
+        /// <returns>The corresponding entity</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        internal static ProblemIssue Map(CreateProblemIssueRequest issueRequest)
+        {
+            if (issueRequest is null)
+            {
+                throw new ArgumentNullException(nameof(issueRequest));
+            }
+
+            return new ProblemIssue()
+            {
+                ProblemId = issueRequest.ProblemId,
+                Description = issueRequest.Description,
+                SubmittedBy = issueRequest.SubmittedBy
+            };
+        }
+
+        /// <summary>
+        /// Create a ProblemIssueResponse DTO from a ProblemIssue entity
+        /// </summary>
+        /// <param name="issue">The entity to map from</param>
+        /// <returns>The corresponding DTO</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        internal static ProblemIssueResponse Map(ProblemIssue issue)
+        {
+            if (issue is null)
+            {
+                throw new ArgumentNullException(nameof(issue));
+            }
+
+            return new ProblemIssueResponse()
+            {
+                ProblemIssueId = issue.Id,
+                Description = issue.Description,
+                SubmittedBy = issue.SubmittedBy
             };
         }
 

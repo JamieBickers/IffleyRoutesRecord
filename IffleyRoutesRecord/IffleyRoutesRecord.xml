@@ -94,6 +94,26 @@
             <response code="404">No hold with the provided ID was found</response>
             <response code="500">Unexpected error</response>
         </member>
+        <member name="M:IffleyRoutesRecord.Controllers.IssueController.GetIssues">
+            <summary>
+            Gets a list of all issues.
+            </summary>
+            <returns>The full list of issues</returns>
+            <response code="200">The full list of issues</response>
+            <response code="500">Unexpected error</response>
+            <response code="501">Not currently available</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.IssueController.GetProblemIssues">
+            <summary>
+            Gets a list of all problem issues.
+            </summary>
+            <returns>The full list of problem issues</returns>
+            <response code="200">The full list of problem issues</response>
+            <response code="500">Unexpected error</response>
+            <response code="501">Not currently available</response>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:IffleyRoutesRecord.Controllers.IssueController.CreateProblemIssue(IffleyRoutesRecord.Models.DTOs.Requests.CreateProblemIssueRequest)" -->
+        <!-- Badly formed XML comment ignored for member "M:IffleyRoutesRecord.Controllers.IssueController.CreateIssue(IffleyRoutesRecord.Models.DTOs.Requests.CreateIssueRequest)" -->
         <member name="M:IffleyRoutesRecord.Controllers.ProblemController.GetProblems">
             <summary>
             Gets a list of all problems.
@@ -114,7 +134,7 @@
         </member>
         <member name="M:IffleyRoutesRecord.Controllers.ProblemController.CreateProblem(IffleyRoutesRecord.Models.DTOs.Requests.CreateProblemRequest)">
             <summary>
-            Creates a problem along with any additional rules needed.
+            Creates a problem along with any additional rules needed. This is unavailable until authentication is set up.
             </summary>
             <param name="problem">The problem to be created</param>
             <returns>The created problem</returns>
@@ -122,6 +142,7 @@
             <response code="404">One of the provided IDs was not found</response>
             <response code="409">One of the provided names for the problem or a rule already exists</response>
             <response code="500">Unexpected error</response>
+            <response code="501">Not currently available</response>
         </member>
         <member name="M:IffleyRoutesRecord.Controllers.RuleController.GetProblemRule(System.Int32)">
             <summary>
