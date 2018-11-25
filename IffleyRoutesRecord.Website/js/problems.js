@@ -1,13 +1,28 @@
-﻿function populateTableSortByName(tableId) {
+﻿const alphabeticCharacters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+function populateTableSortByName(tableId) {
     populateTable(function (a, b) {
-        if (a.name < b.name) {
+        const aName = onlyAlphabeticCharactersAndToLowerCase(a.name);
+        const bName = onlyAlphabeticCharactersAndToLowerCase(b.name);
+
+        if (aName < bName) {
             return -1;
         }
-        if (a.name > b.name) {
+        if (aName > bName) {
             return 1;
         }
         return 0;
     }, tableId);
+}
+
+function onlyAlphabeticCharactersAndToLowerCase(str) {
+    return str
+        .toLowerCase()
+        .split('')
+        .filter(function (chr) {
+            return alphabeticCharacters.indexOf(chr) > -1;
+        })
+        .join('');
 }
 
 function populateTableSortByGrade(tableId) {
