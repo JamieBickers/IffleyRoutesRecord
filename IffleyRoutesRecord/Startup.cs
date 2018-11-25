@@ -1,4 +1,5 @@
-﻿using IffleyRoutesRecord.DatabaseOptions;
+﻿using IffleyRoutesRecord.Authentication;
+using IffleyRoutesRecord.DatabaseOptions;
 using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.ExistingData;
 using IffleyRoutesRecord.Logic.Interfaces;
@@ -32,6 +33,13 @@ namespace IffleyRoutesRecord
             SetupDatabase(services);
             services.AddMemoryCache();
             services.AddResponseCaching();
+
+            services.AddIdentityServer()
+                .AddInMemoryClients(Clients.Get())
+                .AddInMemoryIdentityResources(Resources.GetIdentityResources())
+                .AddInMemoryApiResources(Resources.GetApiResources())
+                .AddTestUsers(Users.Get())
+                .AddDeveloperSigningCredential();
 
             services.AddCors(options =>
             {
@@ -73,10 +81,10 @@ namespace IffleyRoutesRecord
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseIdentityServer();
             app.UseCors("AllowAll");
 
             app.UseSwagger();
-
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/Iffley/swagger.json", "Iffley API");

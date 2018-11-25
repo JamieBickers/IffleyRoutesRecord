@@ -30,7 +30,7 @@ namespace IffleyRoutesRecord.PerformanceTests
             var ruleManager = new RuleManager(repository, cache);
             var holdManager = new HoldManager(repository, cache, ruleManager);
             var gradeManager = new GradeManager(repository, cache);
-            var globalGradeAssigner = new GlobalGradeAssigner(gradeManager);
+            var globalGradeAssigner = new GlobalGradeAssigner(gradeManager, null);
             var problemReader = new ProblemReader(repository, cache, styleSymbolManager, ruleManager, holdManager, gradeManager, globalGradeAssigner);
             var validator = new ProblemRequestValidator(repository);
 

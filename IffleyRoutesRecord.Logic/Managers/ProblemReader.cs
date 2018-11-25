@@ -60,12 +60,12 @@ namespace IffleyRoutesRecord.Logic.Managers
                     .Select(problem => Mapper.Map(problem))
                     .ToList();
 
-                globalGradeAssigner.AssignGlobalGrades(problems);
+                globalGradeAssigner.AssignGlobalGrades(problems.ToList());
                 cache.CacheListOfItems(problems, CacheItemPriority.Normal);
             }
             else
             {
-                globalGradeAssigner.AssignGlobalGrades(problems);
+                globalGradeAssigner.AssignGlobalGrades(problems.ToList());
             }
 
             return problems;
