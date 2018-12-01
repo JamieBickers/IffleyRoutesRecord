@@ -112,8 +112,27 @@
             <response code="500">Unexpected error</response>
             <response code="501">Not currently available</response>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:IffleyRoutesRecord.Controllers.IssueController.CreateProblemIssue(IffleyRoutesRecord.Models.DTOs.Requests.CreateProblemIssueRequest)" -->
-        <!-- Badly formed XML comment ignored for member "M:IffleyRoutesRecord.Controllers.IssueController.CreateIssue(IffleyRoutesRecord.Models.DTOs.Requests.CreateIssueRequest)" -->
+        <member name="M:IffleyRoutesRecord.Controllers.IssueController.CreateProblemIssue(IffleyRoutesRecord.Models.DTOs.Requests.CreateProblemIssueRequest)">
+            <summary>
+            Creates a problem along with any additional rules needed. This is unavailable until authentication is set up.
+            </summary>
+            <param name="issue">The problem to be created</param>
+            <returns>Status code indicating success</returns>
+            <response code="204">Success</response>
+            <response code="404">Invalid problem Id</response>
+            <response code="500">Unexpected error</response>
+            <response code="501">Not currently available</response>
+        </member>
+        <member name="M:IffleyRoutesRecord.Controllers.IssueController.CreateIssue(IffleyRoutesRecord.Models.DTOs.Requests.CreateIssueRequest)">
+            <summary>
+            Creates a problem along with any additional rules needed. This is unavailable until authentication is set up.
+            </summary>
+            <param name="issue">The problem to be created</param>
+            <returns>Status code indicating success</returns>
+            <response code="204">Success</response>
+            <response code="500">Unexpected error</response>
+            <response code="501">Not currently available</response>
+        </member>
         <member name="M:IffleyRoutesRecord.Controllers.ProblemController.GetProblems">
             <summary>
             Gets a list of all problems.

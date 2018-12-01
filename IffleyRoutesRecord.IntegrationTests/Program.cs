@@ -19,6 +19,7 @@ namespace IffleyRoutesRecord.IntegrationTests
             await RunHoldTests.Run(baseUri, testRunner);
             await RunRuleTests.Run(baseUri, testRunner);
             await RunGradeTests.Run(baseUri, testRunner);
+            await RunIssueTests.Run(baseUri, testRunner);
 
             await clientApi.ShutdownAsync(baseUri);
         }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord.IntegrationTests
@@ -34,6 +35,12 @@ namespace IffleyRoutesRecord.IntegrationTests
             AssertAreEqual(result, expectedResult);
         }
 
+        public async Task PostAndAssertIsSuccessfulAsync<TContent>(Uri uri, TContent content)
+        {
+            var result = await clientApi.PostAsync(uri, content);
+            AssertIsSuccessful(result);
+        }
+
         public async Task PostWithModelErrorsAsync<TContent>(Uri uri, TContent content, string expectedErrorJson)
         {
             var (errors, statusCode) = await clientApi.PostWithStatusCodeAsync<TContent>(uri, content);
@@ -52,6 +59,14 @@ namespace IffleyRoutesRecord.IntegrationTests
             }
         }
 
+        private static void AssertIsSuccessful(HttpResponseMessage response)
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ResponseNotSuccessfulException();
+            }
+        }
+
         private static void AssertIsSatisfied<T>(T result, Predicate<T> predicate)
         {
             if (!predicate(result))
@@ -63,24 +78,6 @@ namespace IffleyRoutesRecord.IntegrationTests
         private static string Serialize(object data)
         {
             return JsonConvert.SerializeObject(data).ToUpperInvariant();
-        }
-
-        private static void AssertContainSameElements(IEnumerable<string> first, IEnumerable<string> second)
-        {
-            if (first is null)
-            {
-                throw new ArgumentNullException(nameof(first));
-            }
-
-            if (second is null)
-            {
-                throw new ArgumentNullException(nameof(second));
-            }
-
-            if (first.Count() != second.Count())
-            {
-
-            }
         }
     }
 }

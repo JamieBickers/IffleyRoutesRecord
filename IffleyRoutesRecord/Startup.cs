@@ -1,19 +1,22 @@
-﻿using IffleyRoutesRecord.Authentication;
-using IffleyRoutesRecord.DatabaseOptions;
+﻿using IffleyRoutesRecord.DatabaseOptions;
 using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.ExistingData;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Logic.Managers;
 using IffleyRoutesRecord.Logic.Validators;
 using IffleyRoutesRecord.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using IffleyRoutesRecord.Auth;
 
 namespace IffleyRoutesRecord
 {
@@ -30,16 +33,10 @@ namespace IffleyRoutesRecord
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
             SetupDatabase(services);
             services.AddMemoryCache();
             services.AddResponseCaching();
-
-            services.AddIdentityServer()
-                .AddInMemoryClients(Clients.Get())
-                .AddInMemoryIdentityResources(Resources.GetIdentityResources())
-                .AddInMemoryApiResources(Resources.GetApiResources())
-                .AddTestUsers(Users.Get())
-                .AddDeveloperSigningCredential();
 
             services.AddCors(options =>
             {
@@ -66,6 +63,7 @@ namespace IffleyRoutesRecord
             });
 
             RegisterManagers(services);
+            RegisterAuth(services);
 
             services.AddTransient<IProblemRequestValidator, ProblemRequestValidator>();
             services.AddTransient<IIssueRequestValidator, IssueRequestValidator>();
@@ -74,15 +72,17 @@ namespace IffleyRoutesRecord
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public static void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseIdentityServer();
+            loggerFactory.AddConsole(LogLevel.Trace);
+
             app.UseCors("AllowAll");
+            //app.UseHttpsRedirection();
 
             app.UseSwagger();
             app.UseSwaggerUI(options =>
@@ -91,6 +91,7 @@ namespace IffleyRoutesRecord
             });
 
             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseAuthentication();
             app.UseResponseCaching().UseMvc();
         }
 
@@ -172,6 +173,33 @@ namespace IffleyRoutesRecord
             {
                 Environment.Exit(0);
             }
+        }
+
+        private void RegisterAuth(IServiceCollection services)
+        {
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = domain;
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:issues", policy => policy.Requirements.Add(new HasScopeRequirement("read:issues", domain)));
+                options.AddPolicy("create:issues", policy => policy.Requirements.Add(new HasScopeRequirement("create:issues", domain)));
+                options.AddPolicy("create:problems", policy => policy.Requirements.Add(new HasScopeRequirement("create:problems", domain)));
+                options.AddPolicy("update:problems", policy => policy.Requirements.Add(new HasScopeRequirement("update:problems", domain)));
+                options.AddPolicy("invalid:scope", policy => policy.Requirements.Add(new HasScopeRequirement("invalid:scope", domain)));
+            });
+
+            // register the scope authorization handler
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
         }
     }
 }

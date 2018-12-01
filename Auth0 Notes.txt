@@ -1,0 +1,1 @@
+https://iffley-bouldering.eu.auth0.com/authorize?audience=https://iffley-routes-record.herokuapp.com&scope=read:issues+create:issues+create:problems+update:problems+openid+profile+email&response_type=token+id_token&client_id=7cqQ4JuBUoL2nNPrhC2RbNZIoa3hcvHT&redirect_uri=http://localhost:8080/&nonce=mynonce&state=mystate

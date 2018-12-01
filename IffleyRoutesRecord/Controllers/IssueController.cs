@@ -66,34 +66,46 @@ namespace IffleyRoutesRecord.Controllers
         /// Creates a problem along with any additional rules needed. This is unavailable until authentication is set up.
         /// </summary>
         /// <param name="issue">The problem to be created</param>
-        /// <returns>Status code indicating success/returns>
+        /// <returns>Status code indicating success</returns>
         /// <response code="204">Success</response>
         /// <response code="404">Invalid problem Id</response>
         /// <response code="500">Unexpected error</response>
+        /// <response code="501">Not currently available</response>
         [HttpPost("problem")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
+        [ProducesResponseType(501)]
         public StatusCodeResult CreateProblemIssue(CreateProblemIssueRequest issue)
         {
+#if DEBUG
             issueManager.CreateProblemIssue(issue);
             return new StatusCodeResult(204);
+#else
+            return StatusCode((int)HttpStatusCode.NotImplemented);
+#endif
         }
 
         /// <summary>
         /// Creates a problem along with any additional rules needed. This is unavailable until authentication is set up.
         /// </summary>
         /// <param name="issue">The problem to be created</param>
-        /// <returns>Status code indicating success/returns>
+        /// <returns>Status code indicating success</returns>
         /// <response code="204">Success</response>
         /// <response code="500">Unexpected error</response>
+        /// <response code="501">Not currently available</response>
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
+        [ProducesResponseType(501)]
         public StatusCodeResult CreateIssue(CreateIssueRequest issue)
         {
+#if DEBUG
             issueManager.CreateIssue(issue);
             return new StatusCodeResult(204);
+#else
+            return StatusCode((int)HttpStatusCode.NotImplemented);
+#endif
         }
     }
 }
