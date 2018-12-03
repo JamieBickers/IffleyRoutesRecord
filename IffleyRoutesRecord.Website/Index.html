@@ -27,7 +27,7 @@
                     <button id="btn-logout" class="btn btn-primary btn-margin">
                         Log Out
                     </button>
-                    
+
                     <span id="email-display"></span>
                 </div>
             </div>
@@ -37,9 +37,15 @@
 
     <h1>Iffley Problems List</h1>
 
-    <div class="paddedButtonGroup btn-group">
-        <button id="sort-by-name-button" class="btn selectedButton">Sort by Name</button>
-        <button id="sort-by-grade-button" class="btn">Sort by Grade</button>
+    <div class="col-md-4 col-sm-12">
+        <div class="btn-group paddedGroup">
+            <button id="sort-by-name-button" class="btn selectedButton">Sort by Name</button>
+            <button id="sort-by-grade-button" class="btn">Sort by Grade</button>
+        </div>
+        <div class="paddedGroup">
+            <input class="form-control" placeholder="Search by Holds" id="search-by-holds-input" />
+            <button class="btn" id="search-by-holds-button">Search</button>
+        </div>
     </div>
 
     <div>

@@ -11,9 +11,16 @@ document.getElementById(sortByNameButtonId).onclick = function () {
     populateTableSortByName(problemsTableId);
 };
 
-document.getElementById('sort-by-grade-button').onclick = function () {
+document.getElementById(sortByGradeButtonId).onclick = function () {
     document.getElementById(sortByNameButtonId).classList.remove('selectedButton');
     document.getElementById(sortByGradeButtonId).classList.add('selectedButton');
 
     populateTableSortByGrade(problemsTableId);
+};
+
+document.getElementById('search-by-holds-button').onclick = function () {
+    const holdsEntered = document.getElementById('search-by-holds-input').value.split(' ');
+    populateTableByHoldsContained(holdsEntered, problemsTableId, function () {
+        alert('Invalid hold(s) entered.');
+    });
 };

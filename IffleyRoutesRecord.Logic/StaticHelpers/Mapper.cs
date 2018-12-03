@@ -78,6 +78,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 {
                     HoldId = problemHold.Hold.Id,
                     Name = problemHold.Hold.Name,
+                    ParentHoldId = problemHold.Hold.ParentHoldId,
                     IsStandingStartHold = problemHold.IsStandingStartHold,
                     HoldRules = problemHold.ProblemHoldRules.Select(problemHoldRule => new HoldRuleResponse()
                     {
@@ -198,6 +199,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
             {
                 HoldId = hold.Id,
                 Name = hold.Name,
+                ParentHoldId = hold.ParentHoldId
             };
         }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace IffleyRoutesRecord.Models.DTOs.Responses
 {
@@ -9,6 +6,7 @@ namespace IffleyRoutesRecord.Models.DTOs.Responses
     {
         public int HoldId { get; set; }
         public string Name { get; set; }
+        public int? ParentHoldId { get; set; }
         public bool IsStandingStartHold { get; set; }
         public IEnumerable<HoldRuleResponse> HoldRules { get; set; }
     }

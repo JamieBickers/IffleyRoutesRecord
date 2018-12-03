@@ -142,3 +142,42 @@ function reportIssue(problem) {
         console.log(response);
     });
 }
+
+function populateTableByHoldsContained(holdNames, tableId, callbackIfInvalidHold) {
+    getProblems(function (problems) {
+        getHolds(function (allHolds) {
+            const holds = holdNames.map(holdName => allHolds.find(hold => hold.name === holdName));
+            if (holds.some(hold => hold === undefined)) {
+                callbackIfInvalidHold();
+            }
+            else {
+                const sortedProblems = sortProblemsByHoldsContained(problems, holds, allHolds);
+                document.getElementById(tableId).getElementsByTagName('tbody')[0].innerHTML = '';
+
+                for (let i = 0; i < sortedProblems.length; i++) {
+                    addProblemToTable(sortedProblems[i], tableId);
+                }
+            }
+        });
+    });
+}
+
+function sortProblemsByHoldsContained(problems, holds, allHolds) {
+    problems.forEach(problem => {
+        problem.numberOfHoldsInCommon = getNumberOfHoldsInCommonWithProblem(problem, holds, allHolds);
+    });
+
+    return problems.sort((a, b) => b.numberOfHoldsInCommon - a.numberOfHoldsInCommon);
+}
+
+function getNumberOfHoldsInCommonWithProblem(problem, holds, allHolds) {
+    let numberOfHoldsInCommon = 0;
+
+    for (let i = 0; i < problem.holds.length; i++) {
+        const problemHold = problem.holds[i];
+        if (holds.find(hold => hold.holdId === problemHold.holdId || hold.holdId === problemHold.parentHoldId)) {
+            numberOfHoldsInCommon++;
+        }
+    }
+    return numberOfHoldsInCommon;
+}
