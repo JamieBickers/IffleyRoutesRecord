@@ -8,9 +8,33 @@
 
     <link rel="stylesheet" href="css/libraries/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <script src="js/libraries/auth0.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--TODO: Maybe not needed-->
+    <script src="js/libraries/jwtDecoder.js"></script>
 </head>
 
 <body>
+    <div class="content">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button id="btn-login" class="btn btn-primary btn-margin">
+                        Log In
+                    </button>
+
+                    <button id="btn-logout" class="btn btn-primary btn-margin">
+                        Log Out
+                    </button>
+                    
+                    <span id="email-display"></span>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <hr />
+
     <h1>Iffley Problems List</h1>
 
     <div class="paddedButtonGroup btn-group">
@@ -22,10 +46,10 @@
         <table id="problems-table" class="table table-sm">
             <thead class="thead-dark">
                 <tr>
-                    <th>Name</th>
-                    <th>Grade</th>
-                    <th>Holds</th>
-                    <th>Rules</th>
+                    <th class="col-md-3 col-sm-3">Name</th>
+                    <th class="col-md-3 col-sm-3">Grade</th>
+                    <th class="col-md-3 col-sm-3">Holds</th>
+                    <th class="col-md-3 col-sm-3">Rules</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -35,8 +59,6 @@
     <script src="js/api.js"></script>
     <script src="js/problems.js"></script>
     <script src="js/index.js"></script>
-
-    <script src="js/libraries/oidc-client.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 </html>

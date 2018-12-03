@@ -191,14 +191,10 @@ namespace IffleyRoutesRecord
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("read:issues", policy => policy.Requirements.Add(new HasScopeRequirement("read:issues", domain)));
-                options.AddPolicy("create:issues", policy => policy.Requirements.Add(new HasScopeRequirement("create:issues", domain)));
-                options.AddPolicy("create:problems", policy => policy.Requirements.Add(new HasScopeRequirement("create:problems", domain)));
-                options.AddPolicy("update:problems", policy => policy.Requirements.Add(new HasScopeRequirement("update:problems", domain)));
-                options.AddPolicy("invalid:scope", policy => policy.Requirements.Add(new HasScopeRequirement("invalid:scope", domain)));
+                options.AddPolicy(UserRoles.Standard, policy => policy.Requirements.Add(new HasScopeRequirement(UserRoles.Standard, domain)));
+                options.AddPolicy(UserRoles.Admin, policy => policy.Requirements.Add(new HasScopeRequirement(UserRoles.Admin, domain)));
             });
 
-            // register the scope authorization handler
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
         }
     }

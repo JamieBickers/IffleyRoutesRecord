@@ -42,19 +42,23 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
         }
 
-        public void CreateIssue(CreateIssueRequest issue)
+        public void CreateIssue(CreateIssueRequest issue, string userEmail)
         {
             if (issue is null)
             {
                 throw new ArgumentNullException(nameof(issue));
             }
 
-            var issueDbo = Mapper.Map(issue);
+            var issueDbo = new Issue()
+            {
+                Description = issue.Description,
+                SubmittedBy = userEmail
+            };
             repository.Issue.Add(issueDbo);
             repository.SaveChanges();
         }
 
-        public void CreateProblemIssue(CreateProblemIssueRequest issue)
+        public void CreateProblemIssue(CreateProblemIssueRequest issue, string userEmail)
         {
             if (issue is null)
             {
@@ -63,7 +67,12 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             validator.ValidateIssue(issue);
 
-            var issueDbo = Mapper.Map(issue);
+            var issueDbo = new ProblemIssue()
+            {
+                Description = issue.Description,
+                ProblemId = issue.ProblemId,
+                SubmittedBy = userEmail
+            };
             repository.ProblemIssue.Add(issueDbo);
             repository.SaveChanges();
         }

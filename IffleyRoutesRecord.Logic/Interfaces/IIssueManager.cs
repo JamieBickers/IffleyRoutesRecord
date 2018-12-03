@@ -9,7 +9,7 @@ namespace IffleyRoutesRecord.Logic.Interfaces
     {
         IEnumerable<Issue> GetIssues();
         IEnumerable<ProblemIssueResponse> GetProblemIssues();
-        void CreateIssue(CreateIssueRequest issue);
-        void CreateProblemIssue(CreateProblemIssueRequest issue);
+        void CreateIssue(CreateIssueRequest issue, string submittedBy);
+        void CreateProblemIssue(CreateProblemIssueRequest issue, string submittedBy);
     }
 }

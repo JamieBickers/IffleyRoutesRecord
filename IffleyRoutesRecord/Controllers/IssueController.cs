@@ -2,8 +2,10 @@
 using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using IffleyRoutesRecord.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IffleyRoutesRecord.Controllers
 {
@@ -23,14 +25,15 @@ namespace IffleyRoutesRecord.Controllers
         /// </summary>
         /// <returns>The full list of issues</returns>
         /// <response code="200">The full list of issues</response>
+        /// <response code="401">You must be logged on as an admin to do this.</response>
         /// <response code="500">Unexpected error</response>
-        /// <response code="501">Not currently available</response>
         [HttpGet]
         [ResponseCache(Duration = 10)]
         [Produces("application/json")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        [ProducesResponseType(501)]
+        [Authorize(UserRoles.Admin)]
         public ActionResult<IEnumerable<Issue>> GetIssues()
         {
 #if DEBUG
@@ -45,21 +48,18 @@ namespace IffleyRoutesRecord.Controllers
         /// </summary>
         /// <returns>The full list of problem issues</returns>
         /// <response code="200">The full list of problem issues</response>
+        /// <response code="401">You must be logged on as an admin to do this.</response>
         /// <response code="500">Unexpected error</response>
-        /// <response code="501">Not currently available</response>
         [HttpGet("problem")]
         [ResponseCache(Duration = 10)]
         [Produces("application/json")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(500)]
-        [ProducesResponseType(501)]
+        [Authorize(UserRoles.Admin)]
         public ActionResult<IEnumerable<ProblemIssueResponse>> GetProblemIssues()
         {
-#if DEBUG
             return Ok(issueManager.GetProblemIssues());
-#else
-            return StatusCode((int)HttpStatusCode.NotImplemented);
-#endif
         }
 
         /// <summary>
@@ -68,22 +68,19 @@ namespace IffleyRoutesRecord.Controllers
         /// <param name="issue">The problem to be created</param>
         /// <returns>Status code indicating success</returns>
         /// <response code="204">Success</response>
+        /// <response code="401">You must be a standard user to do this.</response>
         /// <response code="404">Invalid problem Id</response>
         /// <response code="500">Unexpected error</response>
-        /// <response code="501">Not currently available</response>
         [HttpPost("problem")]
         [ProducesResponseType(204)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        [ProducesResponseType(501)]
+        [Authorize(UserRoles.Standard)]
         public StatusCodeResult CreateProblemIssue(CreateProblemIssueRequest issue)
         {
-#if DEBUG
-            issueManager.CreateProblemIssue(issue);
+            issueManager.CreateProblemIssue(issue, UserEmail);
             return new StatusCodeResult(204);
-#else
-            return StatusCode((int)HttpStatusCode.NotImplemented);
-#endif
         }
 
         /// <summary>
@@ -93,19 +90,15 @@ namespace IffleyRoutesRecord.Controllers
         /// <returns>Status code indicating success</returns>
         /// <response code="204">Success</response>
         /// <response code="500">Unexpected error</response>
-        /// <response code="501">Not currently available</response>
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(500)]
-        [ProducesResponseType(501)]
         public StatusCodeResult CreateIssue(CreateIssueRequest issue)
         {
-#if DEBUG
-            issueManager.CreateIssue(issue);
+            issueManager.CreateIssue(issue, UserEmail);
             return new StatusCodeResult(204);
-#else
-            return StatusCode((int)HttpStatusCode.NotImplemented);
-#endif
         }
+
+        private string UserEmail => "Dummy email";
     }
 }

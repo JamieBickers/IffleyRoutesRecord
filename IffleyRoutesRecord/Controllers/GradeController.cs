@@ -26,7 +26,6 @@ namespace IffleyRoutesRecord.Controllers
         /// <response code="500">Unexpected error</response>
         [HttpGet("tech")]
         [ResponseCache(Duration = 60 * 60 * 24)]
-        [Authorize("create:problems")]
         public ActionResult<IEnumerable<TechGradeResponse>> GetTechGrades()
         {
             return gradeManager.GetTechGrades().ToList();
@@ -55,7 +54,6 @@ namespace IffleyRoutesRecord.Controllers
         /// <response code="500">Unexpected error</response>
         [HttpGet("b")]
         [ResponseCache(Duration = 60 * 60 * 24)]
-        [Authorize("create:issues")]
         public ActionResult<IEnumerable<BGradeResponse>> GetBGrades()
         {
             return gradeManager.GetBGrades().ToList();
@@ -84,7 +82,6 @@ namespace IffleyRoutesRecord.Controllers
         /// <response code="500">Unexpected error</response>
         [HttpGet("povey")]
         [ResponseCache(Duration = 60 * 60 * 24)]
-        [Authorize("read:issues")]
         public ActionResult<IEnumerable<PoveyGradeResponse>> GetPoveyGrades()
         {
             return gradeManager.GetPoveyGrades().ToList();
@@ -113,7 +110,6 @@ namespace IffleyRoutesRecord.Controllers
         /// <response code="500">Unexpected error</response>
         [HttpGet("furlong")]
         [ResponseCache(Duration = 60 * 60 * 24)]
-        [Authorize("update:problems")]
         public ActionResult<IEnumerable<FurlongGradeResponse>> GetFurlongGrades()
         {
             return gradeManager.GetFurlongGrades().ToList();
@@ -129,7 +125,6 @@ namespace IffleyRoutesRecord.Controllers
         /// <response code="500">Unexpected error</response>
         [HttpGet("furlong/{gradeId}")]
         [ResponseCache(Duration = 60 * 60 * 24)]
-        [Authorize("invalid:scope")]
         public ActionResult<FurlongGradeResponse> GetFurlongGrade(int gradeId)
         {
             return gradeManager.GetFurlongGrade(gradeId);

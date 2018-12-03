@@ -307,47 +307,6 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
         }
 
         /// <summary>
-        /// Create an Issue entity from a CreateIssueRequest DTO
-        /// </summary>
-        /// <param name="issueRequest">The DTO to map from</param>
-        /// <returns>The corresponding entity</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        internal static Issue Map(CreateIssueRequest issueRequest)
-        {
-            if (issueRequest is null)
-            {
-                throw new ArgumentNullException(nameof(issueRequest));
-            }
-
-            return new Issue()
-            {
-                Description = issueRequest.Description,
-                SubmittedBy = issueRequest.SubmittedBy
-            };
-        }
-
-        /// <summary>
-        /// Create a ProblemIssue entity from a CreateProblemIssueRequest DTO
-        /// </summary>
-        /// <param name="issueRequest">The DTO to map from</param>
-        /// <returns>The corresponding entity</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        internal static ProblemIssue Map(CreateProblemIssueRequest issueRequest)
-        {
-            if (issueRequest is null)
-            {
-                throw new ArgumentNullException(nameof(issueRequest));
-            }
-
-            return new ProblemIssue()
-            {
-                ProblemId = issueRequest.ProblemId,
-                Description = issueRequest.Description,
-                SubmittedBy = issueRequest.SubmittedBy
-            };
-        }
-
-        /// <summary>
         /// Create a ProblemIssueResponse DTO from a ProblemIssue entity
         /// </summary>
         /// <param name="issue">The entity to map from</param>

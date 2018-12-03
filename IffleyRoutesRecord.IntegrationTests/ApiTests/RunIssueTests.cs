@@ -26,14 +26,12 @@ namespace IffleyRoutesRecord.IntegrationTests.ApiTests
 
         private static readonly CreateIssueRequest IssueToCreate1 = new CreateIssueRequest()
         {
-            Description = "issue 1",
-            SubmittedBy = "Jamie Bickers"
+            Description = "issue 1"
         };
 
         private static readonly CreateIssueRequest IssueToCreate2 = new CreateIssueRequest()
         {
-            Description = "issue 2",
-            SubmittedBy = "Jamie M A Bickers"
+            Description = "issue 2"
         };
 
         private static readonly List<Issue> IssuesToRead = new List<Issue>()
@@ -55,15 +53,13 @@ namespace IffleyRoutesRecord.IntegrationTests.ApiTests
         private static readonly CreateProblemIssueRequest ProblemIssueToCreate1 = new CreateProblemIssueRequest()
         {
             ProblemId = 1,
-            Description = "problem issue 1",
-            SubmittedBy = "Jamie Bickers"
+            Description = "problem issue 1"
         };
 
         private static readonly CreateProblemIssueRequest ProblemIssueToCreate2 = new CreateProblemIssueRequest()
         {
             ProblemId = 2,
-            Description = "problem issue 2",
-            SubmittedBy = "Jamie M A Bickers"
+            Description = "problem issue 2"
         };
 
         private static readonly List<ProblemIssueResponse> ProblemIssuesToRead = new List<ProblemIssueResponse>()

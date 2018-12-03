@@ -54,7 +54,24 @@ function addProblemToTable(problem, tableId) {
     let cell3 = row.insertCell(2);
     let cell4 = row.insertCell(3);
 
-    cell1.innerHTML = problem.name;
+    cell1.classList.add("cold-md-3", "col-sm-3");
+    cell2.classList.add("cold-md-3", "col-sm-3");
+    cell3.classList.add("cold-md-3", "col-sm-3");
+    cell4.classList.add("cold-md-3", "col-sm-3");
+
+    let reportIssueIcon = document.createElement('i');
+    reportIssueIcon.classList.add('material-icons', 'standard-user');
+    reportIssueIcon.style = 'font-size:18px;color:red;cursor:pointer;display:none;';
+    reportIssueIcon.innerHTML = 'error';
+
+    reportIssueIcon.onclick = () => reportIssue(problem);
+
+    cell1.appendChild(reportIssueIcon);
+
+    let problemNameSpan = document.createElement('span');
+    problemNameSpan.innerHTML = problem.name;
+    cell1.appendChild(problemNameSpan);
+
     cell2.innerHTML = formatGrades(problem);
     cell3.innerHTML = formatHolds(problem.holds);
     cell4.innerHTML = formatProblemRules(problem.rules);
@@ -115,4 +132,13 @@ function getGradeClass(problem) {
     else {
         return 'hardProblem';
     }
+}
+
+function reportIssue(problem) {
+    createProblemIssue({
+        problemId: problem.problemId,
+        description: prompt(`Describe the issue with ${problem.name}`)
+    }, function (response) {
+        console.log(response);
+    });
 }
