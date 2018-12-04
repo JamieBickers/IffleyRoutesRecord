@@ -28,7 +28,7 @@ namespace IffleyRoutesRecord.Controllers
         /// <response code="200">The full list of problems</response>
         /// <response code="500">Unexpected error</response>
         [HttpGet]
-        [ResponseCache(Duration = 10)]
+        [ResponseCache(Duration = 60 * 60 * 24)]
         [Produces("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
@@ -46,7 +46,7 @@ namespace IffleyRoutesRecord.Controllers
         /// <response code="404">No problem with the provided ID was found</response>
         /// <response code="500">Unexpected error</response>
         [HttpGet("{problemId}")]
-        [ResponseCache(Duration = 10)]
+        [ResponseCache(Duration = 60 * 60 * 24)]
         [Produces("application/json")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
