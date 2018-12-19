@@ -115,7 +115,8 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
             {
                 GradeId = grade.Id,
                 Name = grade.Name,
-                Rank = grade.Rank
+                Rank = grade.Rank,
+                GlobalGrade = grade.GlobalGrade
             };
         }
 
@@ -136,7 +137,8 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
             {
                 GradeId = grade.Id,
                 Name = grade.Name,
-                Rank = grade.Rank
+                Rank = grade.Rank,
+                GlobalGrade = grade.GlobalGrade
             };
         }
 
@@ -157,7 +159,8 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
             {
                 GradeId = grade.Id,
                 Name = grade.Name,
-                Rank = grade.Rank
+                Rank = grade.Rank,
+                GlobalGrade = grade.GlobalGrade
             };
         }
 
@@ -178,7 +181,8 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
             {
                 GradeId = grade.Id,
                 Name = grade.Name,
-                Rank = grade.Rank
+                Rank = grade.Rank,
+                GlobalGrade = grade.GlobalGrade
             };
         }
 

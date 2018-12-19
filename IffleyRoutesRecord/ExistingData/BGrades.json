@@ -1,1 +1,56 @@
-[{"Id":1,"Name":"B0","Rank":1},{"Id":2,"Name":"B1","Rank":2},{"Id":3,"Name":"B2","Rank":3},{"Id":4,"Name":"B3","Rank":4},{"Id":5,"Name":"B4","Rank":5},{"Id":6,"Name":"B5","Rank":6},{"Id":7,"Name":"B6","Rank":7},{"Id":8,"Name":"B7","Rank":8},{"Id":9,"Name":"B8","Rank":9}]
+[
+  {
+    "Id": 1,
+    "Name": "B0",
+    "Rank": 1,
+    "GlobalGrade":  6
+  },
+  {
+    "Id": 2,
+    "Name": "B1",
+    "Rank": 2,
+    "GlobalGrade": 12
+  },
+  {
+    "Id": 3,
+    "Name": "B2",
+    "Rank": 3,
+    "GlobalGrade": 15
+  },
+  {
+    "Id": 4,
+    "Name": "B3",
+    "Rank": 4,
+    "GlobalGrade": 17
+  },
+  {
+    "Id": 5,
+    "Name": "B4",
+    "Rank": 5,
+    "GlobalGrade": 20
+  },
+  {
+    "Id": 6,
+    "Name": "B5",
+    "Rank": 6,
+    "GlobalGrade": 22
+  },
+  {
+    "Id": 7,
+    "Name": "B6",
+    "Rank": 7,
+    "GlobalGrade": 24
+  },
+  {
+    "Id": 8,
+    "Name": "B7",
+    "Rank": 8,
+    "GlobalGrade": 25
+  },
+  {
+    "Id": 9,
+    "Name": "B8",
+    "Rank": 9,
+    "GlobalGrade": 27
+  }
+]

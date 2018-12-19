@@ -15,7 +15,6 @@ namespace IffleyRoutesRecord.Models.DTOs.Responses
         public BGradeResponse BGrade { get; set; }
         public PoveyGradeResponse PoveyGrade { get; set; }
         public FurlongGradeResponse FurlongGrade { get; set; }
-        public int GlobalGrade { get; set; }
 
         public IList<HoldOnProblemResponse> Holds { get; set; }
         public IEnumerable<ProblemRuleResponse> Rules { get; set; }

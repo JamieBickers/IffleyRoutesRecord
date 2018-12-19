@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord", "IffleyRoutesRecord\IffleyRoutesRecord.csproj", "{E76213F6-BB79-4DE9-BE48-DF788D103BBB}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{87C188EF-A7A4-4397-A68F-3E41AF169E25}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.IntegrationTests", "IffleyRoutesRecord.IntegrationTests\IffleyRoutesRecord.IntegrationTests.csproj", "{2678E652-9577-4951-AAD8-393A9EAFA7D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IffleyRoutesRecord.Logic", "IffleyRoutesRecord.Logic\IffleyRoutesRecord.Logic.csproj", "{F2381AD3-1E7D-471F-9606-DBE08012E7A0}"
@@ -19,7 +17,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{4B0717A0-E2CD-4250-8B93-6F596D93B528}"
 	ProjectSection(SolutionItems) = preProject
 		SQL\CreateTables.sql = SQL\CreateTables.sql
-		DropAllTables.sql = DropAllTables.sql
+		SQL\DropAllTables.sql = SQL\DropAllTables.sql
 		SQL\PopulateStaticData.sql = SQL\PopulateStaticData.sql
 	EndProjectSection
 EndProject
@@ -58,10 +56,6 @@ Global
 		{E76213F6-BB79-4DE9-BE48-DF788D103BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E76213F6-BB79-4DE9-BE48-DF788D103BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E76213F6-BB79-4DE9-BE48-DF788D103BBB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87C188EF-A7A4-4397-A68F-3E41AF169E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87C188EF-A7A4-4397-A68F-3E41AF169E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87C188EF-A7A4-4397-A68F-3E41AF169E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87C188EF-A7A4-4397-A68F-3E41AF169E25}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2678E652-9577-4951-AAD8-393A9EAFA7D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2678E652-9577-4951-AAD8-393A9EAFA7D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2678E652-9577-4951-AAD8-393A9EAFA7D4}.Release|Any CPU.ActiveCfg = Release|Any CPU

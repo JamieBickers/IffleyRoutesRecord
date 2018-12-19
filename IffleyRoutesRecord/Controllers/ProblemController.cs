@@ -1,4 +1,5 @@
-﻿using IffleyRoutesRecord.Logic.Interfaces;
+﻿using IffleyRoutesRecord.Auth;
+using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Authorization;
@@ -62,7 +63,7 @@ namespace IffleyRoutesRecord.Controllers
         /// <param name="problem">The problem to be created</param>
         /// <returns>The created problem</returns>
         /// <response code="201">The created problem</response>
-        /// <response code="401">You must be logged on as an admin to do this.</response>
+        /// <response code="401">You must be logged on as an admin to do this</response>
         /// <response code="404">One of the provided IDs was not found</response>
         /// <response code="409">One of the provided names for the problem or a rule already exists</response>
         /// <response code="500">Unexpected error</response>

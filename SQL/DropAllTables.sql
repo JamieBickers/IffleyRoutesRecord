@@ -13,3 +13,4 @@ drop table "ProblemHoldRule" cascade;
 drop table "ProblemStyleSymbol" cascade;
 drop table "ProblemIssue" cascade;
 drop table "Issue" cascade;
+drop table "Log" cascade;

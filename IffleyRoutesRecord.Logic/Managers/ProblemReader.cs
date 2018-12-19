@@ -19,10 +19,9 @@ namespace IffleyRoutesRecord.Logic.Managers
         private readonly IRuleManager ruleManager;
         private readonly IHoldManager holdManager;
         private readonly IGradeManager gradeManager;
-        private readonly IGlobalGradeAssigner globalGradeAssigner;
 
         public ProblemReader(IffleyRoutesRecordContext repository, IMemoryCache cache, IStyleSymbolManager styleSymbolManager,
-            IRuleManager ruleManager, IHoldManager holdManager, IGradeManager gradeManager, IGlobalGradeAssigner globalGradeAssigner)
+            IRuleManager ruleManager, IHoldManager holdManager, IGradeManager gradeManager)
         {
             this.repository = repository;
             this.cache = cache;
@@ -30,7 +29,6 @@ namespace IffleyRoutesRecord.Logic.Managers
             this.ruleManager = ruleManager;
             this.holdManager = holdManager;
             this.gradeManager = gradeManager;
-            this.globalGradeAssigner = globalGradeAssigner;
         }
 
         public ProblemResponse GetProblem(int problemId)
@@ -47,7 +45,6 @@ namespace IffleyRoutesRecord.Logic.Managers
                 problemResponse = Mapper.Map(problemDbo);
             }
 
-            globalGradeAssigner.AssignGlobalGrade(problemResponse);
             return problemResponse;
         }
 
@@ -60,14 +57,8 @@ namespace IffleyRoutesRecord.Logic.Managers
                     .Select(problem => Mapper.Map(problem))
                     .ToList();
 
-                globalGradeAssigner.AssignGlobalGrades(problems.ToList());
                 cache.CacheListOfItems(problems, CacheItemPriority.Normal);
             }
-            else
-            {
-                globalGradeAssigner.AssignGlobalGrades(problems.ToList());
-            }
-
             return problems;
         }
 

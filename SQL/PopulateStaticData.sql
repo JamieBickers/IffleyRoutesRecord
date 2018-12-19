@@ -1,69 +1,69 @@
-insert into TechGrade (Name, Rank) values
-('4a-', 1),
-('4a', 2),
-('4a+', 3),
-('4b-', 4),
-('4b', 5),
-('4b+', 6),
-('4c-', 7),
-('4c', 8),
-('4c+', 9),
-('5a-', 10),
-('5a', 11),
-('5a+', 12),
-('5b-', 13),
-('5b', 14),
-('5b+', 15),
-('5c-', 16),
-('5c', 17),
-('5c+', 18),
-('6a-', 19),
-('6a', 20),
-('6a+', 21),
-('6b-', 22),
-('6b', 23),
-('6b+', 24),
-('6c-', 25),
-('6c', 26),
-('6c+', 27);
+insert into TechGrade (Name, Rank, GlobalGrade) values
+('4a-', 1, 1),
+('4a', 2, 2),
+('4a+', 3, 3),
+('4b-', 4, 4),
+('4b', 5, 5),
+('4b+', 6, 6),
+('4c-', 7, 7),
+('4c', 8, 8),
+('4c+', 9, 9),
+('5a-', 10, 10),
+('5a', 11, 11),
+('5a+', 12, 12),
+('5b-', 13, 13),
+('5b', 14, 14),
+('5b+', 15, 15),
+('5c-', 16, 16),
+('5c', 17, 17),
+('5c+', 18, 18),
+('6a-', 19, 29),
+('6a', 20, 20),
+('6a+', 21, 21),
+('6b-', 22, 22),
+('6b', 23, 23),
+('6b+', 24, 24),
+('6c-', 25, 25),
+('6c', 26, 26),
+('6c+', 27, 27);
 
-insert into BGrade (Name, Rank) values
-('B0', 1),
-('B1', 2),
-('B2', 3),
-('B3', 4),
-('B4', 5),
-('B5', 6),
-('B6', 7),
-('B7', 8),
-('B8', 9);
+insert into BGrade (Name, Rank, GlobalGrade) values
+('B0', 1, 6),
+('B1', 2, 12),
+('B2', 3, 15),
+('B3', 4, 17),
+('B4', 5, 20),
+('B5', 6, 22),
+('B6', 7, 24),
+('B7', 8, 25),
+('B8', 9, 27);
 
-insert into PoveyGrade (Name, Rank) values
-('Easy', 1),
-('4b', 2),
-('Hard', 3);
+insert into PoveyGrade (Name, Rank, GlobalGrade) values
+('Easy', 1, 5),
+('4b', 2, 14),
+('Hard', 3, 22);
 
-insert into FurlongGrade (Name, Rank) values
-('A', 1),
-('AA', 2),
-('AAA', 3),
-('XXX', 4),
-('WTF', 5);
+insert into FurlongGrade (Name, Rank, GlobalGrade) values
+('A', 1, 5),
+('AA', 2, 8),
+('AAA', 3, 13),
+('XXX', 4, 17),
+('WTF', 5, 23);
 
 insert into StyleSymbol (Name, Description) values
-('One Star', ''),
-('Two Stars', ''),
-('Three Stars', ''),
-('Four Stars', ''),
-('Suitable for All', ''),
-('Tall Man', ''),
-('Technical', ''),
-('Flexible', ''),
-('Strong Man', ''),
-('Dynamic', ''),
-('Fingery', ''),
-('Infamous', ''),
-('Ambulance', '');
+('One Star'),
+('Two Stars'),
+('Three Stars'),
+('Four Stars'),
+('Suitable for All'),
+('Tall Man'),
+('Technical'),
+('Flexible'),
+('Strong Man'),
+('Dynamic'),
+('Fingery'),
+('Infamous'),
+('Ambulance');
 
 insert into Hold(Id, Name, ParentHoldId) values
 (1, '1', null),

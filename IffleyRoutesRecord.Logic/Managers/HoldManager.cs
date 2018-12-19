@@ -13,7 +13,7 @@ namespace IffleyRoutesRecord.Logic.Managers
     {
         private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
-        private IRuleManager ruleManager;
+        private readonly IRuleManager ruleManager;
 
         public HoldManager(IffleyRoutesRecordContext repository, IMemoryCache cache, IRuleManager ruleManager)
         {

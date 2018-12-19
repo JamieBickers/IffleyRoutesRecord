@@ -6,28 +6,32 @@ using IffleyRoutesRecord.Logic.Managers;
 using IffleyRoutesRecord.Logic.Validators;
 using IffleyRoutesRecord.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using IffleyRoutesRecord.Auth;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace IffleyRoutesRecord
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -72,17 +76,20 @@ namespace IffleyRoutesRecord
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            loggerFactory.AddConsole(LogLevel.Trace);
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseCors("AllowAll");
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseSwagger();
             app.UseSwaggerUI(options =>
@@ -102,7 +109,6 @@ namespace IffleyRoutesRecord
             services.AddTransient<IRuleManager, RuleManager>();
             services.AddTransient<IHoldManager, HoldManager>();
             services.AddTransient<IGradeManager, GradeManager>();
-            services.AddTransient<IGlobalGradeAssigner, GlobalGradeAssigner>();
             services.AddTransient<IProblemReader, ProblemReader>();
             services.AddTransient<IProblemCreator, ProblemCreator>();
         }
@@ -195,7 +201,7 @@ namespace IffleyRoutesRecord
                 options.AddPolicy(UserRoles.Admin, policy => policy.Requirements.Add(new HasScopeRequirement(UserRoles.Admin, domain)));
             });
 
-            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+            //services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
         }
     }
 }

@@ -3,32 +3,35 @@
 create table "TechGrade" (
     "Id" serial primary key not null,
     "Name" varchar(3) unique not null,
-    "Rank" integer not null
+    "Rank" integer not null,
+	"GlobalGrade" integer not null
 );
 
 create table "BGrade" (
     "Id" serial primary key not null,
     "Name" varchar(2) unique not null,
-    "Rank" integer not null
+    "Rank" integer not null,
+	"GlobalGrade" integer not null
 );
 
 create table "PoveyGrade" (
     "Id" serial primary key not null,
     "Name" varchar(4) unique not null,
-    "Rank" integer not null
+    "Rank" integer not null,
+	"GlobalGrade" integer not null
 );
 
 create table "FurlongGrade" (
     "Id" serial primary key not null,
     "Name" varchar(3) unique not null,
-    "Rank" integer not null
+    "Rank" integer not null,
+	"GlobalGrade" integer not null
 );
 
 create table "StyleSymbol" (
     "Id" serial primary key not null,
     "Name" varchar(50) not null unique,
-    "Description" varchar(250),
-    "SymbolFilePath" varchar(250) unique
+    "Description" varchar(250)
 );
 
 create table "Hold" (
@@ -115,4 +118,15 @@ create table "Issue" (
 	"Id" serial primary key not null,
 	"Description" varchar(5000) not null,
 	"SubmittedBy" varchar(50) not null
+);
+
+create table "Log" (
+	"Id" serial primary key,
+	"Application" text null,
+	"Logged" text null,
+	"Logger" text null,
+	"CallSite" text null,
+	"Exception" text null,
+	"Message" text null,
+	"Level" text null
 );

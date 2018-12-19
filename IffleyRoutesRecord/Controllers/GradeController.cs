@@ -2,7 +2,6 @@
 using System.Linq;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Models.DTOs.Responses;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IffleyRoutesRecord.Controllers

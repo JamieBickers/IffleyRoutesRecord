@@ -10,5 +10,6 @@ namespace IffleyRoutesRecord.Models.DTOs.Responses
         public int GradeId { get; set; }
         public string Name { get; set; }
         public int Rank { get; set; }
+        public int GlobalGrade { get; set; }
     }
 }

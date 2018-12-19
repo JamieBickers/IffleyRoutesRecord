@@ -56,7 +56,6 @@ namespace IffleyRoutesRecord.IntegrationTests.ApiTests
                 Name = "A",
                 Rank = 1
             },
-            GlobalGrade = 1,
             Holds = new List<HoldOnProblemResponse>()
             {
                 new HoldOnProblemResponse()

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace IffleyRoutesRecord.Auth
 {
+    [SuppressMessage("Microsoft.Performance", "CA1812")]
     internal class HasScopeHandler : AuthorizationHandler<HasScopeRequirement>
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, HasScopeRequirement requirement)

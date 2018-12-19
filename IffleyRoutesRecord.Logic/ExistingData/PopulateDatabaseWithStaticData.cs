@@ -69,7 +69,8 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                 {
                     Id = grade.Id,
                     Name = grade.Name,
-                    Rank = grade.Rank
+                    Rank = grade.Rank,
+                    GlobalGrade = grade.Rank
                 });
             }
 
@@ -83,7 +84,8 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                 {
                     Id = grade.Id,
                     Name = grade.Name,
-                    Rank = grade.Rank
+                    Rank = grade.Rank,
+                    GlobalGrade = grade.GlobalGrade.Value
                 });
             }
 
@@ -97,7 +99,8 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                 {
                     Id = grade.Id,
                     Name = grade.Name,
-                    Rank = grade.Rank
+                    Rank = grade.Rank,
+                    GlobalGrade = grade.GlobalGrade.Value
                 });
             }
 
@@ -111,7 +114,8 @@ namespace IffleyRoutesRecord.Logic.ExistingData
                 {
                     Id = grade.Id,
                     Name = grade.Name,
-                    Rank = grade.Rank
+                    Rank = grade.Rank,
+                    GlobalGrade = grade.GlobalGrade.Value
                 });
             }
 

@@ -1,4 +1,4 @@
-﻿namespace IffleyRoutesRecord
+﻿namespace IffleyRoutesRecord.Auth
 {
     internal static class UserRoles
     {

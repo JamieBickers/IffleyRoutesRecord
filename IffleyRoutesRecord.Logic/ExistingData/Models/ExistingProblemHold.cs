@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace IffleyRoutesRecord.Logic.ExistingData.Models
 {
+    [SuppressMessage("Microsoft.Performance", "CA1812")]
     internal class ExistingProblemHold
     {
         public string Hold { get; set; }
