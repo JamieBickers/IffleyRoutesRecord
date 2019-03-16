@@ -1,4 +1,4 @@
-insert into TechGrade (Name, Rank, GlobalGrade) values
+insert into "TechGrade" ("Name", "Rank", "GlobalGrade") values
 ('4a-', 1, 1),
 ('4a', 2, 2),
 ('4a+', 3, 3),
@@ -27,7 +27,7 @@ insert into TechGrade (Name, Rank, GlobalGrade) values
 ('6c', 26, 26),
 ('6c+', 27, 27);
 
-insert into BGrade (Name, Rank, GlobalGrade) values
+insert into "BGrade" ("Name", "Rank", "GlobalGrade") values
 ('B0', 1, 6),
 ('B1', 2, 12),
 ('B2', 3, 15),
@@ -38,19 +38,19 @@ insert into BGrade (Name, Rank, GlobalGrade) values
 ('B7', 8, 25),
 ('B8', 9, 27);
 
-insert into PoveyGrade (Name, Rank, GlobalGrade) values
+insert into "PoveyGrade" ("Name", "Rank", "GlobalGrade") values
 ('Easy', 1, 5),
 ('4b', 2, 14),
 ('Hard', 3, 22);
 
-insert into FurlongGrade (Name, Rank, GlobalGrade) values
+insert into "FurlongGrade" ("Name", "Rank", "GlobalGrade") values
 ('A', 1, 5),
 ('AA', 2, 8),
 ('AAA', 3, 13),
 ('XXX', 4, 17),
 ('WTF', 5, 23);
 
-insert into StyleSymbol (Name, Description) values
+insert into "StyleSymbol" ("Name") values
 ('One Star'),
 ('Two Stars'),
 ('Three Stars'),
@@ -65,7 +65,7 @@ insert into StyleSymbol (Name, Description) values
 ('Infamous'),
 ('Ambulance');
 
-insert into Hold(Id, Name, ParentHoldId) values
+insert into "Hold" ("Id", "Name", "ParentHoldId") values
 (1, '1', null),
 (2, '2', null),
 (3, '3', null),
@@ -184,7 +184,7 @@ insert into Hold(Id, Name, ParentHoldId) values
 (116, '116', null),
 (117, '117', null);
 
-insert into Hold(Id, Name, ParentHoldId) values
+insert into "Hold" ("Id", "Name", "ParentHoldId") values
 (118, '58A', 58),
 (119, '100A', 100),
 (120, '57A', 57),

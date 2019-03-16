@@ -120,13 +120,27 @@ function formatGrades(problem) {
 }
 
 function getGradeClass(problem) {
-    if (problem.globalGrade <= 9) {
+    let globalGrade = problem.techGrade.globalGrade;
+
+    if (globalGrade === null || globalGrade === undefined) {
+        globalGrade = problem.bGrade.globalGrade;
+    }
+
+    if (globalGrade === null || globalGrade === undefined) {
+        globalGrade = problem.poveyGrade.globalGrade;
+    }
+
+    if (globalGrade === null || globalGrade === undefined) {
+        globalGrade = problem.furlongGrade.globalGrade;
+    }
+
+    if (globalGrade <= 9) {
         return 'easyProblem';
     }
-    else if (problem.globalGrade <= 15) {
+    else if (globalGrade <= 15) {
         return 'mediumProblem';
     }
-    else if (problem.globalGrade <= 18) {
+    else if (globalGrade <= 18) {
         return 'thresholdProblem';
     }
     else {

@@ -17,6 +17,7 @@ namespace IffleyRoutesRecord.Models.Entities
         public BGrade BGrade { get; set; }
         public PoveyGrade PoveyGrade { get; set; }
         public FurlongGrade FurlongGrade { get; set; }
+        public bool Verified { get; set; }
 
         public ICollection<ProblemHold> ProblemHolds { get; set; }
         public ICollection<ProblemRule> ProblemRules { get; set; }

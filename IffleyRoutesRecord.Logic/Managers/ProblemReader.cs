@@ -62,6 +62,17 @@ namespace IffleyRoutesRecord.Logic.Managers
             return problems;
         }
 
+        public IEnumerable<ProblemResponse> GetUnverifiedProblems()
+        {
+            var problems = IncludeAllData(repository.Problem)
+            .Where(problem => problem.Verified)
+            .AsEnumerable()
+            .Select(problem => Mapper.Map(problem))
+            .ToList();
+
+            return problems;
+        }
+
         private static IQueryable<Problem> IncludeAllData(IQueryable<Problem> problems)
         {
             return problems

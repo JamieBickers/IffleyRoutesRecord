@@ -332,3 +332,6 @@ ASALocalRun/
 .localhistory/
 
 IffleyRoutes.db
+IffleyRoutesRecord/appsettings.json
+IffleyRoutesRecord/appsettings.Production.json
+IffleyRoutesRecord/appsettings.Development.json

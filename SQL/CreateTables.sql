@@ -53,6 +53,7 @@ create table "Problem" (
     "FurlongGradeId" integer null,
 	"DateSet" timestamp null,
 	"FirstAscent" varchar(30) null,
+	"Verified" boolean not null default false,
     foreign key ("TechGradeId") references "TechGrade" ("Id"),
     foreign key ("BGradeId") references "BGrade" ("Id"),
     foreign key ("PoveyGradeId") references "PoveyGrade" ("Id"),

@@ -8,7 +8,7 @@ namespace IffleyRoutesRecord.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class TestController : Controller
+    public class DevToolsController : Controller
     {
         [HttpGet("shutdown")]
         public IActionResult Shutdown()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.Interfaces;
@@ -26,7 +27,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             this.validator = validator;
         }
 
-        public ProblemResponse CreateProblem(CreateProblemRequest problem)
+        public ProblemResponse CreateUnverifiedProblem(CreateProblemRequest problem)
         {
             if (problem is null)
             {
@@ -35,17 +36,33 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             validator.Validate(problem);
 
-            var problemDbo = AddProblemToDatabase(problem);
+            var problemDbo = AddUnverifiedProblemToDatabase(problem);
             repository.SaveChanges();
-            return UpdateCache(problemDbo);
+
+            try
+            {
+                return problemReader.GetProblem(problemDbo.Id);
+            }
+            catch (EntityNotFoundException exception)
+            {
+                throw new EntityCreationException(string.Empty, exception);
+            }
         }
 
-        private ProblemResponse UpdateCache(Problem problemDbo)
+        public ProblemResponse VerifyProblem(int problemId)
+        {
+            repository.Problem.VerifyEntityWithIdExists(problemId);
+            repository.Problem.FirstOrDefault(problem => problem.Id == problemId).Verified = true;
+            repository.SaveChanges();
+            return UpdateCache(problemId);
+        }
+
+        private ProblemResponse UpdateCache(int problemId)
         {
             // If an unexpected error occurs we want to clear the relevant cache to maintain data integrity
             try
             {
-                var problemResponse = problemReader.GetProblem(problemDbo.Id);
+                var problemResponse = problemReader.GetProblem(problemId);
                 cache.AddItemToCachedList(problemResponse);
                 return problemResponse;
             }
@@ -66,9 +83,10 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
         }
 
-        private Problem AddProblemToDatabase(CreateProblemRequest problem)
+        private Problem AddUnverifiedProblemToDatabase(CreateProblemRequest problem)
         {
             var problemDbo = Mapper.Map(problem);
+            problemDbo.Verified = false;
             repository.Problem.Add(problemDbo);
             return problemDbo;
         }

@@ -21,5 +21,11 @@ namespace IffleyRoutesRecord.Logic.Interfaces
         /// </summary>
         /// <returns>A list of all problems</returns>
         IEnumerable<ProblemResponse> GetProblems();
+
+        /// <summary>
+        /// Gets all unverified problems.
+        /// </summary>
+        /// <returns>A list of all unverified problems</returns>
+        IEnumerable<ProblemResponse> GetUnverifiedProblems();
     }
 }
