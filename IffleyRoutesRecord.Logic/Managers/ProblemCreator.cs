@@ -27,7 +27,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             this.validator = validator;
         }
 
-        public ProblemResponse CreateUnverifiedProblem(CreateProblemRequest problem)
+        public ProblemResponse CreateUnverifiedProblem(CreateProblemRequest problem, string userEmail)
         {
             if (problem is null)
             {
@@ -36,7 +36,7 @@ namespace IffleyRoutesRecord.Logic.Managers
 
             validator.Validate(problem);
 
-            var problemDbo = AddUnverifiedProblemToDatabase(problem);
+            var problemDbo = AddUnverifiedProblemToDatabase(problem, userEmail);
             repository.SaveChanges();
 
             try
@@ -83,10 +83,11 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
         }
 
-        private Problem AddUnverifiedProblemToDatabase(CreateProblemRequest problem)
+        private Problem AddUnverifiedProblemToDatabase(CreateProblemRequest problem, string userEmail)
         {
             var problemDbo = Mapper.Map(problem);
             problemDbo.Verified = false;
+            problemDbo.LoggedBy = userEmail;
             repository.Problem.Add(problemDbo);
             return problemDbo;
         }

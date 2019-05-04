@@ -3,16 +3,18 @@ using System.Linq;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace IffleyRoutesRecord.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RuleController : Controller
+    public class RuleController : BaseController
     {
         private readonly IRuleManager ruleManager;
 
-        public RuleController(IRuleManager ruleManager)
+        public RuleController(IRuleManager ruleManager, IConfiguration configuration)
+            : base(configuration)
         {
             this.ruleManager = ruleManager;
         }

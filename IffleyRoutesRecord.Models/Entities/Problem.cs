@@ -10,6 +10,8 @@ namespace IffleyRoutesRecord.Models.Entities
         public int? BGradeId { get; set; }
         public int? PoveyGradeId { get; set; }
         public int? FurlongGradeId { get; set; }
+        public string SetBy { get; set; }
+        public string LoggedBy { get; set; }
         public DateTimeOffset? DateSet { get; set; }
         public string FirstAscent { get; set; }
 

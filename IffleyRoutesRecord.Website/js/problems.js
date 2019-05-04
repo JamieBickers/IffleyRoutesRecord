@@ -27,7 +27,7 @@ function onlyAlphabeticCharactersAndToLowerCase(str) {
 
 function populateTableSortByGrade(tableId) {
     populateTable(function (a, b) {
-        return a.globalGrade - b.globalGrade;
+        return getGlobalGrade(a) - getGlobalGrade(b);
     }, tableId);
 }
 
@@ -36,7 +36,9 @@ function populateTable(sorter, tableId) {
 
     getProblems(function (problems) {
         problems = problems.sort(sorter);
+        
         for (let i = 0; i < problems.length; i++) {
+
             addProblemToTable(problems[i], tableId);
         }
     });
@@ -79,10 +81,24 @@ function addProblemToTable(problem, tableId) {
 
 function formatHolds(holds) {
     let formatted = '';
+    let isStandingStart = false;
 
     for (let i = 0; i < holds.length; i++) {
         const hold = holds[i];
-        formatted += `${hold.name} `;
+
+        if (i === 0 && hold.isStandingStartHold) {
+            formatted += '(';
+            isStandingStart = true;
+        }
+
+        if (isStandingStart && !hold.isStandingStartHold) {
+            formatted = formatted.slice(0, -1);
+            formatted += `) ${hold.name} `;
+            isStandingStart = false;
+        }
+        else {
+            formatted += `${hold.name} `;
+        }
 
         if (hold.holdRules !== null && hold.holdRules !== undefined && hold.holdRules.length > 0) {
             formatted += '(';
@@ -120,19 +136,7 @@ function formatGrades(problem) {
 }
 
 function getGradeClass(problem) {
-    let globalGrade = problem.techGrade.globalGrade;
-
-    if (globalGrade === null || globalGrade === undefined) {
-        globalGrade = problem.bGrade.globalGrade;
-    }
-
-    if (globalGrade === null || globalGrade === undefined) {
-        globalGrade = problem.poveyGrade.globalGrade;
-    }
-
-    if (globalGrade === null || globalGrade === undefined) {
-        globalGrade = problem.furlongGrade.globalGrade;
-    }
+    const globalGrade = getGlobalGrade(problem);
 
     if (globalGrade <= 9) {
         return 'easyProblem';
@@ -146,6 +150,26 @@ function getGradeClass(problem) {
     else {
         return 'hardProblem';
     }
+}
+
+function getGlobalGrade(problem) {
+    if (problem.techGrade !== null) {
+        return problem.techGrade.globalGrade;
+    }
+
+    if (problem.bGrade !== null) {
+        return problem.bGrade.globalGrade;
+    }
+
+    if (problem.poveyGrade !== null) {
+        return problem.poveyGrade.globalGrade;
+    }
+
+    if (problem.furlongGrade !== null) {
+        return problem.furlongGrade.globalGrade;
+    }
+
+    return 0;
 }
 
 function reportIssue(problem) {

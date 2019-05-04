@@ -3,6 +3,6 @@
     public class Issue : BaseEntity
     {
         public string Description { get; set; }
-        public string SubmittedBy { get; set; }
+        public string LoggedBy { get; set; }
     }
 }

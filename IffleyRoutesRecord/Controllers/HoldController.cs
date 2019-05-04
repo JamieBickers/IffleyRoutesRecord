@@ -3,16 +3,18 @@ using System.Linq;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace IffleyRoutesRecord.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HoldController : Controller
+    public class HoldController : BaseController
     {
         private readonly IHoldManager holdManager;
 
-        public HoldController(IHoldManager holdManager)
+        public HoldController(IHoldManager holdManager, IConfiguration configuration)
+            : base(configuration)
         {
             this.holdManager = holdManager;
         }

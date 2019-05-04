@@ -51,6 +51,8 @@ create table "Problem" (
     "BGradeId" integer null,
     "PoveyGradeId" integer null,
     "FurlongGradeId" integer null,
+	"LoggedBy" text null,
+	"SetBy" varchar(30) null,
 	"DateSet" timestamp null,
 	"FirstAscent" varchar(30) null,
 	"Verified" boolean not null default false,
@@ -111,14 +113,14 @@ create table "ProblemIssue" (
 	"Id" serial primary key not null,
 	"ProblemId" integer not null,
 	"Description" varchar(5000) not null,
-	"SubmittedBy" varchar(50) not null,
+	"LoggedBy" varchar(50) not null,
 	foreign key ("ProblemId") references "Problem" ("Id")
 );
 
 create table "Issue" (
 	"Id" serial primary key not null,
 	"Description" varchar(5000) not null,
-	"SubmittedBy" varchar(50) not null
+	"LoggedBy" varchar(50) not null
 );
 
 create table "Log" (

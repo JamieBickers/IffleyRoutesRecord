@@ -4,6 +4,7 @@ using IffleyRoutesRecord.Logic.StaticHelpers;
 using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using IffleyRoutesRecord.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,15 +31,11 @@ namespace IffleyRoutesRecord.Logic.Managers
 
         public IEnumerable<ProblemIssueResponse> GetProblemIssues()
         {
-            var issues = repository.ProblemIssue;
+            var issues = repository.ProblemIssue.Include(problemIssue => problemIssue.Problem);
 
             foreach (var issue in issues)
             {
-                var issueResponse = Mapper.Map(issue);
-                var problem = problemReader.GetProblem(issue.ProblemId);
-                issueResponse.Problem = problem;
-
-                yield return issueResponse;
+                yield return Mapper.Map(issue);
             }
         }
 
@@ -52,7 +49,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             var issueDbo = new Issue()
             {
                 Description = issue.Description,
-                SubmittedBy = userEmail
+                LoggedBy = userEmail
             };
             repository.Issue.Add(issueDbo);
             repository.SaveChanges();
@@ -71,7 +68,7 @@ namespace IffleyRoutesRecord.Logic.Managers
             {
                 Description = issue.Description,
                 ProblemId = issue.ProblemId,
-                SubmittedBy = userEmail
+                LoggedBy = userEmail
             };
             repository.ProblemIssue.Add(issueDbo);
             repository.SaveChanges();

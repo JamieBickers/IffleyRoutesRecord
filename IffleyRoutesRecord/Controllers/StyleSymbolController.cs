@@ -1,6 +1,7 @@
 ﻿using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,11 +9,12 @@ namespace IffleyRoutesRecord.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StyleSymbolController : Controller
+    public class StyleSymbolController : BaseController
     {
         private readonly IStyleSymbolManager styleSymbolManager;
 
-        public StyleSymbolController(IStyleSymbolManager styleSymbolManager)
+        public StyleSymbolController(IStyleSymbolManager styleSymbolManager, IConfiguration configuration)
+            : base(configuration)
         {
             this.styleSymbolManager = styleSymbolManager;
         }

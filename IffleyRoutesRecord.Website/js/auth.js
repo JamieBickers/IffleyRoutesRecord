@@ -3,7 +3,7 @@
         domain: 'iffley-bouldering.eu.auth0.com',
         clientID: '7cqQ4JuBUoL2nNPrhC2RbNZIoa3hcvHT',
         responseType: 'token id_token',
-        scope: 'openid profile email update:problem create:problem create:issue read:issue',
+        scope: 'openid profile email',
         redirectUri: window.location.href,
         audience: 'https://iffley-routes-record.herokuapp.com'
     });

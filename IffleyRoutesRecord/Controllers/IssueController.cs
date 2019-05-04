@@ -5,17 +5,19 @@ using IffleyRoutesRecord.Models.DTOs.Responses;
 using IffleyRoutesRecord.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
 namespace IffleyRoutesRecord.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IssueController : Controller
+    public class IssueController : BaseController
     {
         private readonly IIssueManager issueManager;
 
-        public IssueController(IIssueManager issueManager)
+        public IssueController(IIssueManager issueManager, IConfiguration configuration)
+            : base(configuration)
         {
             this.issueManager = issueManager;
         }
@@ -97,7 +99,5 @@ namespace IffleyRoutesRecord.Controllers
             issueManager.CreateIssue(issue, UserEmail);
             return new StatusCodeResult(204);
         }
-
-        private static string UserEmail => "Dummy email";
     }
 }

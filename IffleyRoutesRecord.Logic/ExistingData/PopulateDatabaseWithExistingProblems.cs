@@ -1,4 +1,5 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
+using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.ExistingData.Models;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Logic.StaticHelpers;
@@ -47,6 +48,11 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
         private void AddRulesToDatabase(IEnumerable<ExistingProblem> existingProblems)
         {
+            if (repository.GeneralRule is null || repository.HoldRule is null)
+            {
+                throw new DatabaseException();
+            }
+
             var rules = existingProblems
                 .Where(problem => problem.Rules != null)
                 .SelectMany(problem => problem.Rules)
@@ -71,6 +77,11 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
         private void StoreProblems(IEnumerable<ExistingProblem> problems, bool validate)
         {
+            if (repository.Problem is null || repository.HoldRule is null)
+            {
+                throw new DatabaseException();
+            }
+
             var holds = repository.Hold.ToList();
             var holdRules = repository.HoldRule.Local.ToList();
             var techGrades = repository.TechGrade.ToList();
@@ -107,6 +118,16 @@ namespace IffleyRoutesRecord.Logic.ExistingData
         private void AddHolds(ExistingProblem problem, CreateProblemRequest newProblem,
             IEnumerable<Hold> existingHolds, IEnumerable<HoldRule> existingHoldRules)
         {
+            if (problem.Holds is null)
+            {
+                throw new ArgumentException("The problem must have holds.", nameof(problem));
+            }
+
+            if (newProblem.Holds is null)
+            {
+                throw new ArgumentException("The problem must have holds.", nameof(newProblem));
+            }
+
             foreach (var hold in problem.Holds)
             {
                 var newHold = new CreateHoldOnProblemRequest()
@@ -133,6 +154,11 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
         private void AddRules(ExistingProblem problem, CreateProblemRequest newProblem)
         {
+            if (repository.GeneralRule is null)
+            {
+                throw new DatabaseException();
+            }
+
             foreach (string rule in problem.Rules ?? new List<string>())
             {
                 var existingRule = repository.GeneralRule.Local.First(generalRule => generalRule.Name == rule);
@@ -143,6 +169,11 @@ namespace IffleyRoutesRecord.Logic.ExistingData
         private static void AddGrades(ExistingProblem problem, CreateProblemRequest newProblem, IEnumerable<TechGrade> techGrades,
             IEnumerable<BGrade> bGrades, IEnumerable<FurlongGrade> furlongGrades)
         {
+            if (problem.Grades is null)
+            {
+                throw new ArgumentException("The problem must have grades.", nameof(problem));
+            }
+
             foreach (string grade in problem.Grades)
             {
                 if (Regex.IsMatch(grade, "^[4-6][a-c][+-]?$"))
@@ -188,6 +219,11 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
         private static void ValiadteHolds(ExistingProblem problem)
         {
+            if (problem.Holds is null)
+            {
+                throw new ArgumentException("The problem must have holds.", nameof(problem));
+            }
+
             var validHoldRegexes = new List<string>()
             {
                 "[0-9]{1,3}[A-E]?",
@@ -213,6 +249,11 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
             foreach (var hold in problem.Holds)
             {
+                if (hold.Rules is null)
+                {
+                    continue;
+                }
+
                 foreach (string rule in hold.Rules)
                 {
                     if (!validHoldRuleRegex.Any(regex => Regex.IsMatch(rule, regex)))
@@ -230,6 +271,11 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
         private static void ValidateGrades(ExistingProblem problem)
         {
+            if (problem.Grades is null)
+            {
+                throw new ArgumentException("The problem must have grades.", nameof(problem));
+            }
+
             var validGradeRegexes = new List<string>()
             {
                 "AAA",
@@ -249,6 +295,11 @@ namespace IffleyRoutesRecord.Logic.ExistingData
 
         private static void ValidateName(ExistingProblem problem)
         {
+            if (problem.Name is null)
+            {
+                throw new ArgumentException("The problem must have a name.", nameof(problem));
+            }
+
             if (problem.Name == "“4b or not …”" || problem.Name == "While Inventing a Nice 4b")
             {
                 return;

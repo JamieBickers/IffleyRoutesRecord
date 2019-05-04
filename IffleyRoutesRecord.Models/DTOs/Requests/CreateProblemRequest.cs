@@ -14,6 +14,9 @@ namespace IffleyRoutesRecord.Models.DTOs.Requests
         [MaxLength(5000)]
         public string Description { get; set; }
 
+        [MaxLength(100)]
+        public string SetBy { get; set; }
+
         public DateTimeOffset? DateSet { get; set; }
 
         [MaxLength(100)]
@@ -81,24 +84,27 @@ namespace IffleyRoutesRecord.Models.DTOs.Requests
                 yield return new ValidationResult("Style symbol IDs must be positive integers.");
             }
 
-            var standingStartHolds = Holds.Where(hold => hold.IsStandingStartHold);
-            if (standingStartHolds.Any())
+            if (Holds != null)
             {
-                bool reachedEndOfStandingStartHolds = false;
-                for (int i = 0; i < Holds.Count; i++)
+                var standingStartHolds = Holds.Where(hold => hold.IsStandingStartHold);
+                if (standingStartHolds.Any())
                 {
-                    var hold = Holds[i];
-                    if (hold.IsStandingStartHold)
+                    bool reachedEndOfStandingStartHolds = false;
+                    for (int i = 0; i < Holds.Count(); i++)
                     {
-                        if (reachedEndOfStandingStartHolds)
+                        var hold = Holds[i];
+                        if (hold.IsStandingStartHold)
                         {
-                            yield return new ValidationResult("Cannot have a standing start hold after a normal hold.");
-                            break;
+                            if (reachedEndOfStandingStartHolds)
+                            {
+                                yield return new ValidationResult("Cannot have a standing start hold after a normal hold.");
+                                break;
+                            }
                         }
-                    }
-                    else
-                    {
-                        reachedEndOfStandingStartHolds = true;
+                        else
+                        {
+                            reachedEndOfStandingStartHolds = true;
+                        }
                     }
                 }
             }

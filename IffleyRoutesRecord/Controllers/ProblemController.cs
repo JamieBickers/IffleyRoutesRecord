@@ -4,6 +4,7 @@ using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,12 +12,13 @@ namespace IffleyRoutesRecord.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProblemController : Controller
+    public class ProblemController : BaseController
     {
         private readonly IProblemReader problemReader;
         private readonly IProblemCreator problemCreator;
 
-        public ProblemController(IProblemReader problemReader, IProblemCreator problemCreator)
+        public ProblemController(IProblemReader problemReader, IProblemCreator problemCreator, IConfiguration configuration)
+            : base(configuration)
         {
             this.problemReader = problemReader;
             this.problemCreator = problemCreator;
@@ -96,7 +98,7 @@ namespace IffleyRoutesRecord.Controllers
         [Authorize(UserRoles.Standard)]
         public ActionResult<ProblemResponse> CreateUnverifiedProblem(CreateProblemRequest problem)
         {
-            var createdProblem = problemCreator.CreateUnverifiedProblem(problem);
+            var createdProblem = problemCreator.CreateUnverifiedProblem(problem, UserEmail);
             return CreatedAtRoute(new { problemId = createdProblem.ProblemId }, createdProblem);
         }
 

@@ -17,7 +17,7 @@ namespace IffleyRoutesRecord.Logic.Interfaces
         /// <exception cref="EntityNotFoundException"></exception>
         /// <exception cref="EntityWithNameAlreadyExistsException"></exception>
         /// <exception cref="InternalEntityNotFoundException"></exception>
-        ProblemResponse CreateUnverifiedProblem(CreateProblemRequest problem);
+        ProblemResponse CreateUnverifiedProblem(CreateProblemRequest problem, string userEmail);
 
         /// <summary>
         /// Sets the verified flag on a problem to true.

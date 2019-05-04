@@ -16,6 +16,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using IffleyRoutesRecord.Auth;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IffleyRoutesRecord
 {
@@ -201,7 +202,7 @@ namespace IffleyRoutesRecord
                 options.AddPolicy(UserRoles.Admin, policy => policy.Requirements.Add(new HasScopeRequirement(UserRoles.Admin, domain)));
             });
 
-            //services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
         }
     }
 }

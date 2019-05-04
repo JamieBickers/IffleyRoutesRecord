@@ -1,5 +1,5 @@
-﻿//const baseUrl = 'http://localhost:44319/api';
-const baseUrl = 'https://iffley-routes-record.herokuapp.com/api';
+﻿const baseUrl = 'https://localhost:44367/api';
+//const baseUrl = 'https://iffley-routes-record.herokuapp.com/api';
 
 function getProblems(callBack) {
     fetch(`${baseUrl}/problem`)
@@ -22,7 +22,6 @@ function getHolds(callBack) {
 }
 
 function createProblemIssue(createProblemIssueRequest, callBack) {
-    console.log(localStorage.getItem('access_token'));
     fetch(`${baseUrl}/issue/problem`, {
         method: 'POST',
         body: JSON.stringify(createProblemIssueRequest),

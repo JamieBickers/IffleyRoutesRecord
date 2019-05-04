@@ -29,6 +29,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
             {
                 Name = problem.Name,
                 Description = problem.Description,
+                SetBy = problem.SetBy,
                 DateSet = problem.DateSet,
                 FirstAscent = problem.FirstAscent,
                 TechGradeId = problem.TechGradeId,
@@ -61,40 +62,28 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(problem));
             }
 
-            return new ProblemResponse()
+            var holds = problem.ProblemHolds
+                .OrderBy(problemHold => problemHold.Position)
+                .Select(problemHold => new HoldOnProblemResponse(problemHold.Hold.Id, problemHold.Hold.Name,
+                                                                    problemHold.Hold.ParentHoldId, problemHold.IsStandingStartHold,
+                                                                    CreateHoldRuleResponse(problemHold)))
+                .ToList();
+
+            return new ProblemResponse(problem.Id, problem.Name, holds)
             {
-                ProblemId = problem.Id,
-                Name = problem.Name,
                 Description = problem.Description,
+                SetBy = problem.SetBy,
                 DateSet = problem.DateSet,
                 FirstAscent = problem.FirstAscent,
                 TechGrade = problem.TechGradeId is null ? null : Map(problem.TechGrade),
                 BGrade = problem.BGradeId is null ? null : Map(problem.BGrade),
                 PoveyGrade = problem.PoveyGradeId is null ? null : Map(problem.PoveyGrade),
                 FurlongGrade = problem.FurlongGradeId is null ? null : Map(problem.FurlongGrade),
-                Holds = problem.ProblemHolds
-                .OrderBy(problemHold => problemHold.Position)
-                .Select(problemHold => new HoldOnProblemResponse()
-                {
-                    HoldId = problemHold.Hold.Id,
-                    Name = problemHold.Hold.Name,
-                    ParentHoldId = problemHold.Hold.ParentHoldId,
-                    IsStandingStartHold = problemHold.IsStandingStartHold,
-                    HoldRules = problemHold.ProblemHoldRules.Select(problemHoldRule => new HoldRuleResponse()
-                    {
-                        HoldRuleId = problemHoldRule.HoldRule.Id,
-                        Name = problemHoldRule.HoldRule.Name,
-                        Description = problemHoldRule.HoldRule.Description
-                    })
-                })
-                .ToList(),
                 Rules = problem.ProblemRules.Select(Map),
-                StyleSymbols = problem.ProblemStyleSymbols.Select(problemStyleSymbol => new StyleSymbolResponse()
-                {
-                    StyleSymbolId = problemStyleSymbol.StyleSymbolId,
-                    Name = problemStyleSymbol.StyleSymbol.Name,
-                    Description = problemStyleSymbol.StyleSymbol.Description
-                })
+                StyleSymbols = problem.ProblemStyleSymbols
+                .Select(problemStyleSymbol => new StyleSymbolResponse(problemStyleSymbol.StyleSymbolId,
+                                                                        problemStyleSymbol.StyleSymbol.Name,
+                                                                        problemStyleSymbol.StyleSymbol.Description))
             };
         }
 
@@ -111,13 +100,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(grade));
             }
 
-            return new TechGradeResponse()
-            {
-                GradeId = grade.Id,
-                Name = grade.Name,
-                Rank = grade.Rank,
-                GlobalGrade = grade.GlobalGrade
-            };
+            return new TechGradeResponse(grade.Id, grade.Name, grade.Rank, grade.GlobalGrade);
         }
 
         /// <summary>
@@ -133,13 +116,10 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(grade));
             }
 
-            return new BGradeResponse()
-            {
-                GradeId = grade.Id,
-                Name = grade.Name,
-                Rank = grade.Rank,
-                GlobalGrade = grade.GlobalGrade
-            };
+            return new BGradeResponse(grade.Id,
+                grade.Name,
+                grade.Rank,
+                grade.GlobalGrade);
         }
 
         /// <summary>
@@ -155,13 +135,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(grade));
             }
 
-            return new PoveyGradeResponse()
-            {
-                GradeId = grade.Id,
-                Name = grade.Name,
-                Rank = grade.Rank,
-                GlobalGrade = grade.GlobalGrade
-            };
+            return new PoveyGradeResponse(grade.Id, grade.Name, grade.Rank, grade.GlobalGrade);
         }
 
         /// <summary>
@@ -177,13 +151,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(grade));
             }
 
-            return new FurlongGradeResponse()
-            {
-                GradeId = grade.Id,
-                Name = grade.Name,
-                Rank = grade.Rank,
-                GlobalGrade = grade.GlobalGrade
-            };
+            return new FurlongGradeResponse(grade.Id, grade.Name, grade.Rank, grade.GlobalGrade);
         }
 
         /// <summary>
@@ -199,12 +167,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(hold));
             }
 
-            return new HoldResponse()
-            {
-                HoldId = hold.Id,
-                Name = hold.Name,
-                ParentHoldId = hold.ParentHoldId
-            };
+            return new HoldResponse(hold.Id, hold.Name, hold.ParentHoldId);
         }
 
         /// <summary>
@@ -220,12 +183,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(rule));
             }
 
-            return new ProblemRuleResponse()
-            {
-                ProblemRuleId = rule.Id,
-                Name = rule.Name,
-                Description = rule.Description
-            };
+            return new ProblemRuleResponse(rule.Id, rule.Name, rule.Description);
         }
 
         /// <summary>
@@ -241,12 +199,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(rule));
             }
 
-            return new HoldRuleResponse()
-            {
-                HoldRuleId = rule.Id,
-                Name = rule.Name,
-                Description = rule.Description
-            };
+            return new HoldRuleResponse(rule.Id, rule.Name, rule.Description);
         }
 
         /// <summary>
@@ -262,12 +215,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(rule));
             }
 
-            return new ProblemRuleResponse()
-            {
-                ProblemRuleId = rule.GeneralRuleId,
-                Name = rule.GeneralRule.Name,
-                Description = rule.GeneralRule.Description
-            };
+            return new ProblemRuleResponse(rule.GeneralRuleId, rule.GeneralRule.Name, rule.GeneralRule.Description);
         }
 
         /// <summary>
@@ -283,12 +231,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(styleSymbol));
             }
 
-            return new StyleSymbolResponse()
-            {
-                StyleSymbolId = styleSymbol.Id,
-                Name = styleSymbol.Name,
-                Description = styleSymbol.Description
-            };
+            return new StyleSymbolResponse(styleSymbol.Id, styleSymbol.Name, styleSymbol.Description);
         }
 
         /// <summary>
@@ -304,12 +247,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(problemStyleSymbol));
             }
 
-            return new StyleSymbolResponse()
-            {
-                StyleSymbolId = problemStyleSymbol.StyleSymbolId,
-                Name = problemStyleSymbol.StyleSymbol.Name,
-                Description = problemStyleSymbol.StyleSymbol.Description
-            };
+            return new StyleSymbolResponse(problemStyleSymbol.StyleSymbolId, problemStyleSymbol.StyleSymbol.Name, problemStyleSymbol.StyleSymbol.Description);
         }
 
         /// <summary>
@@ -325,12 +263,7 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
                 throw new ArgumentNullException(nameof(issue));
             }
 
-            return new ProblemIssueResponse()
-            {
-                ProblemIssueId = issue.Id,
-                Description = issue.Description,
-                SubmittedBy = issue.SubmittedBy
-            };
+            return new ProblemIssueResponse(issue.Id, issue.Description, issue.LoggedBy, Map(issue.Problem));
         }
 
         private static IEnumerable<ProblemRule> CreateProblemRuleDbos(CreateProblemRequest problem, Problem problemDbo)
@@ -478,6 +411,12 @@ namespace IffleyRoutesRecord.Logic.StaticHelpers
             }
 
             return problemHoldRules;
+        }
+
+        private static IEnumerable<HoldRuleResponse> CreateHoldRuleResponse(ProblemHold problemHold)
+        {
+            return problemHold.ProblemHoldRules.Select(problemHoldRule =>
+                                    new HoldRuleResponse(problemHoldRule.HoldRule.Id, problemHoldRule.HoldRule.Name, problemHoldRule.HoldRule.Description));
         }
     }
 }

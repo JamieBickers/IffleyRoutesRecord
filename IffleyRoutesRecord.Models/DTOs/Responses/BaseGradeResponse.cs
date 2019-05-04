@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace IffleyRoutesRecord.Models.DTOs.Responses
+﻿namespace IffleyRoutesRecord.Models.DTOs.Responses
 {
     public abstract class BaseGradeResponse
     {
@@ -11,5 +6,13 @@ namespace IffleyRoutesRecord.Models.DTOs.Responses
         public string Name { get; set; }
         public int Rank { get; set; }
         public int GlobalGrade { get; set; }
+
+        protected BaseGradeResponse(int gradeId, string name, int rank, int globalGrade)
+        {
+            GradeId = gradeId;
+            Name = name;
+            Rank = rank;
+            GlobalGrade = globalGrade;
+        }
     }
 }

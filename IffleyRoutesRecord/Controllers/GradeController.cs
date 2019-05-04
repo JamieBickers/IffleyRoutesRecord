@@ -3,16 +3,18 @@ using System.Linq;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace IffleyRoutesRecord.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GradeController : Controller
+    public class GradeController : BaseController
     {
         private readonly IGradeManager gradeManager;
 
-        public GradeController(IGradeManager gradeManager)
+        public GradeController(IGradeManager gradeManager, IConfiguration configuration)
+            : base(configuration)
         {
             this.gradeManager = gradeManager;
         }

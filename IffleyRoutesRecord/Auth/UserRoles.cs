@@ -3,6 +3,6 @@
     internal static class UserRoles
     {
         internal const string Admin = "admin";
-        internal const string Standard = "standard";
+        internal const string Standard = "standard admin";
     }
 }
