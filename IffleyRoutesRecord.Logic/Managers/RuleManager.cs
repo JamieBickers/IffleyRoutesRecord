@@ -9,7 +9,10 @@ using System.Linq;
 
 namespace IffleyRoutesRecord.Logic.Managers
 {
-    public class RuleManager : IRuleManager
+    /// <summary>
+    /// Basic CRUD operations for rules
+    /// </summary>
+    public class RuleManager
     {
         private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
@@ -20,6 +23,12 @@ namespace IffleyRoutesRecord.Logic.Managers
             this.cache = cache;
         }
 
+        /// <summary>
+        /// Gets a rule for problems
+        /// </summary>
+        /// <param name="ruleId">ID of the rule</param>
+        /// <returns>The rule</returns>
+        /// <exception cref="EntityNotFoundException"></exception>
         public ProblemRuleResponse GetProblemRule(int ruleId)
         {
             if (cache.TryRetrieveItemWithId<ProblemRuleResponse>(ruleId, ruleFromCache => ruleFromCache.ProblemRuleId, out var problemRule))
@@ -37,6 +46,10 @@ namespace IffleyRoutesRecord.Logic.Managers
             return Mapper.Map(rule);
         }
 
+        /// <summary>
+        /// Gets all rules on problems
+        /// </summary>
+        /// <returns>A list of all problem rules</returns>
         public IEnumerable<ProblemRuleResponse> GetAllProblemRules()
         {
             if (cache.TryRetrieveAllItems<ProblemRuleResponse>(out var rules))
@@ -50,6 +63,12 @@ namespace IffleyRoutesRecord.Logic.Managers
             return ruleResponses;
         }
 
+        /// <summary>
+        /// Gets a rule for holds
+        /// </summary>
+        /// <param name="ruleId">ID of the rule</param>
+        /// <returns>The rule</returns>
+        /// <exception cref="EntityNotFoundException"></exception>
         public HoldRuleResponse GetHoldRule(int ruleId)
         {
             if (cache.TryRetrieveItemWithId<HoldRuleResponse>(ruleId, ruleFromCache => ruleFromCache.HoldRuleId, out var holdRule))
@@ -67,6 +86,10 @@ namespace IffleyRoutesRecord.Logic.Managers
             return Mapper.Map(rule);
         }
 
+        /// <summary>
+        /// Gets all rules on holds
+        /// </summary>
+        /// <returns>A list of all hold rules</returns>
         public IEnumerable<HoldRuleResponse> GetAllHoldRules()
         {
             if (cache.TryRetrieveAllItems<HoldRuleResponse>(out var rules))

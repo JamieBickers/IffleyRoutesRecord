@@ -1,5 +1,5 @@
 ﻿using IffleyRoutesRecord.Auth;
-using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.Managers;
 using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Authorization;
@@ -14,10 +14,10 @@ namespace IffleyRoutesRecord.Controllers
     [ApiController]
     public class ProblemController : BaseController
     {
-        private readonly IProblemReader problemReader;
-        private readonly IProblemCreator problemCreator;
+        private readonly ProblemReader problemReader;
+        private readonly ProblemCreator problemCreator;
 
-        public ProblemController(IProblemReader problemReader, IProblemCreator problemCreator, IConfiguration configuration)
+        public ProblemController(ProblemReader problemReader, ProblemCreator problemCreator, IConfiguration configuration)
             : base(configuration)
         {
             this.problemReader = problemReader;

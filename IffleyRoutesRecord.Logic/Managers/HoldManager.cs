@@ -9,19 +9,28 @@ using System.Linq;
 
 namespace IffleyRoutesRecord.Logic.Managers
 {
-    public class HoldManager : IHoldManager
+    /// <summary>
+    /// Reads holds
+    /// </summary>
+    public class HoldManager
     {
         private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
-        private readonly IRuleManager ruleManager;
+        private readonly RuleManager ruleManager;
 
-        public HoldManager(IffleyRoutesRecordContext repository, IMemoryCache cache, IRuleManager ruleManager)
+        public HoldManager(IffleyRoutesRecordContext repository, IMemoryCache cache, RuleManager ruleManager)
         {
             this.repository = repository;
             this.cache = cache;
             this.ruleManager = ruleManager;
         }
 
+        /// <summary>
+        /// Gets the hold by its ID
+        /// </summary>
+        /// <param name="holdId">ID of the hold to get</param>
+        /// <returns>The hold</returns>
+        /// <exception cref="EntityNotFoundException"></exception>
         public HoldResponse GetHold(int holdId)
         {
             if (cache.TryRetrieveItemWithId<HoldResponse>(holdId, cachedHoldResponse => cachedHoldResponse.HoldId, out var holdResponse))
@@ -39,6 +48,10 @@ namespace IffleyRoutesRecord.Logic.Managers
             return Mapper.Map(hold);
         }
 
+        /// <summary>
+        /// Gets all holds
+        /// </summary>
+        /// <returns>A list of all holds</returns>
         public IEnumerable<HoldResponse> GetHolds()
         {
             if (cache.TryRetrieveAllItems<HoldResponse>(out var holdResponses))

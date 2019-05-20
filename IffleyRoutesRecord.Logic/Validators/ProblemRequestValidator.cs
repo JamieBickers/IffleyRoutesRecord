@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace IffleyRoutesRecord.Logic.Validators
 {
-    public class ProblemRequestValidator : IProblemRequestValidator
+    public class ProblemRequestValidator
     {
         private readonly IffleyRoutesRecordContext repository;
 
@@ -18,6 +18,14 @@ namespace IffleyRoutesRecord.Logic.Validators
             this.repository = repository;
         }
 
+        /// <summary>
+        /// Validates a CreateProblemRequest
+        /// </summary>
+        /// <param name="problem">The request to validate</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="EntityNotFoundException"></exception>
+        /// <exception cref="EntityWithNameAlreadyExistsException"></exception>
+        /// <exception cref="InternalEntityNotFoundException"></exception>
         public void Validate(CreateProblemRequest problem)
         {
             if (problem is null)

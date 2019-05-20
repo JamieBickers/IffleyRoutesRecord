@@ -4,6 +4,7 @@ using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Logic.Validators;
 using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using IffleyRoutesRecord.Models.Entities;
@@ -11,15 +12,18 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace IffleyRoutesRecord.Logic.Managers
 {
-    public class ProblemCreator : IProblemCreator
+    /// <summary>
+    /// Creates problems
+    /// </summary>
+    public class ProblemCreator
     {
         private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
-        private readonly IProblemReader problemReader;
-        private readonly IProblemRequestValidator validator;
+        private readonly ProblemReader problemReader;
+        private readonly ProblemRequestValidator validator;
 
         public ProblemCreator(IffleyRoutesRecordContext repository, IMemoryCache cache,
-            IProblemReader problemReader, IProblemRequestValidator validator)
+            ProblemReader problemReader, ProblemRequestValidator validator)
         {
             this.repository = repository;
             this.cache = cache;
@@ -27,6 +31,15 @@ namespace IffleyRoutesRecord.Logic.Managers
             this.validator = validator;
         }
 
+        /// <summary>
+        /// Creates a problem
+        /// </summary>
+        /// <param name="problem">Problem to create</param>
+        /// <returns>The created problem</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="EntityNotFoundException"></exception>
+        /// <exception cref="EntityWithNameAlreadyExistsException"></exception>
+        /// <exception cref="InternalEntityNotFoundException"></exception>
         public ProblemResponse CreateUnverifiedProblem(CreateProblemRequest problem, string userEmail)
         {
             if (problem is null)
@@ -49,6 +62,12 @@ namespace IffleyRoutesRecord.Logic.Managers
             }
         }
 
+        /// <summary>
+        /// Sets the verified flag on a problem to true.
+        /// </summary>
+        /// <param name="problemId">ID of the problem to set the verified flag on</param>
+        /// <exception cref="EntityNotFoundException"></exception>
+        /// <exception cref="InternalEntityNotFoundException"></exception>
         public ProblemResponse VerifyProblem(int problemId)
         {
             repository.Problem.VerifyEntityWithIdExists(problemId);

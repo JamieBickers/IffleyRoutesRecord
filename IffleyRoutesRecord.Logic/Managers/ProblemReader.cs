@@ -11,17 +11,20 @@ using System.Linq;
 
 namespace IffleyRoutesRecord.Logic.Managers
 {
-    public class ProblemReader : IProblemReader
+    /// <summary>
+    /// Reads problems
+    /// </summary>
+    public class ProblemReader
     {
         private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
-        private readonly IStyleSymbolManager styleSymbolManager;
-        private readonly IRuleManager ruleManager;
-        private readonly IHoldManager holdManager;
+        private readonly StyleSymbolManager styleSymbolManager;
+        private readonly RuleManager ruleManager;
+        private readonly HoldManager holdManager;
         private readonly IGradeManager gradeManager;
 
-        public ProblemReader(IffleyRoutesRecordContext repository, IMemoryCache cache, IStyleSymbolManager styleSymbolManager,
-            IRuleManager ruleManager, IHoldManager holdManager, IGradeManager gradeManager)
+        public ProblemReader(IffleyRoutesRecordContext repository, IMemoryCache cache, StyleSymbolManager styleSymbolManager,
+            RuleManager ruleManager, HoldManager holdManager, IGradeManager gradeManager)
         {
             this.repository = repository;
             this.cache = cache;
@@ -31,6 +34,12 @@ namespace IffleyRoutesRecord.Logic.Managers
             this.gradeManager = gradeManager;
         }
 
+        /// <summary>
+        /// Gets the problem with the Given ID
+        /// </summary>
+        /// <param name="problemId">ID of the problem to get</param>
+        /// <returns>The problem</returns>
+        /// <exception cref="EntityNotFoundException"></exception>
         public ProblemResponse GetProblem(int problemId)
         {
             if (!cache.TryRetrieveItemWithId<ProblemResponse>(problemId, problem => problem.ProblemId, out var problemResponse))
@@ -48,6 +57,10 @@ namespace IffleyRoutesRecord.Logic.Managers
             return problemResponse;
         }
 
+        /// <summary>
+        /// Gets all problems
+        /// </summary>
+        /// <returns>A list of all problems</returns>
         public IEnumerable<ProblemResponse> GetProblems()
         {
             if (!cache.TryRetrieveAllItems<ProblemResponse>(out var problems))
@@ -62,6 +75,10 @@ namespace IffleyRoutesRecord.Logic.Managers
             return problems;
         }
 
+        /// <summary>
+        /// Gets all unverified problems.
+        /// </summary>
+        /// <returns>A list of all unverified problems</returns>
         public IEnumerable<ProblemResponse> GetUnverifiedProblems()
         {
             var problems = IncludeAllData(repository.Problem)

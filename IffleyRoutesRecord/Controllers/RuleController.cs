@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.Managers;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,9 +11,9 @@ namespace IffleyRoutesRecord.Controllers
     [ApiController]
     public class RuleController : BaseController
     {
-        private readonly IRuleManager ruleManager;
+        private readonly RuleManager ruleManager;
 
-        public RuleController(IRuleManager ruleManager, IConfiguration configuration)
+        public RuleController(RuleManager ruleManager, IConfiguration configuration)
             : base(configuration)
         {
             this.ruleManager = ruleManager;

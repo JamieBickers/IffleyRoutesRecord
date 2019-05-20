@@ -1,4 +1,4 @@
-﻿using IffleyRoutesRecord.Logic.Interfaces;
+﻿using IffleyRoutesRecord.Logic.Managers;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,9 +11,9 @@ namespace IffleyRoutesRecord.Controllers
     [ApiController]
     public class StyleSymbolController : BaseController
     {
-        private readonly IStyleSymbolManager styleSymbolManager;
+        private readonly StyleSymbolManager styleSymbolManager;
 
-        public StyleSymbolController(IStyleSymbolManager styleSymbolManager, IConfiguration configuration)
+        public StyleSymbolController(StyleSymbolManager styleSymbolManager, IConfiguration configuration)
             : base(configuration)
         {
             this.styleSymbolManager = styleSymbolManager;

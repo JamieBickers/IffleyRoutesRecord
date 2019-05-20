@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.Managers;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,9 +11,9 @@ namespace IffleyRoutesRecord.Controllers
     [ApiController]
     public class HoldController : BaseController
     {
-        private readonly IHoldManager holdManager;
+        private readonly HoldManager holdManager;
 
-        public HoldController(IHoldManager holdManager, IConfiguration configuration)
+        public HoldController(HoldManager holdManager, IConfiguration configuration)
             : base(configuration)
         {
             this.holdManager = holdManager;

@@ -1,6 +1,7 @@
 ﻿using IffleyRoutesRecord.Logic.DataAccess;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Logic.Validators;
 using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using IffleyRoutesRecord.Models.Entities;
@@ -11,13 +12,13 @@ using System.Linq;
 
 namespace IffleyRoutesRecord.Logic.Managers
 {
-    public class IssueManager : IIssueManager
+    public class IssueManager
     {
         private readonly IffleyRoutesRecordContext repository;
-        private readonly IProblemReader problemReader;
-        private readonly IIssueRequestValidator validator;
+        private readonly ProblemReader problemReader;
+        private readonly IssueRequestValidator validator;
 
-        public IssueManager(IffleyRoutesRecordContext repository, IProblemReader problemReader, IIssueRequestValidator validator)
+        public IssueManager(IffleyRoutesRecordContext repository, ProblemReader problemReader, IssueRequestValidator validator)
         {
             this.repository = repository;
             this.problemReader = problemReader;

@@ -6,7 +6,7 @@ using System;
 
 namespace IffleyRoutesRecord.Logic.Validators
 {
-    public class IssueRequestValidator : IIssueRequestValidator
+    public class IssueRequestValidator
     {
         private readonly IffleyRoutesRecordContext repository;
 

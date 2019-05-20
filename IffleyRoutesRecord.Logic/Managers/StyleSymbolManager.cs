@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace IffleyRoutesRecord.Logic.Managers
 {
-    public class StyleSymbolManager : IStyleSymbolManager
+    public class StyleSymbolManager
     {
         private readonly IffleyRoutesRecordContext repository;
         private readonly IMemoryCache cache;
@@ -20,6 +20,11 @@ namespace IffleyRoutesRecord.Logic.Managers
             this.cache = cache;
         }
 
+        /// <summary>
+        /// Gets a style symbol by its ID
+        /// </summary>
+        /// <param name="styleSymbolId">The style symbol ID</param>
+        /// <returns>Te style symbol</returns>
         public StyleSymbolResponse GetStyleSymbol(int styleSymbolId)
         {
             if (cache.TryRetrieveItemWithId<StyleSymbolResponse>(
@@ -38,6 +43,10 @@ namespace IffleyRoutesRecord.Logic.Managers
             return Mapper.Map(styleSymbol);
         }
 
+        /// <summary>
+        /// Gets all style symbols
+        /// </summary>
+        /// <returns>A list of all style symbols</returns>
         public IEnumerable<StyleSymbolResponse> GetStyleSymbols()
         {
             if (cache.TryRetrieveAllItems<StyleSymbolResponse>(out var styleSymbolsFromCache))

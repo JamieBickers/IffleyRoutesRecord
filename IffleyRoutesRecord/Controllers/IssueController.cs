@@ -1,5 +1,5 @@
 ﻿using IffleyRoutesRecord.Auth;
-using IffleyRoutesRecord.Logic.Interfaces;
+using IffleyRoutesRecord.Logic.Managers;
 using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.DTOs.Responses;
 using IffleyRoutesRecord.Models.Entities;
@@ -14,9 +14,9 @@ namespace IffleyRoutesRecord.Controllers
     [ApiController]
     public class IssueController : BaseController
     {
-        private readonly IIssueManager issueManager;
+        private readonly IssueManager issueManager;
 
-        public IssueController(IIssueManager issueManager, IConfiguration configuration)
+        public IssueController(IssueManager issueManager, IConfiguration configuration)
             : base(configuration)
         {
             this.issueManager = issueManager;

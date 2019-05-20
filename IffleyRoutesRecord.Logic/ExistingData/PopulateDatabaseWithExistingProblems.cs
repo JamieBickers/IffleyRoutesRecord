@@ -3,6 +3,7 @@ using IffleyRoutesRecord.Logic.Exceptions;
 using IffleyRoutesRecord.Logic.ExistingData.Models;
 using IffleyRoutesRecord.Logic.Interfaces;
 using IffleyRoutesRecord.Logic.StaticHelpers;
+using IffleyRoutesRecord.Logic.Validators;
 using IffleyRoutesRecord.Models.DTOs.Requests;
 using IffleyRoutesRecord.Models.Entities;
 using Newtonsoft.Json;
@@ -18,9 +19,9 @@ namespace IffleyRoutesRecord.Logic.ExistingData
     {
         private readonly IffleyRoutesRecordContext repository;
         private readonly string existingDataPath;
-        private readonly IProblemRequestValidator validator;
+        private readonly ProblemRequestValidator validator;
 
-        public PopulateDatabaseWithExistingProblems(IffleyRoutesRecordContext repository, string existingDataPath, IProblemRequestValidator validator)
+        public PopulateDatabaseWithExistingProblems(IffleyRoutesRecordContext repository, string existingDataPath, ProblemRequestValidator validator)
         {
             this.repository = repository;
             this.existingDataPath = existingDataPath;

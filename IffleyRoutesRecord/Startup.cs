@@ -70,8 +70,8 @@ namespace IffleyRoutesRecord
             RegisterManagers(services);
             RegisterAuth(services);
 
-            services.AddTransient<IProblemRequestValidator, ProblemRequestValidator>();
-            services.AddTransient<IIssueRequestValidator, IssueRequestValidator>();
+            services.AddTransient<ProblemRequestValidator>();
+            services.AddTransient<IssueRequestValidator>();
 
             PopulateDatabase(services);
         }
@@ -105,13 +105,13 @@ namespace IffleyRoutesRecord
 
         private static void RegisterManagers(IServiceCollection services)
         {
-            services.AddTransient<IIssueManager, IssueManager>();
-            services.AddTransient<IStyleSymbolManager, StyleSymbolManager>();
-            services.AddTransient<IRuleManager, RuleManager>();
-            services.AddTransient<IHoldManager, HoldManager>();
+            services.AddTransient<IssueManager>();
+            services.AddTransient<StyleSymbolManager>();
+            services.AddTransient<RuleManager>();
+            services.AddTransient<HoldManager>();
             services.AddTransient<IGradeManager, GradeManager>();
-            services.AddTransient<IProblemReader, ProblemReader>();
-            services.AddTransient<IProblemCreator, ProblemCreator>();
+            services.AddTransient<ProblemReader>();
+            services.AddTransient<ProblemCreator>();
         }
 
         private void SetupDatabase(IServiceCollection services)
@@ -173,7 +173,7 @@ namespace IffleyRoutesRecord
                 staticDataPopulater.Populate();
 
                 var existingProblemsPopulater = new PopulateDatabaseWithExistingProblems(
-                    context, existingDataFilePath, serviceProvider.GetRequiredService<IProblemRequestValidator>());
+                    context, existingDataFilePath, serviceProvider.GetRequiredService<ProblemRequestValidator>());
                 existingProblemsPopulater.Populate(validate);
             }
             else
